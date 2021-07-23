@@ -1,0 +1,2 @@
+/tex/**/out/*
+!/tex/**/out/*.pdf
