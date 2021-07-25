@@ -3,26 +3,49 @@
 \usepackage[english]{babel}
 \usepackage{csquotes}
 \usepackage{biblatex}
+\usepackage{listings}
 \addbibresource{../ref.bib}
+
+% commands
+\newcommand{\code}[1]{\mbox{\texttt{#1}}}
+
 
 \title{Similarity Hashing of EVM Bytecode}
 \author{Raphael Nußbaumer}
 \date{October 2020}
 
 \begin{document}
-
 \maketitle
 
 \section{Introduction}
-"Identifying almost identical files using context triggered piecewise hashing" \cite{kornblum2006identifying}.
 
-In the paper "Automated labeling of unknown contracts in Ethereum" \cite{norvill2017automated}
+Fast clustering of EVM-Bytecodes by similar functionality, via similarity hashing.
+Specifically, adapt \code{ssdeep} and compare to other similarity hashing methods,
+and then evaluate the clustering based on human matched codes.
+To accomplish this task I worte a set of reusable python utilities.
 
-they used the mean of three distance measures (Levenshtein, Jaccard and Sorensen) like described in the referenced Papers
 
-"Detection of Malicious Portable Executables Using Evidence Combinational Theory with Fuzzy Hashing" \cite{namanya2016detection}
+\section{Binary-Hashing Related Work}
 
-and “Static analyzer of vicious executables (SAVE)” \cite{sung2004static}
+This is how a cite\cite{sung2004static} looks like.
+
+\section{What is the point of this Thesis}
+What hashing and pre-processing methods are fpp for contract clustering.
+
+\section{Where did I start}
+
+\section{Where did I find the methods}
+\section{What did not work}
+\section{What did I learn}
+
+
+\section{Data Sets}
+
+\section{Pre-Processing}
+
+\section{Hashing}
+
+\section{Runs}
 
 \printbibliography
 
