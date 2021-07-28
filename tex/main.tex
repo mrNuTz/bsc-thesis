@@ -1,51 +1,95 @@
 \documentclass{article}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={130mm,245mm},
+ left=40mm,
+ top=30mm,
+ }
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{csquotes}
 \usepackage{biblatex}
+\usepackage{sourcecodepro}
 \usepackage{listings}
+\usepackage{parskip}
 \addbibresource{../ref.bib}
 
 % commands
-\newcommand{\code}[1]{\mbox{\texttt{#1}}}
+\newcommand{\code}[1]{\mbox{\texttt{\footnotesize{#1}}}}
+\newcommand{\todo}[1]{\mbox{\texttt{TODO:}} #1}
 
+% envs
+\newenvironment{ul}
+{ \begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{ \end{itemize} }
+\newenvironment{ol}
+{ \begin{enumerate}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{ \end{enumerate} }
 
-\title{Similarity Hashing of EVM Bytecode}
+\title{Fuzzy Hashing of EVM Bytecode}
 \author{Raphael Nußbaumer}
 \date{October 2020}
 
 \begin{document}
 \maketitle
 
-\section{Introduction}
+\begin{ol}
+\item Algorithmen
+\item Vergleichsmethoden,
+\item Resultat der Evaluation
+\item Dabei sind auch jene Ansätze interessant, bei denen nichts herauskommt.
+\end{ol}
 
-Fast clustering of EVM-Bytecodes by similar functionality, via similarity hashing.
-Specifically, adapt \code{ssdeep} and compare to other similarity hashing methods,
-and then evaluate the clustering based on human matched codes.
-To accomplish this task I worte a set of reusable python utilities.
+\section{Abstract}
+This thesis explores fuzzy hashing methods to compute similarities between EVM byte-codes.
+For this purpose a set of python utilities was implemented and an data-set for evaluation generated.
 
+\section{Goal}
+The goal was to compare different similarity measures and pre-processing steps and evaluate how
+they respond to changes in the codes.
+This should be accomplish with a set of reusable python utilities.
 
-\section{Binary-Hashing Related Work}
+\section{Data sets}
+\subsection{Solc Versions and Options}
+To evaluate the similarity measures I selected a set of 12 solidity smart contracts and compiled
+them with different solc version and compiler options.
+Necessary changes where made to the source code to ensure compatibility with the various solc
+versions.
 
-This is how a cite\cite{sung2004static} looks like.
-
-\section{What is the point of this Thesis}
-What hashing and pre-processing methods are fpp for contract clustering.
-
-\section{Where did I start}
-
-\section{Where did I find the methods}
-\section{What did not work}
-\section{What did I learn}
-
-
-\section{Data Sets}
+\underline{The following solc version where used:}
+\begin{ol}
+  \item \code{0.5.16}
+  \item \code{0.6.12}
+  \item \code{0.7.6}
+  \item \code{0.8.4}
+\end{ol}
+\underline{To evaluate the effect of optimization I applied the following options:}
+\begin{ol}
+  \item \code{\{ enabled: false, runs: 200 \}}
+  \item \code{\{ enabled: true, runs: 0 \}}
+  \item \code{\{ enabled: true, runs: 200 \}}
+  \item \code{\{ enabled: true, runs: 999999 \}}
+\end{ol}
+\underline{Further the contracts where compiled with ABI encoding v1 and v2.}
 
 \section{Pre-Processing}
+\subsection{Segmentation}
+\subsection{Skeletonization}
+\subsection{Op-Code Filtering}
 
-\section{Hashing}
-
-\section{Runs}
+\section{Hashing Methods}
+\subsection{ssdeep - Context Triggered Piecewise Hashes (CTPH)}
+\subsection{Op-Code Frequency}
+\subsection{LZJD - Binary-Hashing}
+This is how a cite\cite{sung2004static} looks like.
+\section{Results}
 
 \printbibliography
 
