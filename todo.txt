@@ -1,0 +1,9 @@
+DONE:
+FIRST:
+TODO:
+  skeleton
+    Algorithmen
+    Vergleichsmethoden
+    Resultat der Evaluation
+    Dabei sind auch jene Ansätze interessant, bei denen nichts herauskommt.
+LATER:
