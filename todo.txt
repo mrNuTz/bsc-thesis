@@ -3,15 +3,36 @@ DONE:
 FIRST:
 TODO:
   use what you already have starting with the most important
-  integrate important stuff from notes repo
-  reference framework and test-set repos
-  add minimum amount to finish
+    integrate important stuff from notes repo
+    reference framework and test-set repos
+    add minimum amount to finish
+    interpret clustering and scatters
+      check robustness against version, abi encoding and optimization changes separately
   how did i modify ssdeep?
     how do the results compare?
 LATER:
   reference ppdeep: ssdeep like hashing method in pure python https://github.com/elceef/ppdeep
   reference the commit id when generating images
   reference to paper on spamsum, differences to ssdeep
+  small overview of similarity measures
+    explanation: what are they use for
+    differences
+    suitability: their results, why did I not use it, my results
+  argue why JUMPI is sufficient
+    maybe try more control-flow-ops as splitter
+    argue why this block splitting is bad (optimization changes this)
+      JUMP 0x56, RETURN 0xF3, STOP 0x00, REVERT 0xFD
+      followed by JUMPDEST 0x5B
+      (\x56|\xF3|\x00|\xFD)\\x5B#
+MAYBE:
+  section on time and space complexity
+    wicherski2009pehash -> 1.1 Related Work
+  test sdHash
+  read about MRS hashing
+    is in O(n)
+  read about bbr
+  mention Instruction n-grams
+    filter some push pop instructions and leaf in less common instructions
 FINALLY:
   use bibtex refs with web-links
 NOTES:
