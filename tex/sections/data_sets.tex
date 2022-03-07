@@ -1,0 +1,22 @@
+
+\subsection{Solc Versions and Options}
+To evaluate the similarity measures I selected a set of 12 solidity smart contracts and compiled
+them with different solc version and compiler options.
+Necessary changes where made to the source code to ensure compatibility with the various solc
+versions.
+
+\underline{The following solc version where used:}
+\begin{ol}
+  \item \code{0.5.16}
+  \item \code{0.6.12}
+  \item \code{0.7.6}
+  \item \code{0.8.4}
+\end{ol}
+\underline{To evaluate the effect of optimization I applied the following options:}
+\begin{ol}
+  \item \code{\{ enabled: false, runs: 200 \}}
+  \item \code{\{ enabled: true, runs: 0 \}}
+  \item \code{\{ enabled: true, runs: 200 \}}
+  \item \code{\{ enabled: true, runs: 999999 \}}
+\end{ol}
+\underline{Further the contracts where compiled with ABI encoding v1 and v2.}

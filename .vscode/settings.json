@@ -158,6 +158,7 @@
     "sstore",
     "SSTORE",
     "STATICCALL",
+    "subfile",
     "succ",
     "Synthetix",
     "THROWI",
@@ -178,6 +179,8 @@
     "ylabel",
     "zwischen"
   ],
+  //"latex-workshop.view.pdf.invertMode.enabled": "always",
+  //"latex-workshop.view.pdf.invert": 1,
   "latex-workshop.latex.tools": [
     {
       "name": "latexmk",

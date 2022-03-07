@@ -1,11 +1,11 @@
 \documentclass{article}
 \usepackage{geometry}
- \geometry{
+\geometry{
  a4paper,
  total={130mm,245mm},
  left=40mm,
  top=30mm,
- }
+}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{csquotes}
@@ -13,7 +13,10 @@
 \usepackage{sourcecodepro}
 \usepackage{listings}
 \usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{subfiles}
 \addbibresource{../ref.bib}
+\graphicspath{ {./images/} }
 
 % commands
 \newcommand{\code}[1]{\mbox{\texttt{\footnotesize{#1}}}}
@@ -33,84 +36,43 @@
   \setlength{\parsep}{0pt}
 }{ \end{enumerate} }
 
-\title{Evaluation of Fuzzy Hashing for Ethereum Smart Contract Analysis}
+\title{Evaluation of Ethereum Smart Contract Similarity Measures}
 \author{Bachelor's Thesis in Software and Information Engineering}
 \date{}
 \begin{document}
 %\begin{titlepage}
 \maketitle
-Author: Raphael Nußbaumer - 01526647 - raphaeln@outlook.com
+Author: Raphael Nußbaumer - 01526647 - nussi.rn@gmx.at
 
 Advisor: Ao.Univ.Prof. Dipl.-Ing. Dr.techn. Gernot Salzer
 %\end{titlepage}
 
 \section{Abstract}
-This thesis explores fuzzy hashing methods to compute similarities between EVM byte-codes.
-For this purpose a set of python utilities was implemented and an data-set for evaluation generated.
+\subfile{sections/abstract.tex}
 
 \section{Goal}
-The goal was to compare different similarity measures and pre-processing steps and evaluate how
-they respond to changes in the codes.
-This should be accomplish with a set of reusable python utilities.
+\subfile{sections/goal.tex}
 
 \section{Data sets}
-\subsection{Solc Versions and Options}
-To evaluate the similarity measures I selected a set of 12 solidity smart contracts and compiled
-them with different solc version and compiler options.
-Necessary changes where made to the source code to ensure compatibility with the various solc
-versions.
-
-\underline{The following solc version where used:}
-\begin{ol}
-  \item \code{0.5.16}
-  \item \code{0.6.12}
-  \item \code{0.7.6}
-  \item \code{0.8.4}
-\end{ol}
-\underline{To evaluate the effect of optimization I applied the following options:}
-\begin{ol}
-  \item \code{\{ enabled: false, runs: 200 \}}
-  \item \code{\{ enabled: true, runs: 0 \}}
-  \item \code{\{ enabled: true, runs: 200 \}}
-  \item \code{\{ enabled: true, runs: 999999 \}}
-\end{ol}
-\underline{Further the contracts where compiled with ABI encoding v1 and v2.}
+\subfile{sections/data_sets.tex}
 
 \section{Pre-Processing}
-\subsection{Segmentation}
-\subsection{Skeletonization}
-\subsection{Op-Code Filtering}
+\subfile{sections/pre_processing.tex}
 
 \section{Hashing Methods}
-\subsection{ssdeep - Context Triggered Piecewise Hashes (CTPH)}
-Wenn der Algorithmus schon in einer Quelle exakt beschrieben ist, so wie
-Sie es verwendet haben, geben Sie eine genaue Referenz, inklusive Seite
-(oder Abbildungsnummer im Falle eines Algorithmus) an. In Ihrer Arbeit
-sollten Sie aber zumindest mit ein paar Sätzen beschreiben, wie die
-Methode vorgeht und worin sie sich von anderen Ansätzen unterscheidet.
-Kann aber ganz kurz sein.
+\subfile{sections/hashing_methods.tex}
 
-\subsection{Op-Code Frequency}
-\subsection{LZJD - Binary-Hashing}
-This is how a cite\cite{sung2004static} looks like.
+\section{Evaluation Framework}
+\subfile{sections/evaluation_framework.tex}
 
-\section{Test Framework}
 \section{Results}
-endpunkte (was da ist), hypotesen
+\subfile{sections/results.tex}
 
 \section{Remarks}
-Section um alles zu notieren, was Ihnen an Absonderlichkeiten oder Schwierigkeiten untergekommen
-ist, inklusive Lessons learned (also was Sie beachten würden, wenn Sie nochmals
-beginnen würden); wenn es da viel zu berichten gibt, können Sie es
-natürlich weglassen. Der Sinn einer eigenen Section ist, dass Sie hier
-Ihre Eindrücke informell ohne tiefere Begründungen wiedergeben können,
-während die Aussagen in den anderen Abschnitten begründet sein sollten.
+\subfile{sections/remarks.tex}
 
 \section{Conclusion}
-
-next steps
-
-goals for followup papers
+\subfile{sections/conclusion.tex}
 
 \printbibliography
 
