@@ -1,5 +1,24 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
 
-artifacts, hypothesis
+\todo{artifacts, hypothesis}
+
+\subsection{Bytebag}
+Combined with skeletonization and OP-Code filtering Bytebag performs better than ssdeep in some scenarios.
+
+\subsection{LZJD parameters}
+
+\csvreader[
+  tabular=r|ll,
+  table head= & Measure & Separation\\\hline,
+  head to column names]{csv/lzjd_all_separation.csv}{}{\thecsvrow & \measure & \separation}
+
+%\csvautotabular{../csv/lzjd_all_separation.csv}
+
+\subsection{ssdeep variants}
+
+\subsection{F-Stat filter}
 
 \includegraphics[width=\linewidth]{clustering_result_many_solc_versions_byteBag_significant_only_2021-06-06_163755.png}
 
+\end{document}

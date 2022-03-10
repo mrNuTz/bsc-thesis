@@ -1,6 +1,4 @@
-/tex/**/out/*
-!/tex/**/out/*.pdf
-
+/tex/sections/**/*.pdf
 *.bcf
 *.run.xml
 *.synctex.gz

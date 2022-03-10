@@ -1,11 +1,13 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
 
 \subsection{Solc Versions and Options}
-To evaluate the similarity measures I selected a set of 12 solidity smart contracts and compiled
-them with different solc version and compiler options.
+To evaluate the similarity measures I selected a set of 13 solidity smart contracts and compiled
+them with different solc versions and compiler options.
 Necessary changes where made to the source code to ensure compatibility with the various solc
 versions.
 
-\underline{The following solc version where used:}
+\underline{The following solc versions where used:}
 \begin{ol}
   \item \code{0.5.16}
   \item \code{0.6.12}
@@ -20,3 +22,25 @@ versions.
   \item \code{\{ enabled: true, runs: 999999 \}}
 \end{ol}
 \underline{Further the contracts where compiled with ABI encoding v1 and v2.}
+
+\subsubsection{Optimization statistics}
+
+To determine the relevant optimization options I calculated the following statistic on all contracts with verified source on etherscan.io.
+
+\begin{tabular}{lrrr}
+  optimization-runs & count  & proportion & optimization-enabled \\
+  \hline
+  0                 & 1379   & 0.6 \%     & 31.6 \%              \\
+  1                 & 671    & 0.3 \%     & 99.0 \%              \\
+  < x <             & 1804   & 0.8 \%     & 99.4 \%              \\
+  200               & 202289 & 90.3 \%    & 50.0 \%              \\
+  < 200             & 17973  & 8.0 \%     & 99.2 \%              \\
+  \hline
+  total             & 224116 & 100 \%     & 54.4 \%
+\end{tabular}
+
+
+\subsection{Wallets}
+\subsection{Proxies}
+
+\end{document}

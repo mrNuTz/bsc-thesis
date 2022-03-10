@@ -47,3 +47,5 @@ NOTES:
     listings
     parskip
     subfile
+    csvsimple
+    pgf

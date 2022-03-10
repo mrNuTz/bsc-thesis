@@ -1,12 +1,46 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\todo{reference to exact page number or figure}
+
+\subsection{Signature similarity}
+
+The macro-similarity based on the contract-interface is described in `II.C.2) Interface Restoration`\aycite{di2020characteristics}
 
 \subsection{ssdeep - Context Triggered Piecewise Hashes (CTPH)}
-Wenn der Algorithmus schon in einer Quelle exakt beschrieben ist, so wie
-Sie es verwendet haben, geben Sie eine genaue Referenz, inklusive Seite
-(oder Abbildungsnummer im Falle eines Algorithmus) an. In Ihrer Arbeit
-sollten Sie aber zumindest mit ein paar Sätzen beschreiben, wie die
-Methode vorgeht und worin sie sich von anderen Ansätzen unterscheidet.
-Kann aber ganz kurz sein.
+ssdeep is based on spamsum\cite{spamsum} wich was written for email spam detection.
 
-\subsection{Op-Code Frequency}
+Context Triggered Piecewise Hashes follow the steps:
+\begin{ol}
+  \item Compute a rolling hash of the last n bytes for every position.
+  \item The rolling hash is used to determine the cutoff points.
+  \item The resulting chunks are hashed using a traditional cryptographic hash.
+  \item The final hash results from concatenating part of the chunk-hashes (e.g. the last byte).
+\end{ol}
+
+\subsubsection{Modified ssdeep}
+The following modifications where made:
+\begin{ul}
+  \item Remove sequence-stripping. It made many hashes incomparable because of long strips of 'K' chunk-hashes.
+  \item Remove rounding in the score calculation to differentiate between exact match and close match as well as incomparable and minor similarity.
+  \item Remove common substring detection to make more hashes comparable.
+  \item Handle case where first chunk is never triggered.
+  \item Add option to use Jaccard-Index for comparison.
+\end{ul}
+
+\subsubsection{JUMP-Hash}
+
+\subsection{Bytebag - Op-Code Frequency}
+As lower reference bound for more complex similarity detection I implemented the following measure:
+
+\begin{ol}
+  \item Count every byte-value in the code forming a multiset or bag of byte-values, a bytebag.
+  \item Compare via Jaccard-Index for bags.
+\end{ol}
+
 \subsection{LZJD - Binary-Hashing}
 This is how a cite\cite{sung2004static} looks like.
+
+\subsection{Normalized Compression Ratio}
+
+\end{document}
