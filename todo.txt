@@ -1,6 +1,8 @@
 DONE:
   get latex to run
+  how did i modify ssdeep?
 FIRST:
+  Q: wallet types: how where the types assigned? what do they mean? does same type mean same sol code?
 TODO:
   use what you already have starting with the most important
     integrate important stuff from notes repo
@@ -8,8 +10,7 @@ TODO:
     add minimum amount to finish
     interpret clustering and scatters
       check robustness against version, abi encoding and optimization changes separately
-  how did i modify ssdeep?
-    how do the results compare?
+  how do the modified ssdeep results compare?
 LATER:
   reference ppdeep: ssdeep like hashing method in pure python https://github.com/elceef/ppdeep
   reference the commit id when generating images
@@ -49,3 +50,6 @@ NOTES:
     subfile
     csvsimple
     pgf
+    enumitem
+
+    glossary

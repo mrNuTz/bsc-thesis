@@ -1,11 +1,60 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\subsection{Segmentation}
+\subsection{Segmentation and Skeletonization \cite{ethutils}}
+\subsubsection{Segment selection}
+Based on the segmentation there are various ways to apply the fuzzy hashing methods.
 
-\subsection{Skeletonization}
+\begin{enumerate}
+\item On the whole code as is.
+\item On the whole code excluding meta-data.
+  \begin{ul}
+    \item Meta-data has no effect on execution and changes between compilations.
+  \end{ul}
+\item On all code-sections concatenated excluding data-sections especially constructor-arguments.
+  \begin{ul}
+    \item Constructor-arguments are deployed by the actual contract (first code-section).
+    \item Generally they're only used for parameter initialization and have no essential effect on the execution.
+    \item Limiting the possible effectiveness is the fact that detection is heuristic.
+  \end{ul}
+\item On only the first code-section, the actual contract.
+  \begin{ul}
+    \item The other code-sections are in essence just data for the first-section, if it itself deploys further contracts.
+  \end{ul}
+\end{enumerate}
 
-\subsection{Op-Code Filtering}
+\subsubsection{Skeletonization}
+In all selection cases, there is the option, of ignoring the arguments to push-operations.
+
+\begin{ul}
+  \item Push-operations are the only EVM-instructions followed by data.
+  \item The reasoning behind this removal is that, these data bytes have no essential effect on the execution, e.g. jump-addresses and ethereum-addresses.
+  \item This alternative boils down to only including the opcodes of the push-instructions.
+  \item Setting the push arguments to zero has the benefit of preserving the ability to disassemble the code.
+\end{ul}
+
+\subsection{Opcode filtering}
+The same externally observable behavior can be achieved via different opcode sequences.
+
+Some opcodes are more like to change with solc-versions or compile-options than others.
+
+Removing less significant opcodes before hashing should yield more meaningful similarity scores.
+
 \subsubsection{F-Statistic Filter}
+To determine significant opcodes I used the solc-version-testset\cite{solc-versions-testset}.
+
+\begin{enumerate}
+  \item Calculate the Bytebag of all codes.
+  \item Calculate an f-statistic for each opcode, using common source-code as grouping criterion and the count of the opcode as value.
+  \item Order Opcodes by f-statistic and select the top 30.
+\end{enumerate}
+
+\begin{figure}[h]
+  \centering
+  \begin{math}
+    F = \dfrac{\textrm{between group variability}}{\textrm{within group variability}}
+  \end{math}
+  \caption{One-way ANOVA F-test statistic}
+\end{figure}
 
 \end{document}

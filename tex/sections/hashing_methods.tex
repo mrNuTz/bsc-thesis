@@ -19,18 +19,38 @@ Context Triggered Piecewise Hashes follow the steps:
 \end{ol}
 
 \subsubsection{Modified ssdeep}
+To make modifications easy I used a version of ssdeep implemented in pure python (ppdeep \cite{ppdeep}).
+
 The following modifications where made:
 \begin{ul}
   \item Remove sequence-stripping. It made many hashes incomparable because of long strips of 'K' chunk-hashes.
   \item Remove rounding in the score calculation to differentiate between exact match and close match as well as incomparable and minor similarity.
   \item Remove common substring detection to make more hashes comparable.
   \item Handle case where first chunk is never triggered.
-  \item Add option to use Jaccard-Index for comparison.
+  \item Add option to use Jaccard-Index for comparison, the default is levenshtein.
 \end{ul}
 
 \subsubsection{JUMP-Hash}
+\begin{ol}
+  \item Split code by \code{JUMPI} into chunks.
+  \item Hash each chunk with \code{sha1}.
+  \item Map the first byte to a Unicode character.
+  \item Concatenate the Unicode characters to a hash-string.
+  \item Compare the hash-strings via levenshtein.
+\end{ol}
+\begin{lstlisting}[basicstyle=\ttfamily,language=Python]
+from hashlib import sha1
 
-\subsection{Bytebag - Op-Code Frequency}
+def h(b: bytes) -> str:
+  return chr(sha1(b).digest()[0] + 0xb0)
+
+def hash(code: bytes) -> str:
+  jumpi = b'\x57'
+  chunks = code.split(jumpi)
+  return ''.join(h(chunk) for chunk in chunks)
+\end{lstlisting}
+
+\subsection{Bytebag - Opcode Frequency}
 As lower reference bound for more complex similarity detection I implemented the following measure:
 
 \begin{ol}
@@ -38,9 +58,46 @@ As lower reference bound for more complex similarity detection I implemented the
   \item Compare via Jaccard-Index for bags.
 \end{ol}
 
+\begin{lstlisting}[basicstyle=\ttfamily,language=Python]
+def byteBag(code: bytes) -> Dict[int,int]:
+  def reducer(counts: Dict[int,int], b: int):
+    counts[b] = counts.get(b, 0) + 1
+    return counts
+  return functools.reduce(reducer, code, {})
+
+def jaccard(a: Dict[int,int], b: Dict[int,int]) -> float:
+  return sum(min(a[i], b[i]) for i in range(256)) /
+    sum(max(a[i], b[i]) for i in range(256))
+\end{lstlisting}
+
 \subsection{LZJD - Binary-Hashing}
 This is how a cite\cite{sung2004static} looks like.
 
-\subsection{Normalized Compression Ratio}
+\subsection{Normalized compression distance NCD}
+
+NCD is a measure for how well two files co-compress.
+
+The more features two files have in common the shorter the length of the compressed concatenation.
+
+$Z(x)$ is the length of the compressed file $x$ ; $xy$ is the concatenation of $x$ and $y$.
+
+\begin{equation}
+  NCD(x,y) = \dfrac{Z(xy) - \min \{Z(x),Z(y)\}}{\max \{Z(x),Z(y)\}}
+\end{equation}
+
+I calculation the similarity instead of the distance to be consistent with the other measures.
+
+\begin{lstlisting}[basicstyle=\ttfamily,language=Python]
+import lzma
+
+def Z(contents: bytes) -> int:
+  return len(lzma.compress(contents, format=lzma.FORMAT_RAW))
+
+def NCD(a: bytes, b: bytes):
+  return (Z(a + b) - min(Z(a), Z(b))) / max(Z(a), Z(b))
+
+def similarity(a: bytes, b: bytes):
+  return (Z(a) + Z(b) - Z(a + b)) / max(Z(a), Z(b))
+\end{lstlisting}
 
 \end{document}

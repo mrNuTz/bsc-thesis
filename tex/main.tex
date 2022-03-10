@@ -16,12 +16,18 @@
 \usepackage{graphicx}
 \usepackage{subfiles}
 \usepackage{csvsimple}
+\usepackage{enumitem}
 \addbibresource{../ref.bib}
 \graphicspath{ {./images/} }
+
+\setlist[description]{
+  style=nextline
+}
 
 % commands
 \newcommand{\code}[1]{\mbox{\texttt{\footnotesize{#1}}}}
 \newcommand{\todo}[1]{\mbox{\texttt{TODO:}} #1}
+\newcommand\dfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}
 
 \newbibmacro{aycite}{%
   \defcounter{maxnames}{1}%
