@@ -1,9 +1,12 @@
 DONE:
   get latex to run
   how did i modify ssdeep?
+  reference to paper on spamsum, differences to ssdeep
+  reference ppdeep: ssdeep like hashing method in pure python https://github.com/elceef/ppdeep
 FIRST:
-  Q: wallet types: how where the types assigned? what do they mean? does same type mean same sol code?
+
 TODO:
+  Q: wallet types: how where the types assigned? what do they mean? does same type mean same sol code?
   use what you already have starting with the most important
     integrate important stuff from notes repo
     reference framework and test-set repos
@@ -11,10 +14,9 @@ TODO:
     interpret clustering and scatters
       check robustness against version, abi encoding and optimization changes separately
   how do the modified ssdeep results compare?
+  don't forget that f stat on solc-testset is cheating
 LATER:
-  reference ppdeep: ssdeep like hashing method in pure python https://github.com/elceef/ppdeep
   reference the commit id when generating images
-  reference to paper on spamsum, differences to ssdeep
   small overview of similarity measures
     explanation: what are they use for
     differences
@@ -51,5 +53,5 @@ NOTES:
     csvsimple
     pgf
     enumitem
-
-    glossary
+    % glossary
+    % helvetic

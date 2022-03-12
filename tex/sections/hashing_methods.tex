@@ -27,7 +27,7 @@ The following modifications where made:
   \item Remove rounding in the score calculation to differentiate between exact match and close match as well as incomparable and minor similarity.
   \item Remove common substring detection to make more hashes comparable.
   \item Handle case where first chunk is never triggered.
-  \item Add option to use Jaccard-Index for comparison, the default is levenshtein.
+  \item Add option to use Jaccard-Index for comparison, the default is Levenshtein-similarity.
 \end{ul}
 
 \subsubsection{JUMP-Hash}
@@ -36,7 +36,7 @@ The following modifications where made:
   \item Hash each chunk with \code{sha1}.
   \item Map the first byte to a Unicode character.
   \item Concatenate the Unicode characters to a hash-string.
-  \item Compare the hash-strings via levenshtein.
+  \item Compare the hash-strings via Levenshtein-similarity.
 \end{ol}
 \begin{lstlisting}[basicstyle=\ttfamily,language=Python]
 from hashlib import sha1
