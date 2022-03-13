@@ -1,33 +1,40 @@
 \documentclass{article}
+
 \usepackage{geometry}
-\geometry{
- a4paper,
- total={150mm,245mm},
- left=30mm,
- top=30mm,
-}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[final]{microtype}
 \usepackage[english]{babel}
-\usepackage{csquotes}
+\usepackage{csquotes} % used by bibliography
 \usepackage[style=numeric, labeldateparts]{biblatex}
-\usepackage{sourcecodepro}
 \usepackage{listings}
 \usepackage{parskip}
 \usepackage{graphicx}
 \usepackage{subfiles}
 \usepackage{csvsimple}
 \usepackage{enumitem}
+%\usepackage{notocondensed}
+%\usepackage[sfdefault]{noto-sans}
+\usepackage[sfdefault]{notomath}
+\usepackage[scaled=0.95]{sourcecodepro}
+
+\geometry{
+ a4paper,
+ total={150mm,245mm},
+ left=30mm,
+ top=30mm,
+}
 \addbibresource{../ref.bib}
 \graphicspath{ {./images/} }
-
 \setlist[description]{
   style=nextline
 }
 
 % commands
-\newcommand{\code}[1]{\mbox{\texttt{\footnotesize{#1}}}}
+\newcommand{\code}[1]{\mbox{\texttt{#1}}}
 \newcommand{\todo}[1]{\mbox{\texttt{TODO:}} #1}
-\newcommand\dfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}
+%\newcommand\dfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}
+\newcommand{\aycite}[1]{(\taycite{#1} \cite{#1})}
 
 \newbibmacro{aycite}{%
   \defcounter{maxnames}{1}%
@@ -44,8 +51,6 @@
    \usebibmacro{aycite}}
   {\multicitedelim}
   {\usebibmacro{postnote}}
-
-\newcommand{\aycite}[1]{(\taycite{#1} \cite{#1})}
 
 % envs
 \newenvironment{ul}
@@ -65,8 +70,6 @@
 \author{Bachelor's Thesis in Software and Information Engineering}
 \date{}
 \begin{document}
-
-%\fontfamily{lmtt}\selectfont
 
 %\begin{titlepage}
 \maketitle
