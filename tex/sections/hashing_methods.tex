@@ -30,7 +30,7 @@ The following modifications where made:
   \item Add option to use Jaccard-Index for comparison, the default is Levenshtein-similarity.
 \end{ul}
 
-\subsubsection{JUMP-Hash}
+\subsection{JUMP-Hash}
 \begin{ol}
   \item Split code by \code{JUMPI} into chunks.
   \item Hash each chunk with \code{sha1}.
@@ -38,7 +38,7 @@ The following modifications where made:
   \item Concatenate the Unicode characters to a hash-string.
   \item Compare the hash-strings via Levenshtein-similarity.
 \end{ol}
-\begin{lstlisting}[basicstyle=\ttfamily,language=Python]
+\begin{lstlisting}[style=mystyle,language=Python]
 from hashlib import sha1
 
 def h(b: bytes) -> str:
@@ -58,7 +58,7 @@ As lower reference bound for more complex similarity detection I implemented the
   \item Compare via Jaccard-Index for bags.
 \end{ol}
 
-\begin{lstlisting}[basicstyle=\ttfamily,language=Python]
+\begin{lstlisting}[style=mystyle,language=Python]
 def byteBag(code: bytes) -> Dict[int,int]:
   def reducer(counts: Dict[int,int], b: int):
     counts[b] = counts.get(b, 0) + 1
@@ -70,8 +70,51 @@ def jaccard(a: Dict[int,int], b: Dict[int,int]) -> float:
     sum(max(a[i], b[i]) for i in range(256))
 \end{lstlisting}
 
-\subsection{LZJD - Binary-Hashing}
+\subsection{LZJD - Lempel-Ziv Jaccard Distance}
 This is how a cite\cite{sung2004static} looks like.
+
+\subsection{BZ-Hash}
+BZ-Hash is based on ImpHash \todo{cite ImpHash} that calculates the compression ratio for equal sized chunks of potentially malicious executables to generate a fingerprint.
+
+\begin{ol}
+  \item Split code by \code{JUMPI} into chunks.
+  \item For each chunk: calculate bz-compression-ratio.
+  \item Calculate mean and standard-deviation of the ratios.
+  \item Calculate distance from mean as multiple of the standard-deviation.
+  \item Clamp values to [-2, 2] standard-deviations.
+  \item Discretize to positive integer values in [0,3].
+  \item Map the integers to characters.
+  \item Concatenate the characters to the final hash-string.
+  \item Compare the hash-strings with Levenshtein.
+\end{ol}
+
+\begin{lstlisting}[style=mystyle,language=Python]
+import numpy as np
+import bz2
+
+def bzCompRatio(bs: bytes):
+  return len(bz2.compress(bs)) / len(bs) if len(bs) > 0 else 1
+
+def bzHash(bs:bytes, chunkRes=4) -> str:
+  jumpi = b'\x57'
+  res = [bzCompRatio(chunk) for chunk in bs.split(jumpi)]
+  res = sdFromMean(res)
+  return ''.join(chr(0xb0 + discretize(-2, 2, chunkRes, val)) for val in res)
+
+def discretize(mi, ma, resolution, val):
+  span = ma - mi
+  shifted = val - mi
+  scaled = shifted * (resolution / span)
+  return max(0, min(resolution - 1, int(scaled)))
+
+def sdFromMean(x: Iterable) -> Iterable:
+  x = np.fromiter(x, float)
+  if len(x) == 0:
+    return x
+  elif x.std() == 0:
+    return x - x
+  return (x - x.mean()) / x.std()
+\end{lstlisting}
 
 \subsection{Normalized compression distance NCD}
 
@@ -87,7 +130,7 @@ $Z(x)$ is the length of the compressed file $x$ ; $xy$ is the concatenation of $
 
 I calculation the similarity instead of the distance to be consistent with the other measures.
 
-\begin{lstlisting}[basicstyle=\ttfamily,language=Python]
+\begin{lstlisting}[style=mystyle,language=Python]
 import lzma
 
 def Z(contents: bytes) -> int:

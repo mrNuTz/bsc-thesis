@@ -16,7 +16,8 @@
 %\usepackage{notocondensed}
 %\usepackage[sfdefault]{noto-sans}
 \usepackage[sfdefault]{notomath}
-\usepackage[scaled=0.95]{sourcecodepro}
+\usepackage[scaled=0.93,semibold]{sourcecodepro}
+\usepackage{xcolor}
 
 \geometry{
  a4paper,
@@ -28,8 +29,8 @@
 \graphicspath{ {./images/} }
 
 % commands
-\newcommand{\code}[1]{\mbox{\texttt{#1}}}
-\newcommand{\todo}[1]{\mbox{\texttt{TODO:}} #1}
+\newcommand{\code}[1]{\mbox{\texttt{\bfseries{#1}}}}
+\newcommand{\todo}[1]{\mbox{\texttt{\textbf{\color{red}TODO:}}} #1}
 %\newcommand\dfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}
 \newcommand{\aycite}[1]{(\taycite{#1} \cite{#1})}
 
@@ -62,6 +63,23 @@
   \setlength{\parskip}{0pt}
   \setlength{\parsep}{0pt}
 }{ \end{enumerate} }
+
+\definecolor{basic}{hsb}{0.0,0.0,0.0}
+\definecolor{comment}{hsb}{0.0,0.0,0.0}
+\definecolor{number}{hsb}{0.0,0.0,0.0}
+\definecolor{string}{hsb}{0.0,0.0,0.0}
+\definecolor{keyword}{hsb}{0.0,0.0,0.0}
+
+\lstdefinestyle{mystyle}{
+  basewidth=0.59em,
+  basicstyle=\ttfamily\color{basic}\bfseries,
+  commentstyle=\color{comment},
+  keywordstyle=\color{keyword}\bfseries,
+  numberstyle=\tiny\color{number},
+  stringstyle=\color{string},
+  breakatwhitespace=false,
+  breaklines=true
+}
 
 \title{Evaluation of Ethereum Smart Contract Similarity Measures}
 \author{Bachelor's Thesis in Software and Information Engineering}

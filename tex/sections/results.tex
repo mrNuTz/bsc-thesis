@@ -24,7 +24,7 @@ It correlates strongly with NCD, wich seams to be more robust to optimization ch
 
 The nativ Levenshtein implementation used for comparison is the fastest out of all hash similarities used in this work. Only Jaccard applied to the much shorter Fourbyte signature sets is faster.
 
-\todo{infestigate clusters within groups}
+\todo{investigate clusters within groups}
 
 \subsection{Bytebag}
 Combined with skeletonization and opcode filtering Bytebag performs better than ssdeep in some scenarios.
@@ -59,7 +59,7 @@ The runtime codes where segmented and the first segments skeletonized.
 Similarity was calculated via byteBagJaccard after filtering the op-codes with an opcode filter.
 
 \underline{Opcode filter}
-\begin{lstlisting}[basicstyle=\ttfamily,language=Python]
+\begin{lstlisting}[style=mystyle,language=Python]
 (OP.is_log() or OP.is_storage() or OP.is_sys_op() or OP.is_env_info()
   or OP.is_block_info() or OP == opcodes.SHA3 or OP == opcodes.GAS)
 \end{lstlisting}
@@ -82,7 +82,7 @@ When comparing the frequency of the op-codes in `Synthetix - no 0.8.4.hex` and
 
 \todo{latex table}
 
-\begin{lstlisting}[basicstyle=\ttfamily]
+\begin{lstlisting}[style=mystyle]
 |dec|hex|op-code|no 0.8.4|999999 0.8.4|diff|
 |---|---|---|---|---|---|
 |53|0x35|CALLDATALOAD|6|41|35|
