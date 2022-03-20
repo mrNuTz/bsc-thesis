@@ -4,28 +4,60 @@ DONE:
   reference to paper on spamsum, differences to ssdeep
   reference ppdeep: ssdeep like hashing method in pure python https://github.com/elceef/ppdeep
   reference framework and test-set repos
-FIRST:
   Q: wallet types: how where the types assigned? what do they mean? does same type mean same sol code?
+FIRST:
 TODO:
-  use what you already have starting with the most important
-    integrate important stuff from notes repo
-    add minimum amount to finish
-    interpret clustering and scatters
-      check robustness against version, abi encoding and optimization changes separately
-  how do the modified ssdeep results compare?
-  don't forget that f-stat on solc-testset is cheating
 LATER:
-  reference the commit id when generating images
-  small overview of similarity measures
-    explanation: what are they use for
-    differences
-    suitability: their results, why did I not use it, my results
-  argue why JUMPI is sufficient
-    maybe try more control-flow-ops as splitter
-    argue why this block splitting is bad (optimization changes this)
-      JUMP 0x56, RETURN 0xF3, STOP 0x00, REVERT 0xFD
-      followed by JUMPDEST 0x5B
-      (\x56|\xF3|\x00|\xFD)\\x5B#
+  in order to show
+    wallets solcOption and smallGroupByAbi have same results
+    separation number corresponds to scatter impression
+  show that
+    bytebag is better than size
+    unfiltered ssdeep is not better bytebag
+    lzjd is not better than filtered byteBag
+    filtered ppdeep is better than byteBag
+    filtered ppdeep is better than lzjd
+    skel is better than raw for ppdeep and jump
+    filtered is better than skel for ppdeep and jump
+    filtered jump is better than filtered ppdeep
+    filtered bz is better than filtered ppdeep
+    filtered skeletons are better than raw for jump, bz and ppdeep
+    raw bz is better than raw jump
+    filtered bz is comparable to filtered jump
+    filtering does not improve lzjd and ncd
+    ncd is better than filtered ppdeep
+    jump performs comparable to ncd
+    wallets and solcOptions yield similar results
+    smallGroupByAbi results don't conflict with wallets and solcOptions
+    first code section is sufficient
+    first code section is better than full skeleton
+    optimization changes are bigger than version changes
+    abi encoding change lowers hash scores
+    jumpi is sufficient for block splitting
+      optimization changes block splitting
+        JUMP 0x56, RETURN 0xF3, STOP 0x00, REVERT 0xFD followed by JUMPDEST 0x5B
+        (\x56|\xF3|\x00|\xFD)\\x5B#
+  mention
+    f-state on solcOptions is cheating because f-stat is based on solcOptions
+    K hashes
+    abi moved from front to back
+    contracts have mostly on code section
+    small overview of similarity measures
+      explanation: what are they use for
+      differences
+      suitability: their results, why did I not use it, my results
+  interesting numbers
+    length of codes
+    number of jumpi pre code
+    length of jumpi chunks
+    length of first section
+    number of sections
+  include
+    reference the commit id when including results
+    on big table of separations
+    some scatters to trust separations
+    one cluster
+    one pair of source codes
 MAYBE:
   section on time and space complexity
     wicherski2009pehash -> 1.1 Related Work

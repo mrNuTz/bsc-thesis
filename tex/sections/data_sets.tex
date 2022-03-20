@@ -23,44 +23,46 @@ versions.
 \end{ol}
 \underline{Further the contracts where compiled with ABI encoding v1 and v2.}
 
-\subsubsection{Optimization statistics}
+\subsubsection{Optimization}
+The runs setting determines whether the compiler optimizes the code for cheap deployment or cheap execution, i.e. cheap deployment code execution or cheap runtime code execution.
 
 To determine the relevant optimization options I calculated the following statistic on contracts with verified source available on etherscan.io.
-
-\begin{tabular}{lrrr}
-  optimization-runs & count  & proportion & optimization-enabled \\
-  \hline
-  0                 & 1379   & 0.6 \%     & 31.6 \%              \\
-  1                 & 671    & 0.3 \%     & 99.0 \%              \\
-  < x <             & 1804   & 0.8 \%     & 99.4 \%              \\
-  200               & 202289 & 90.3 \%    & 50.0 \%              \\
-  < x               & 17973  & 8.0 \%     & 99.2 \%              \\
-  \hline
-  total             & 224116 & 100 \%     & 54.4 \%
-\end{tabular}
+\begin{figure*}[ht]
+  \centering
+  \begin{tabular}{lrrr}
+    optimization-runs & count  & proportion           & optimization-enabled \\
+    \hline
+    0                 & 1379   & 0.6 \%               & 31.6 \%              \\
+    1                 & 671    & 0.3 \%               & 99.0 \%              \\
+    < x <             & 1804   & 0.8 \%               & 99.4 \%              \\
+    \color{red}{200}  & 202289 & \color{red}{90.3 \%} & \color{red}{50.0 \%} \\
+    < x               & 17973  & 8.0 \%               & 99.2 \%              \\
+    \hline
+    total             & 224116 & 100 \%               & 54.4 \%
+  \end{tabular}
+  \caption{optimization setting statistic}
+\end{figure*}
 
 \subsection{Wallets}
-820 wallet contract codes categorized into 38 types.
+Extensive set of wallet contract codes, classified into 40 blueprints via various automated and manual means described in \aycite{di2020wallet}.
 
-Wallets with the same type have the same interface.
-
-\todo{How where the types assigned?}
+This dataset is interesting because it's large, the types are human verified and quite different from each other.
 
 \subsection{Proxies}
-32 proxy contract codes categorized into 9 types.
+Individual wallets are often implemented via proxy where base functionality is implemented in a blueprint contract that is only referenced. This dataset consists of proxies for the wallets in the wallet dataset.
 
-\todo{How where the types assigned?}
+This dataset is interesting because the codes are extremely short, meaning half the code is data and arguments.
 
 \subsection{Small Groups with the same Name and ABI}
 A sample of codes with verified source available on etherscan.io, grouped by same name and ABI signatures.
 
 \underline{Group featurs}
 \begin{ul}
- \item 89 groups
- \item Distinct ABI
- \item Distinct Name
- \item 5 to 10 codes
- \begin{ul}
+  \item 89 groups
+  \item Distinct ABI
+  \item Distinct Name
+  \item 5 to 10 codes
+  \begin{ul}
     \item Same ABI
     \item same name
   \end{ul}

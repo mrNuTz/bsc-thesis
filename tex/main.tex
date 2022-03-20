@@ -30,9 +30,9 @@
 
 % commands
 \newcommand{\code}[1]{\mbox{\texttt{\bfseries{#1}}}}
-\newcommand{\todo}[1]{\mbox{\texttt{\textbf{\color{red}TODO:}}} #1}
+\newcommand{\todo}[1]{\mbox{\texttt{\textbf{\color{red}TODO: #1}}}}
 %\newcommand\dfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}
-\newcommand{\aycite}[1]{(\taycite{#1} \cite{#1})}
+\newcommand{\aycite}[1]{\mbox{(\taycite{#1} \cite{#1})}}
 
 \newbibmacro{aycite}{%
   \defcounter{maxnames}{1}%
@@ -81,7 +81,7 @@
   breaklines=true
 }
 
-\title{Evaluation of Ethereum Smart Contract Similarity Measures}
+\title{Fuzzy Hashing Ethereum Smart Contracts}
 \author{Bachelor's Thesis in Software and Information Engineering}
 \date{}
 \begin{document}
@@ -96,14 +96,11 @@ Advisor: Ao.Univ.Prof. Dipl.-Ing. Dr.techn. Gernot Salzer
 \section{Abstract}
 \subfile{sections/abstract.tex}
 
-\section{Goal}
-\subfile{sections/goal.tex}
+\section{Terms}
+\subfile{sections/definitions.tex}
 
 \section{Introduction}
 \subfile{sections/introduction.tex}
-
-\section{Terms}
-\subfile{sections/definitions.tex}
 
 \section{Data sets}
 \subfile{sections/data_sets.tex}
