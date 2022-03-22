@@ -1,33 +1,26 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\subsection{solc-versions-testset \cite{solc-versions-testset}}
+\subsection{solc-versions-testset}
 To evaluate the similarity measures I selected a set of 13 solidity smart contracts and compiled
 them with different solc versions and compiler options.
 Necessary changes where made to the source code to ensure compatibility with the various solc
 versions.
 
-\underline{The following solc versions where used:}
-\begin{ol}
-  \item \code{0.5.16}
-  \item \code{0.6.12}
-  \item \code{0.7.6}
-  \item \code{0.8.4}
-\end{ol}
-\underline{To evaluate the effect of optimization I applied the following options:}
-\begin{ol}
-  \item \code{\{ enabled: false, runs: 200 \}}
-  \item \code{\{ enabled: true, runs: 0 \}}
-  \item \code{\{ enabled: true, runs: 200 \}}
-  \item \code{\{ enabled: true, runs: 999999 \}}
-\end{ol}
-\underline{Further the contracts where compiled with ABI encoding v1 and v2.}
+To test the robustness against compiler version the contracts where compiled with the four solc versions \code{0.5.16}, \code{0.6.12}, \code{0.7.6} and \code{0.8.4}.
+To evaluate the effect of code optimization, the four optimization-options \code{\{enabled:false,runs:200\}}, \code{\{enabled:true,runs:0\}}, \code{\{enabled:true,runs:200\}} and \code{\{enabled:true,runs:999999\}} where applied.
+Finally ABI encoders \code{v1} and \code{v2} where used.
+
+13 source-codes x 4 solc-versions x 4 optimization-options x 2 abi-encodings \(\rightarrow\) 264 codes.
+
+The test-set and the code used to generate it can be found online\cite{solc-versions-testset}.
 
 \subsubsection{Optimization}
 The runs setting determines whether the compiler optimizes the code for cheap deployment or cheap execution, i.e. cheap deployment code execution or cheap runtime code execution.
 
-To determine the relevant optimization options I calculated the following statistic on contracts with verified source available on etherscan.io.
-\begin{figure*}[ht]
+To determine the relevant optimization options I calculated a statistic \tblref{opti_stat} on contracts with verified source available on etherscan.io.
+
+\begin{table*}[ht]
   \centering
   \begin{tabular}{lrrr}
     optimization-runs & count  & proportion           & optimization-enabled \\
@@ -41,7 +34,8 @@ To determine the relevant optimization options I calculated the following statis
     total             & 224116 & 100 \%               & 54.4 \%
   \end{tabular}
   \caption{optimization setting statistic}
-\end{figure*}
+  \label{tbl:opti_stat}
+\end{table*}
 
 \subsection{Wallets}
 Extensive set of wallet contract codes, classified into 40 blueprints via various automated and manual means described in \aycite{di2020wallet}.
@@ -54,25 +48,7 @@ Individual wallets are often implemented via proxy where base functionality is i
 This dataset is interesting because the codes are extremely short, meaning half the code is data and arguments.
 
 \subsection{Small Groups with the same Name and ABI}
-A sample of codes with verified source available on etherscan.io, grouped by same name and ABI signatures.
-
-\underline{Group featurs}
-\begin{ul}
-  \item 89 groups
-  \item Distinct ABI
-  \item Distinct Name
-  \item 5 to 10 codes
-  \begin{ul}
-    \item Same ABI
-    \item same name
-  \end{ul}
-\end{ul}
-
-\underline{Code Features}
-\begin{ul}
-  \item 541 codes
-  \item ABI length between 15 and 25 signatures
-  \item distinct skeletons
-\end{ul}
+A sample of contracts with verified source available on etherscan.io, grouped by same name and ABI signatures. The dataset is comprised of 89 groups. The groups contain 5 to 10 contracts with the same ABI interface and the same name. The groups have distinct ABI interfaces and distinct names.
+In total there are 541 codes with distinct skeletons and between 15 to 25 interface functions.
 
 \end{document}

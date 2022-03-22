@@ -29,10 +29,12 @@
 \graphicspath{ {./images/} }
 
 % commands
-\newcommand{\code}[1]{\mbox{\texttt{\bfseries{#1}}}}
-\newcommand{\todo}[1]{\mbox{\texttt{\textbf{\color{red}TODO: #1}}}}
+\newcommand{\code}[1]{\mbox{\texttt{#1}}}
+\newcommand{\todo}[1]{\texttt{\textbf{\color{red}TODO: #1}}}
 %\newcommand\dfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}
 \newcommand{\aycite}[1]{\mbox{(\taycite{#1} \cite{#1})}}
+\newcommand{\figref}[1]{\mbox{[\figurename ~\ref{fig:#1} on \pagename ~\pageref{fig:#1}]}}
+\newcommand{\tblref}[1]{\mbox{[\tablename ~\ref{tbl:#1} on \pagename ~\pageref{tbl:#1}]}}
 
 \newbibmacro{aycite}{%
   \defcounter{maxnames}{1}%
@@ -51,6 +53,9 @@
   {\usebibmacro{postnote}}
 
 % envs
+\setlist[itemize]{leftmargin=1.6em}
+\setlist[enumerate]{leftmargin=2.2em}
+
 \newenvironment{ul}
 { \begin{itemize}
   \setlength{\itemsep}{0pt}
@@ -102,17 +107,17 @@ Advisor: Ao.Univ.Prof. Dipl.-Ing. Dr.techn. Gernot Salzer
 \section{Introduction}
 \subfile{sections/introduction.tex}
 
-\section{Data sets}
-\subfile{sections/data_sets.tex}
-
 \section{Pre-Processing}
 \subfile{sections/pre_processing.tex}
 
-\section{Hashing Methods}
-\subfile{sections/hashing_methods.tex}
+\section{Data sets}
+\subfile{sections/data_sets.tex}
 
 \section{Evaluation Framework}
 \subfile{sections/evaluation_framework.tex}
+
+\section{Hashing Methods}
+\subfile{sections/hashing_methods.tex}
 
 \section{Results}
 \subfile{sections/results.tex}

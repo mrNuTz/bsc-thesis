@@ -1,7 +1,35 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\todo{artifacts, hypothesis}
+\subsection{Evaluation with wallets dataset}
+
+\figref{hist_wallets}
+
+\begin{figure*}[ht!]
+  \centering
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist raw jump.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist skeletons jump.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fstSecSkel jump.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fStat0 jump.png}\\
+
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist raw ssdeep.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist skeletons ssdeep.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fstSecSkel ssdeep.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fStat0 ssdeep.png}\\
+
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist raw ppdeep_mod.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist skeletons ppdeep_mod.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fstSecSkel ppdeep_mod.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fStat0 ppdeep_mod.png}\\
+
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist raw bz.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist skeletons bz.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fstSecSkel bz.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fStat0 bz.png}
+
+  \caption{wallets}
+  \label{fig:hist_wallets}
+\end{figure*}
 
 \subsection{solc-version-testset}
 ABI v2 moves the majority of the interface code from the start to the end of the code compared to v1.
@@ -31,10 +59,18 @@ Combined with skeletonization and opcode filtering Bytebag performs better than 
 
 \subsection{LZJD parameters}
 
-\csvreader[
-  tabular=r|ll,
-  table head= & Measure & Separation\\\hline,
-  head to column names]{csv/lzjd_all_separation.csv}{}{\thecsvrow & \measure & \separation}
+\tblref{lz_sep}
+
+\begin{table}[ht!]
+  \centering
+  \csvreader[
+    tabular=r|ll,
+    table head= & Measure & Separation\\\hline,
+    head to column names]{csv/lzjd_all_separation.csv}{}{\thecsvrow & \measure & \separation}
+
+  \caption{separations}
+  \label{tbl:lz_sep}
+\end{table}
 
 %\csvautotabular{../csv/lzjd_all_separation.csv}
 
@@ -69,12 +105,16 @@ Clustering was done with Gephi (0.9.2), see figure for settings.
 
 \subsubsection{Observation}
 The clustering algo first mixed a few similar contracts into one blob, with a little manual help
-it formed cohesive clusters.
+it formed cohesive clusters \figref{solc_bytebag_cluster}.
 
 Noticeable is that the Synthetix codes without optimization from all 4 solc versions form a cluster
 separate from the other Synthetix code.
 
-\includegraphics[width=\linewidth]{clustering_result_many_solc_versions_byteBag_significant_only_2021-06-06_163755.png}
+\begin{figure*}[ht!]
+  \includegraphics[width=\linewidth]{clustering_result_many_solc_versions_byteBag_significant_only_2021-06-06_163755.png}
+  \caption{bytebag cluster with force-atlas}
+  \label{fig:solc_bytebag_cluster}
+\end{figure*}
 
 \subsubsection{Analysis}
 When comparing the frequency of the op-codes in `Synthetix - no 0.8.4.hex` and

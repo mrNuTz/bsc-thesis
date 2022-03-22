@@ -70,7 +70,7 @@ MAYBE:
 FINALLY:
   use bibtex refs with web-links
 NOTES:
-  delete tmp files: git clean -xf
+  delete tmp files: git clean -Xf
   font
     %\fontfamily{lmtt}\selectfont
     %\sffamily
