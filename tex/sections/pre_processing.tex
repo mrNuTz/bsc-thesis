@@ -1,7 +1,19 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\subsection{Segmentation and Skeletonization \cite{ethutils}}
+\subsection{Segmentation and Skeletonization}
+
+The code for sectioning, skeletonizing, fourbyte extraction and corresponding explanations can be found in the repository (gsalzer/ethutils \cite{ethutils}).
+
+Skeletons are runtime codes where constructor arguments, data sections, meta sections and push arguments are set to zero.
+Contracts can be associated via skeletons, because many deployed codes have identical skeletons.
+
+The interface of a contract is the set of functions callable by other accounts/contracts.
+Almost all deployed contracts follow the ABI standard for encoding there interface, which lets the caller select the desired function via a four-byte hash of the function signature.
+Contracts can be associated via interface by calculating the Jaccard Index on there sets of fourbyte signatures.
+
+
+
 \subsubsection{Segment selection}
 Based on the segmentation there are various ways to apply the fuzzy hashing methods.
 

@@ -1,23 +1,25 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\begin{description}
+\begin{description}[style=unboxed,leftmargin=0pt]
   \item[Fuzzy hashing function] Function producing similar hashes for similar inputs.
   \item[Ethereum] The computer network running the EVM.
-  \item[EVM] Ethereum Virtual Machine. There is one EVM with one state. Transaction change the state.
+  \item[EVM] Ethereum Virtual Machine. There is one EVM with one state. Transactions change the state.
   \item[Blockchain] Complete record of all transaction.
   \item[Transaction] Can change account balances, call smart contract functions or deploy smart contracts.
-  \item[Ethereum account] An account has an address, a Ether balance and can execute transactions.
+  \item[Ethereum account] Accounts are uniquely identified by there 20 byte address, have an Ether balance and can execute transactions.
   \item[Ether] Currency used to pay for the execution of transactions.
   \item[Smart Contract] An Ethereum account with associated runnable code and data stored on the EVM. Can refer to just the runtime code or the source code or the semantics of the contract interface.
-  \item[Contract interface] Set of contract functions callable by other accounts.
-  \item[Contract function] Can change account data and Ether balances and call functions of the same of other contracts.
+  \item[Contract interface] Smart Contract have a Set of contract functions callable by other accounts via message or transaction.
+  \item[Contract function] Can change account data and Ether balances and call functions of the same of other contracts via messages.
+  \item[Meassage] Smart contracts can call other contracts functions via messages. Unlike transactions and logs, these messages are not stored on the blockchain.
+  \item[Logs] Smart contracts can create logs, which are stored on the blockchain and can therefore easily be observed and referenced. Decentralized applications are implemented using logs.
   \item[Runtime code] The runnable code stored on the EVM as a sequence of opcodes. Used synonymously with code or bytecode.
   \item[Deployment code] Runs once and stores the runtime code.
   \item[Opcode] An EVM instruction encoded as one byte.
   \item[Levenshtein distance] Also called edit distance. The minimum number of inserts, deletions and substitutions necessary to change one string into the other.
-  \item[Levenshtein similarity] \( similarity(a, b) = 1 - \dfrac{distance(a, b)}{max\{|a|, |b|\}} \in [0,1] \).
-  \item[Jaccard index] \(J(A,B) = \dfrac{|A \cap B|}{|A \cup B|} \in [0,1]\)
+  \item[Levenshtein similarity] \( similarity(a, b) = 1 - distance(a, b) / max\{|a|, |b|\} \in [0,1] \). \label{lev_sim}
+  \item[Jaccard index] \(J(A,B) = |A \cap B| / |A \cup B| \in [0,1]\)
   \item[ABI] Standard encoding of the Contract interface.
   \item[Function signature] String containing function name and parameters types.\\E.g.: \code{deposit(uint256,address)}
   \item[Fourbyte signature] Function signature hashed to a 4-byte value.

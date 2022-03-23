@@ -1,12 +1,14 @@
-\documentclass{article}
+\documentclass[]{article}
 
 \usepackage{geometry}
+\usepackage{multicol}
+\usepackage{changepage}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[final]{microtype}
 \usepackage[english]{babel}
 \usepackage{csquotes} % used by bibliography
-\usepackage[style=numeric, labeldateparts]{biblatex}
+\usepackage[style=numeric,labeldateparts,block=ragged]{biblatex}
 \usepackage{listings}
 \usepackage{parskip}
 \usepackage{graphicx}
@@ -88,27 +90,39 @@
 
 \title{Fuzzy Hashing Ethereum Smart Contracts}
 \author{Bachelor's Thesis in Software and Information Engineering}
-\date{}
+\date{\today}
 \begin{document}
-
 %\begin{titlepage}
 \maketitle
-Author: Raphael Nußbaumer - 01526647 - nussi.rn@gmx.at
+\begin{center}
+  Author: Raphael Nußbaumer - 01526647 - nussi.rn@gmx.at
 
-Advisor: Ao.Univ.Prof. Dipl.-Ing. Dr.techn. Gernot Salzer
+  Advisor: Ao.Univ.Prof. Dipl.-Ing. Dr.techn. Gernot Salzer
+\end{center}
 %\end{titlepage}
 
+%\begin{adjustwidth}{1cm}{2cm}
 \section{Abstract}
-\subfile{sections/abstract.tex}
+\subfile{sections/abstr  act.tex}
+%\end{adjustwidth}
 
 \section{Terms}
+%\begin{multicols}{1}
 \subfile{sections/definitions.tex}
+%\end{multicols}
 
 \section{Introduction}
 \subfile{sections/introduction.tex}
 
+\section{Methods Overview}
+\subfile{sections/methods.tex}
+
 \section{Pre-Processing}
 \subfile{sections/pre_processing.tex}
+
+\section{Similarity Measures}
+
+Jaccard Index, Levenshtein similarity, NCD
 
 \section{Data sets}
 \subfile{sections/data_sets.tex}
@@ -117,7 +131,7 @@ Advisor: Ao.Univ.Prof. Dipl.-Ing. Dr.techn. Gernot Salzer
 \subfile{sections/evaluation_framework.tex}
 
 \section{Hashing Methods}
-\subfile{sections/hashing_methods.tex}
+\subfile{sections/ssdeep.tex}
 
 \section{Results}
 \subfile{sections/results.tex}

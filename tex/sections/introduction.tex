@@ -1,37 +1,17 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\todo{This is not an introduction}, it is related work / overview and needed explanations / definitions.
+There are various ways of classifying smart contracts, they fall into the two main categories of
+static analysis and dynamic analysis.
+Dynamic analysis is concerned with transactions, messages, contract creation and in general temporal associations between accounts.
+Static analysis is concerned with static data stored on the EVM.
 
-Skeletons are specific but not sensitive and interfaces are sensitive but not specific, other methods are needed to fill the gap.
+This work is focused on one type of static data, the runtime code (a.k.a. deployed code) of smart contracts stored on the EVM, which needs to be distinguished from the deployment code used to generate to runtime code.
+To find associations between runtime codes one can exacts match code skeletons and extract the fourbyte signatures of there interface functions, explained in detail in the Section "5.2 Static Analysis" of the paper \aycite{angelo2020characterizing} and quickly contextualized in later sections.
 
-Starting points where the studies \aycite{he2020characterizing} and \aycite{norvill2017automated}.
-They both use ssdeep\cite{ssdeep} described in the paper \aycite{kornblum2006identifying}.
+Exact matching skeletons is specific but not sensitive and interface similarity is sensitive but not specific, other methods are desired to fill the gap. For this purpose I looked at the landscape of fuzzy hashing functions.
 
-I'am evaluating ssdeep, possible modifications and other Fuzzy Hashing methods.
+Related fields are identification of malicious executables, email/comment spam detection, typing auto correction, fuzzy text search, DNA distance metrics and finding video/audio copies and edits.
 
-\subsection{Fuzzy Hashing Categories according to \aycite{naik2020embedding}}
-\begin{ul}
-  \item Context-Triggered Piecewise Hashing (CTPH)
-  \item Statistically Improbable Features (SIF)
-  \item Block-Based Hashing (BBH)
-  \item Block-Based Rebuilding (BBR)
-\end{ul}
-I will be evaluation CTPH and BBH.
-
-\subsubsection{Binary Hashing (Information Theory based Methods)}
-\begin{ul}
-  \item Normalized Compression Ratio (NCD) - Not really a hashing method, because it's applied to the whole files.
-  \item Compression Ratio
-  \item LZJD
-\end{ul}
-I will also look at these methods.
-
-\subsection{Other Ways to Cluster Contracts}
-I'am not looking at these methods in my thesis.
-\begin{description}
-  \item[Control Flow Graph] Generate CFGs with radare2.
-  \item[n-grams] Method from natural language processing the looks at contiguous sequences of n items (letters, opcodes).
-  \item[Neural Network] Use call-graph date for learning of hash similarity.
-\end{description}
+%\aycite{gayoso2014state} describes four categories of binary hashing methods.
 \end{document}

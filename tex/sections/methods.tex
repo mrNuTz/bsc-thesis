@@ -1,0 +1,57 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+To obtain similarity scores I preprocessed the codes calculated digests(hashes) and compared those digest via similarity measures. Following is a quick summary of the methods used in this work.
+
+\subsection{Digest Methods}
+The following methods where used to obtain digests from codes for quick comparison via the similarity measures.
+
+\begin{description}[style=unboxed,leftmargin=0cm]%style=nextline]
+  \item[Fourbytes]
+    Extraction of the set of fourbyte signatures used to identify the interface functions.
+
+  \item[Bytebag]
+    Counting all opcodes in the code to form a multiset or bag of byte-values, a bytebag.
+
+  \item[Size]
+    Just the length of the code in bytes.
+
+  \item[ssdeep]
+    A Context Triggered Piecewise Hashing (CTPH) Function.
+
+  \item[ppdeep Levenshtein]
+    Slightly different implementation of ssdeep in pure python.
+
+  \item[ppdeep\_mod Levenshtein]
+    Modified version of ppdeep.
+
+  \item[Lempel-Ziv Jaccard Distance]
+    Generates a compression dictionary.
+
+  \item[JUMP-Hash Levenshtein]
+    A piecewise hash splitting by the \code{JUMPI} instruction opcode \code{0x57}.
+
+  \item[BZ-Hash Levenshtein]
+    Also splits by \code{JUMPI} and calculate a compression-ratio for each piece.
+\end{description}
+
+\subsection{Similarity Measures}
+To compare the digests the following similarity measures where applied.
+
+\begin{description}[style=unboxed]
+  \item[Jaccard Index] Defined on two sets \(A, B\), the Jaccard Index \(J\) is the ratio of common entries to all entries.  \(J(A,B) = |A \cap B| / |A \cup B| \in [0,1]\)
+  \item[Levenshtein similarity] Based on the Levenshtein Distance.
+  \item[Normalized Compression Distance (NCD)]
+    NCD is a measure for how well two files co-compress. The more features two files have in common the shorter the result when compressing the concatenation of the two files.
+\end{description}
+
+\subsection{Pre-Processing Methods}
+Because small changes in the codes, can cause big changes in the digests pre-processing aims the remove non-essential parts.
+
+\begin{description}[style=unboxed]
+  \item[Segment Selection] Selecting e.g. only the first code segment, the actual contract.
+  \item[Skeletonization] Setting argument, data and meta section bytes to zero.
+  \item[Opcode filteringn] Filtering for more significant opcodes by setting the others to zero or cutting them out.
+\end{description}
+
+\end{document}
