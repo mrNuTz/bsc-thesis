@@ -3,7 +3,11 @@
 
 \todo{reference to exact page number or figure}
 
-\subsection{Signature similarity}
+\subsection{Fourbytes - macro-similarity}
+
+The interface of a contract is the set of functions callable by other accounts/contracts.
+Almost all deployed contracts follow the ABI standard for encoding there interface, which lets the caller select the desired function via a four-byte hash of the function signature.
+Contracts can be associated via interface by calculating the Jaccard Index on there sets of fourbyte signatures.
 
 The macro-similarity based on the contract-interface is described in `II.C.2) Interface Restoration` \aycite{di2020characteristics}
 
@@ -30,7 +34,7 @@ The following modifications where made:
   \item Add option to use Jaccard-Index for comparison, the default is Levenshtein-similarity.
 \end{ul}
 
-\subsection{JUMP-Hash}
+\subsection{jumpHash}
 \begin{ol}
   \item Split code by \code{JUMPI} into chunks.
   \item Hash each chunk with \code{sha1}.
@@ -75,8 +79,8 @@ LZ compression is done by generating a dictionary of frequent sequences, this di
 
 This is how a cite\cite{sung2004static} looks like.
 
-\subsection{BZ-Hash}
-BZ-Hash is based on ImpHash \todo{cite ImpHash} that calculates the compression ratio for equal sized chunks of potentially malicious executables to generate a fingerprint.
+\subsection{bzHash}
+bzHash is based on peHash\cite{wicherski2009pehash} which calculates the compression ratio for each section of potentially malicious executables to generate a fingerprint.
 
 \begin{ol}
   \item Split code by \code{JUMPI} into chunks.

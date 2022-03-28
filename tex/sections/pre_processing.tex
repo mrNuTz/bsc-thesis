@@ -1,62 +1,35 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\subsection{Segmentation and Skeletonization}
+\subsection{Segmentation}
+Segmentation splits the codes into \code{code}, \code{data} and \code{meta} sections \cite{ethutils}.
 
-The code for sectioning, skeletonizing, fourbyte extraction and corresponding explanations can be found in the repository (gsalzer/ethutils \cite{ethutils}).
+\code{meta} sections have no effect on execution and change between compilations.
 
-Skeletons are runtime codes where constructor arguments, data sections, meta sections and push arguments are set to zero.
+\code{data} sections are e.g. constructor arguments.
+Constructor-arguments are deployed by the actual contract (first code-section).
+Generally they're only used for parameter initialization and have no essential effect on the execution.
+Limiting the possible effectiveness is the fact that detection is heuristic.
+
+The first \code{code} section is the the actual contract, the other code-sections are in essence just data for the first-section, if it itself deploys further contracts.
+
+\subsection{Skeletonization}
+Skeletons are runtime codes where constructor arguments, data sections, meta sections and push arguments are set to zero \cite{ethutils}.
 Contracts can be associated via skeletons, because many deployed codes have identical skeletons.
-
-The interface of a contract is the set of functions callable by other accounts/contracts.
-Almost all deployed contracts follow the ABI standard for encoding there interface, which lets the caller select the desired function via a four-byte hash of the function signature.
-Contracts can be associated via interface by calculating the Jaccard Index on there sets of fourbyte signatures.
-
-
-
-\subsubsection{Segment selection}
-Based on the segmentation there are various ways to apply the fuzzy hashing methods.
-
-\begin{enumerate}
-\item On the whole code as is.
-\item On the whole code excluding meta-data.
-  \begin{ul}
-    \item Meta-data has no effect on execution and changes between compilations.
-  \end{ul}
-\item On all code-sections concatenated excluding data-sections especially constructor-arguments.
-  \begin{ul}
-    \item Constructor-arguments are deployed by the actual contract (first code-section).
-    \item Generally they're only used for parameter initialization and have no essential effect on the execution.
-    \item Limiting the possible effectiveness is the fact that detection is heuristic.
-  \end{ul}
-\item On only the first code-section, the actual contract.
-  \begin{ul}
-    \item The other code-sections are in essence just data for the first-section, if it itself deploys further contracts.
-  \end{ul}
-\end{enumerate}
-
-\subsubsection{Skeletonization}
-In all selection cases, there is the option, of ignoring the arguments to push-operations.
-
-\begin{ul}
-  \item Push-operations are the only EVM-instructions followed by data.
-  \item The reasoning behind this removal is that, these data bytes have no essential effect on the execution, e.g. jump-addresses and ethereum-addresses.
-  \item This alternative boils down to only including the opcodes of the push-instructions.
-  \item Setting the push arguments to zero has the benefit of preserving the ability to disassemble the code.
-\end{ul}
+Push-operations are the only EVM-instructions followed by data.
+The reasoning behind this removal is that, these data bytes have no essential effect on the execution, e.g. jump-addresses and ethereum-addresses.
+Setting the push arguments to zero has the benefit of preserving the ability to disassemble the code.
 
 \subsection{Opcode filtering}
 The same externally observable behavior can be achieved via different opcode sequences.
-
 Some opcodes are more like to change with solc-versions or compile-options than others.
-
 Removing less significant opcodes before hashing should yield more meaningful similarity scores.
 
-\subsubsection{F-Statistic Filter}
+\subsubsection{fStat Filter\cite{ethereum-contract-similarity}}
 To determine significant opcodes I used the solc-version-testset\cite{solc-versions-testset}.
 
 \begin{enumerate}
-  \item Calculate the Bytebag of all codes.
+  \item Calculate the bytebag of all codes.
   \item Calculate an f-statistic for each opcode, using common source-code as grouping criterion and the count of the opcode as value.
   \item Order Opcodes by f-statistic and select the top 30.
 \end{enumerate}
@@ -68,5 +41,17 @@ To determine significant opcodes I used the solc-version-testset\cite{solc-versi
   \end{math}
   \caption{One-way ANOVA F-test statistic}
 \end{figure*}
+
+\subsection{Tests}
+I tested with the following pre-processing settings.
+
+\begin{description}
+  \item[raw] Tho whole code unprocessed.
+  \item[fstSec] The first code section.
+  \item[skel] The skeleton of the whole code.
+  \item[fstSecSkel] The skeleton of the fist code section.
+  \item[fStat] fstSecSkel filtered of the opcodes in the fStat filter by cutting the others out.
+  \item[fStat0] fStat but instead of cutting out the other opcodes are set to zero.
+\end{description}
 
 \end{document}
