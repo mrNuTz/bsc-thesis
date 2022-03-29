@@ -22,17 +22,12 @@ Setting the push arguments to zero has the benefit of preserving the ability to 
 
 \subsection{Opcode filtering}
 The same externally observable behavior can be achieved via different opcode sequences.
-Some opcodes are more like to change with solc-versions or compile-options than others.
+Some opcodes are more likely to change with solc-versions or compile-options than others.
 Removing less significant opcodes before hashing should yield more meaningful similarity scores.
 
-\subsubsection{fStat Filter\cite{ethereum-contract-similarity}}
-To determine significant opcodes I used the solc-version-testset\cite{solc-versions-testset}.
-
-\begin{enumerate}
-  \item Calculate the bytebag of all codes.
-  \item Calculate an f-statistic for each opcode, using common source-code as grouping criterion and the count of the opcode as value.
-  \item Order Opcodes by f-statistic and select the top 30.
-\end{enumerate}
+\subsubsection{\code{fStat} Filter\cite{ethereum-contract-similarity}}
+Determining exactly wich opcode sequences change would most likely require a lot of manual work.
+To quickly and simply distinguish between opcode wich are likely to change and once that don't change I used the \code{solc-version-testset} \cite{solc-versions-testset} and reduced the codes to bytebags. Then I calculated an f-statistic \figref{ftest} for each opcode, using common source-code as grouping criterion and the count of the opcode as value.
 
 \begin{figure*}[ht!]
   \centering
@@ -40,7 +35,24 @@ To determine significant opcodes I used the solc-version-testset\cite{solc-versi
     F = \dfrac{\textrm{between group variability}}{\textrm{within group variability}}
   \end{math}
   \caption{One-way ANOVA F-test statistic}
+  \label{fig:ftest}
 \end{figure*}
+
+To define the \code{fStat} filter I selected to top 30 opcodes by f-statistic value, plus a few that never occurred or only in one group.
+
+\begin{lstlisting}[style=pymd]
+OPCODES = (
+  # top 30 fStat values
+  ADDRESS, LOG3, TIMESTAMP, ORIGIN, LOG4, SHA3, SWAP14, CALLDATASIZE,
+  CALLDATACOPY, SIGNEXTEND, CALL, LOG2, RETURNDATASIZE, CALLER, EXTCODESIZE,
+  JUMPI, STATICCALL, RETURNDATACOPY, GAS, DUP13, DUP5, DUP8, GASPRICE,
+  SHR, PUSH4, ISZERO, DUP7, ADD, DUP9, MUL,
+  # occurred in only one group
+  XOR, CALLVALUE, DELEGATECALL, SELFDESTRUCT,
+  # never occurred
+  SAR, LOG0, CREATE,
+)
+\end{lstlisting}
 
 \subsection{Tests}
 I tested with the following pre-processing settings.

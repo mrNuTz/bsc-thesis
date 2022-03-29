@@ -72,12 +72,13 @@
 }{ \end{enumerate} }
 
 \definecolor{basic}{hsb}{0.0,0.0,0.0}
-\definecolor{comment}{hsb}{0.0,0.0,0.0}
+\definecolor{comment}{hsb}{0.0,0.0,0.3}
 \definecolor{number}{hsb}{0.0,0.0,0.0}
 \definecolor{string}{hsb}{0.0,0.0,0.0}
 \definecolor{keyword}{hsb}{0.0,0.0,0.0}
 
-\lstdefinestyle{mystyle}{
+\lstdefinestyle{pymd}{
+  language=Python,
   basewidth=0.59em,
   basicstyle=\ttfamily\color{basic}\bfseries,
   commentstyle=\color{comment},
@@ -86,6 +87,11 @@
   stringstyle=\color{string},
   breakatwhitespace=false,
   breaklines=true
+}
+
+\lstdefinestyle{pysm}{
+  style=pymd,
+  basicstyle=\ttfamily\color{basic}\bfseries\footnotesize,
 }
 
 \title{Fuzzy Hashing Ethereum Smart Contracts}
