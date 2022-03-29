@@ -6,6 +6,7 @@ DONE:
   reference framework and test-set repos
   Q: wallet types: how where the types assigned? what do they mean? does same type mean same sol code?
 FIRST:
+  ref pyLZJD paper
 TODO:
 LATER:
   in order to show
