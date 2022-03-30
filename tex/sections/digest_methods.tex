@@ -33,7 +33,7 @@ The following modifications where made:
 \end{ul}
 
 \subsection{jumpHash}
-Inspired by ssdeep and the learnings from the solc-version-testet \cite{solc-versions-testset} I implemented jumpHash \cite{ethereum-contract-similarity}.
+Inspired by ssdeep and the learnings from the solc-version-testet \cite{solc-versions-testset} I implemented jumpHash \cite{ethereum-contract-similarity}, it follows the steps:
 \begin{ol}
   \item Split the code by the opcode \code{JUMPI=0x57} into chunks.
   \item Hash each chunk with \code{sha1}.
@@ -52,7 +52,7 @@ def hash(code: bytes) -> str:
   chunks = code.split(jumpi)
   return ''.join(h(chunk) for chunk in chunks)
 \end{lstlisting}
-The Unicode character \code{ord("°")=0xb0} was chosen as \code{0} chunk hash because it is followed by 255 valid characters.
+The Unicode character \code{°=chr(0xb0)} was chosen as \code{0} chunk hash because it is followed by 255 valid characters.
 
 \subsection{Bytebag - Opcode Frequency}
 As lower reference bound for more complex similarity detection I implemented the following measure:
@@ -84,11 +84,11 @@ bzHash is based on peHash\cite{wicherski2009pehash} which calculates the compres
 
 \begin{ol}
   \item Split code by \code{JUMPI} into chunks.
-  \item For each chunk: calculate bz-compression-ratio.
+  \item For each chunk: calculate the bz-compression-ratio.
   \item Calculate mean and standard-deviation of the ratios.
   \item Calculate distance from mean as multiple of the standard-deviation.
-  \item Clamp values to [-2, 2] standard-deviations.
-  \item Discretize to positive integer values in [0,3].
+  \item Clamp values to [-2, 2] standard-deviations from mean.
+  \item Discretize to positive integer values.
   \item Map the integers to characters.
   \item Concatenate the characters to the final hash-string.
   \item Compare the hash-strings with Levenshtein.

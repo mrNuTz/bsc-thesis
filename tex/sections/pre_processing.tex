@@ -25,9 +25,9 @@ The same externally observable behavior can be achieved via different opcode seq
 Some opcodes are more likely to change with solc-versions or compile-options than others.
 Removing less significant opcodes before hashing should yield more meaningful similarity scores.
 
-\subsubsection{\code{fStat} Filter\cite{ethereum-contract-similarity}}
+\subsubsection{\code{fStat} Filter \cite{ethereum-contract-similarity}}
 Determining exactly wich opcode sequences change would most likely require a lot of manual work.
-To quickly and simply distinguish between opcode wich are likely to change and once that don't change I used the \code{solc-version-testset} \cite{solc-versions-testset} and reduced the codes to bytebags. Then I calculated an f-statistic \figref{ftest} for each opcode, using common source-code as grouping criterion and the count of the opcode as value.
+To quickly and simply distinguish between opcode wich are likely to change and once that don't change I used the \code{solc-versions-testset} \cite{solc-versions-testset} and reduced the codes to bytebags. Then I calculated an f-statistic \figref{ftest} for each opcode, using common source-code as grouping criterion and the count of the opcode as value.
 
 \begin{figure*}[ht!]
   \centering
@@ -62,7 +62,7 @@ I tested with the following pre-processing settings.
   \item[fstSec] The first code section.
   \item[skel] The skeleton of the whole code.
   \item[fstSecSkel] The skeleton of the fist code section.
-  \item[fStat] fstSecSkel filtered of the opcodes in the fStat filter by cutting the others out.
+  \item[fStat] fstSecSkel filtered for the opcodes in the \code{fStat} filter by cutting the others out.
   \item[fStat0] fStat but instead of cutting out the other opcodes are set to zero.
 \end{description}
 

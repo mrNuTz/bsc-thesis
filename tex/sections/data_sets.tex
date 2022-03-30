@@ -11,7 +11,7 @@ To test the robustness against compiler version the contracts where compiled wit
 To evaluate the effect of code optimization, the four optimization-options \code{\{enabled:false,runs:200\}}, \code{\{enabled:true,runs:0\}}, \code{\{enabled:true,runs:200\}} and \code{\{enabled:true,runs:999999\}} where applied.
 Finally ABI encoders \code{v1} and \code{v2} where used.
 
-13 source-codes x 4 solc-versions x 4 optimization-options x 2 abi-encodings \(\rightarrow\) 264 codes.
+13 source-codes x 4 solc-versions x 4 optimization-options x 2 abi-encodings \(\approx\) 264 codes.
 
 The test-set and the code used to generate it can be found online\cite{solc-versions-testset}.
 
@@ -43,7 +43,7 @@ Extensive set of wallet contract codes, classified into 40 blueprints via variou
 This dataset is interesting because it's large, the types are human verified and quite different from each other.
 
 \subsection{Proxies}
-Individual wallets are often implemented via proxy where base functionality is implemented in a blueprint contract that is only referenced. This dataset consists of proxies for the wallets in the wallet dataset.
+Individual wallets are often implemented via proxy where base functionality is implemented in a blueprint contract, that is called by the proxy. This dataset consists of proxies for the wallets in the wallet dataset.
 
 This dataset is interesting because the codes are extremely short, meaning half the code is data and arguments.
 

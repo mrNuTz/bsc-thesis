@@ -2,13 +2,14 @@
 \begin{document}
 
 \headline{Data}
+An older version of the solc-version-testet\cite{solc-versions-testset}, commit 923fa5bb5abb2939e54fb5404e9e287b1f0f0cec.
 Nine Solidity source files compiled with four solc versions (5, 6, 7, 8) times three optimization
 settings (no optimization, runs = 1, runs = 999999).
 Necessary changes where made to the source code to ensure compatibility with the different solc
 version without altering the function of the contracts.
 
 \headline{Pre-Processing}
-The runtime codes where segmented and the first segment skeletonized and then filtered with the following opcode filter. I defined the filter based on my intuition, for wich opcodes are hard to replace with others.
+The runtime codes where segmented and the first segment skeletonized and then filtered with the following opcode filter. I defined the filter based on my intuition, for wich opcodes are hard to be replaced by others.
 \begin{lstlisting}[style=pymd]
 (OP.is_log() or OP.is_storage() or OP.is_sys_op() or OP.is_env_info()
   or OP.is_block_info() or OP == opcodes.SHA3 or OP == opcodes.GAS)
