@@ -1,0 +1,37 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+Because my intuition was wrong a quantitative method for determining significant opcodes was needed.
+
+Idea: Find bytes that change more between groups than in groups between codes i.e. bytes with higher between group variance than in group variance. → f-statistic ANOVA
+
+\headline{Data}
+An older version of the solc-version-testset was used.\\
+(commit: \texttt{ec2b5c957c96a107926d64f469264be043c97d3b})
+
+\headline{Method}
+Calculate and f-statistic value for every byte value from 0 to 255, where codes complied from the same source with different solc-versions and -options form the groups.
+
+\headline{Results}
+\texttt{ethereum-contract-similarity/runs/byteDistribution/out/f-stat-by-byte.csv}\\
+commit \texttt{51864956b37231e27effcdc1dc17e842eee2078d}
+
+\headline{Observations}
+\code{RETURN} has the lowest score of 1.3 confirming the interpretation of the clustering test-run.
+
+\code{JUMPI} has a very high score of 489.5 despite its high prevalence of on average 207.5 per contract. It has the 20th highest f-statistic and ist the 13th most prevalent. It also has the sixth highest minimum of 32 occurrences in one contract. Opcodes scoring higher are much less frequent at a max mean of 24.1. In oder of f-statistic \code{ADD} is the next op-code with higher prevalence at rank 38 (f-stat 171.9, mean count 408.9).
+
+\code{ISZERO} looks surprisingly significant at a f-statistic of 489.5 and a mean count of 207.5
+
+\headline{Interpretation}
+In this dataset the \code{ABI} encodings where mostly consistent within groups and they contain a high number of \code{JUMPI} ops, but the \code{ABI} section also contains an equal number of \code{PUSH4}, \code{DUP1} and \code{EQ}, which have lower f-stat values of 224.6, 57.6 and 73.5. And the rest of the code does also contain a high number of \code{JUMPI}.
+
+The \code{ISZERO} opcodes are related to \code{JUMPI} since conditional jumps of often implemented by combining these two operations. \code{ISZERO} might be more relevant since it is not used in the \code{ABI} section.
+
+A dataset where the \code{ABI} tables are cut off could be used, since \code{ABI}-similarity can be better obtained with other methods (fourbytes).
+
+\headline{Conclusion}
+I extended the dataset with fixed ABI encodings v1 and v2 for all contracts, because the default changed with solc version 0.8.0.
+Based on the recalculated scores the \code{fStat} filter was defined.
+
+\end{document}

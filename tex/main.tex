@@ -37,6 +37,8 @@
 \newcommand{\aycite}[1]{\mbox{(\taycite{#1} \cite{#1})}}
 \newcommand{\figref}[1]{\mbox{[\figurename ~\ref{fig:#1} on \pagename ~\pageref{fig:#1}]}}
 \newcommand{\tblref}[1]{\mbox{[\tablename ~\ref{tbl:#1} on \pagename ~\pageref{tbl:#1}]}}
+\newcommand{\headline}[1]{
+\textbf{#1}\\}
 
 \newbibmacro{aycite}{%
   \defcounter{maxnames}{1}%
@@ -139,8 +141,12 @@ Jaccard Index, Levenshtein similarity, NCD
 \section{Digest Methods}
 \subfile{sections/digest_methods.tex}
 
-\section{Testrun: solc versions clustered with bytebag}
+\section{Test-Runs}
+\subsection{Run: solc versions clustered with bytebag}
 \subfile{sections/run_solc_cluster.tex}
+
+\subsection{Run: Determine significant opcodes}
+\subfile{sections/run_significant_opcodes.tex}
 
 \section{Results}
 \subfile{sections/results.tex}
