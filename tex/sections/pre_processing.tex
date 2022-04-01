@@ -2,7 +2,7 @@
 \begin{document}
 
 \subsection{Segmentation}
-Segmentation splits the codes into \code{code}, \code{data} and \code{meta} sections \cite{ethutils}.
+Segmentation splits the codes into \code{code}, \code{data} and \code{meta} sections \kcite{ethutils}.
 
 \code{meta} sections have no effect on execution and change between compilations.
 
@@ -14,7 +14,7 @@ Limiting the possible effectiveness is the fact that detection is heuristic.
 The first \code{code} section is the the actual contract, the other code-sections are in essence just data for the first-section, if it itself deploys further contracts.
 
 \subsection{Skeletonization}
-Skeletons are runtime codes where constructor arguments, data sections, meta sections and push arguments are set to zero \cite{ethutils}.
+Skeletons are runtime codes where constructor arguments, data sections, meta sections and push arguments are set to zero \kcite{ethutils}.
 Contracts can be associated via skeletons, because many deployed codes have identical skeletons.
 Push-operations are the only EVM-instructions followed by data.
 The reasoning behind this removal is that, these data bytes have no essential effect on the execution, e.g. jump-addresses and ethereum-addresses.
@@ -27,7 +27,7 @@ Removing less significant opcodes before hashing should yield more meaningful si
 
 \subsubsection{\code{fStat} Filter \cite{ethereum-contract-similarity}}
 Determining exactly wich opcode sequences change would most likely require a lot of manual work.
-To quickly and simply distinguish between opcode wich are likely to change and once that don't change I used the \code{solc-versions-testset} \cite{solc-versions-testset} and reduced the codes to bytebags. Then I calculated an f-statistic \figref{ftest} for each opcode, using common source-code as grouping criterion and the count of the opcode as value.
+To quickly and simply distinguish between opcode wich are likely to change and once that don't change I used the \kcite{solc-versions-testset} and reduced the codes to bytebags. Then I calculated an f-statistic \figref{ftest} for each opcode, using common source-code as grouping criterion and the count of the opcode as value.
 
 \begin{figure*}[ht!]
   \centering

@@ -10,7 +10,7 @@ Contracts can be associated via interface by calculating the Jaccard Index on th
 The macro-similarity based on the contract-interface is described in `II.C.2) Interface Restoration` \aycite{di2020characteristics}
 
 \subsection{ssdeep}
-ssdeep is a Context Triggered Piecewise Hash (CTPH) based on spamsum\cite{spamsum} wich was written for email spam detection. It is described in detail in the accompanying paper \aycite{kornblum2006identifying}
+ssdeep is a Context Triggered Piecewise Hash (CTPH) based on \kcite{spamsum} wich was written for email spam detection. It is described in detail in the accompanying paper \aycite{kornblum2006identifying}
 
 Context Triggered Piecewise Hashes follow the steps:
 \begin{ol}
@@ -21,7 +21,7 @@ Context Triggered Piecewise Hashes follow the steps:
 \end{ol}
 
 \subsection{ppdeep}
-To make modifications easy I used a version of ssdeep implemented in pure python (ppdeep \cite{ppdeep}).
+To make modifications easy I used a version of ssdeep implemented in pure python \kcite{ppdeep}.
 
 The following modifications where made:
 \begin{ul}
@@ -33,7 +33,7 @@ The following modifications where made:
 \end{ul}
 
 \subsection{jumpHash}
-Inspired by ssdeep and the learnings from the solc-version-testet \cite{solc-versions-testset} I implemented jumpHash \cite{ethereum-contract-similarity}, it follows the steps:
+Inspired by ssdeep and the learnings from the \kcite{solc-versions-testset} I implemented jumpHash \cite{ethereum-contract-similarity}, it follows the steps:
 \begin{ol}
   \item Split the code by the opcode \code{JUMPI=0x57} into chunks.
   \item Hash each chunk with \code{sha1}.
