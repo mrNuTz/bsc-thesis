@@ -20,6 +20,7 @@
 \usepackage[sfdefault]{notomath}
 \usepackage[scaled=0.93,semibold]{sourcecodepro}
 \usepackage{xcolor}
+\usepackage{titlesec}
 
 \geometry{
  a4paper,
@@ -39,8 +40,9 @@
 %\newcommand{\tcite}[1]{\mbox{\textit{[\citefield{#1}{title} \cite{#1}]}}}
 \newcommand{\figref}[1]{\mbox{\textit{[\figurename ~\ref{fig:#1} on \pagename ~\pageref{fig:#1}]}}}
 \newcommand{\tblref}[1]{\mbox{\textit{[\tablename ~\ref{tbl:#1} on \pagename ~\pageref{tbl:#1}]}}}
-\newcommand{\headline}[1]{
-\textbf{#1}\\}
+\newcommand{\headline}[1]{\subsubsection*{#1}}
+
+\titlespacing*{\subsubsection}{0em}{1em}{0em}
 
 \newbibmacro{aycite}{%
   \defcounter{maxnames}{1}%
