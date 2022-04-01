@@ -1,0 +1,27 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+Unless otherwise specified the histograms (e.g. \figref{histograms}) in this work all adhere to the following specification.
+
+\begin{figure*}[ht!]
+  \centering
+  \includegraphics[clip,trim={14 24 28 25},width=.33\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist raw lzjd.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.33\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fStat0 jump.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.33\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fstSecSkel bz.png}
+
+  \caption{histograms}
+  \label{fig:histograms}
+\end{figure*}
+
+\begin{itemize}
+  \item They show the similarity-sores of all possible code-pairs by on measure.
+  \item The measure (e.g. lzjd) and the pre-processing (e.g. fStat0) is specified in the title.
+  \item The pairs are split into "cross group" and "same group".
+  \item "cross group" is all pairs where the two codes are from different groups.
+  \item "same group" is all pairs where the two codes are from the same group.
+  \item The x-axis is the similarity-score \(\in\) [0,1].
+  \item The y-axis is the density, i.e. the sum of the ten buckets is always ten.
+  \item The "same group" and "cross group" series are plotted separately, i.e. all ten buckets add up to ten for both series separately.
+\end{itemize}
+
+\end{document}

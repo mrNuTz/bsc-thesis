@@ -3,7 +3,7 @@
 
 \subsection{Evaluation with wallets dataset}
 
-\figref{hist_wallets}
+\figref{hist_wallets} shows different methods an pre-processing steps applied to the wallets dataset.
 
 \begin{figure*}[ht!]
   \centering
@@ -40,42 +40,12 @@ Optimizations with high runs settings lead to a heavy reliance on storage operat
 
 Version changes are comparably smaller, but the default ABI encoding changed from v1 to v2 with solc version 0.8.0.
 
-\todo{how do I know this?}
-
 \subsection{jumpHash}
 Considering its simplicity it performs surprisingly well in separating contracts from different groups, partially due to the fact that the number of JUMPI opcodes has a very high f-statistic value.
 
 It correlates strongly with NCD, wich seams to be more robust to optimization changes, but comparisons take 30 times longer and jumpHash separates groups more sharply.
 
-\todo{sharply?}
-\todo{How do I know this?}
-
 The nativ Levenshtein implementation used for comparison is the fastest out of all hash similarities used in this work. Only Jaccard applied to the much shorter Fourbyte signature sets is faster.
 
-\todo{investigate clusters within groups}
-
-\subsection{Bytebag}
-Combined with skeletonization and opcode filtering Bytebag performs better than ssdeep in some scenarios.
-
-\subsection{LZJD parameters}
-
-\tblref{lz_sep}
-
-\begin{table}[ht!]
-  \centering
-  \csvreader[
-    tabular=r|ll,
-    table head= & Measure & Separation\\\hline,
-    head to column names]{csv/lzjd_all_separation.csv}{}{\thecsvrow & \measure & \separation}
-
-  \caption{separations}
-  \label{tbl:lz_sep}
-\end{table}
-
-%\csvautotabular{../csv/lzjd_all_separation.csv}
-
-\subsection{ssdeep variants}
-
-\subsection{F-Stat filter}
 
 \end{document}

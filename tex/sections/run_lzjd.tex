@@ -1,0 +1,48 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\subsubsection{hash\_size}
+Before comparing to the other methods, I tested the different hash\_size options.
+
+\figref{hist_solc_lzjd} shows the the different hash\_size options applied to \kcite{solc-versions-testset}.
+
+\begin{figure*}[ht!]
+  \centering
+  \includegraphics[clip,trim={14 24 28 25},width=.33\textwidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd32.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.33\textwidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd64.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.33\textwidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd128.png}\\
+  \includegraphics[clip,trim={14 24 28 25},width=.33\textwidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd256.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.33\textwidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd512.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.33\textwidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd1K.png}\\
+
+  \caption{solc-versions-testset}
+  \label{fig:hist_solc_lzjd}
+\end{figure*}
+
+\tblref{lz_sep} shows the separations of different hash\_size options applied to \kcite{solc-versions-testset}.
+
+\begin{table}[ht!]
+  \centering
+  \csvreader[
+    tabular=r|ll,
+    table head= & Measure & Separation\\\hline,
+    head to column names]{csv/lzjd_all_separation.csv}{}{\thecsvrow & \measure & \separation}
+  \caption{separations}
+  \label{tbl:lz_sep}
+\end{table}
+%\csvautotabular{../csv/lzjd_all_separation.csv}
+
+\figref{hist_wallets_lzjd} shows different pre-processing methods applies to the wallets dataset.
+
+\begin{figure*}[ht!]
+  \centering
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist raw lzjd.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist skeletons lzjd.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fstSecSkel lzjd.png}
+  \includegraphics[clip,trim={14 24 28 25},width=.24\textwidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fStat0 lzjd.png}\\
+
+  \caption{wallets}
+  \label{fig:hist_wallets_lzjd}
+\end{figure*}
+
+\end{document}
