@@ -29,14 +29,14 @@ Removing less significant opcodes before hashing should yield more meaningful si
 Determining exactly wich opcode sequences change would most likely require a lot of manual work.
 To quickly and simply distinguish between opcode wich are likely to change and once that don't change I used the \kcite{solc-versions-testset} and reduced the codes to bytebags. Then I calculated an f-statistic \figref{ftest} for each opcode, using common source-code as grouping criterion and the count of the opcode as value.
 
-\begin{figure*}[ht!]
+\begin{figure}[ht!]
   \centering
   \begin{math}
     F = \dfrac{\textrm{between group variability}}{\textrm{within group variability}}
   \end{math}
   \caption{One-way ANOVA F-test statistic}
   \label{fig:ftest}
-\end{figure*}
+\end{figure}
 
 To define the \code{fStat} filter I selected to top 30 opcodes by f-statistic value, plus a few that never occurred or only in one group.
 

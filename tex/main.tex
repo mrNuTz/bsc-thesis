@@ -21,12 +21,14 @@
 \usepackage[scaled=0.93,semibold]{sourcecodepro}
 \usepackage{xcolor}
 \usepackage{titlesec}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \geometry{
  a4paper,
- total={150mm,245mm},
+ total={150mm,255mm},
  left=30mm,
- top=30mm,
+ top=20mm,
 }
 \addbibresource{../ref.bib}
 \graphicspath{ {./images/} }
@@ -38,8 +40,10 @@
 \newcommand{\aycite}[1]{\mbox{(\taycite{#1} \cite{#1})}}
 \newcommand{\kcite}[1]{\mbox{#1\cite{#1}}}
 %\newcommand{\tcite}[1]{\mbox{\textit{[\citefield{#1}{title} \cite{#1}]}}}
-\newcommand{\figref}[1]{\mbox{\textit{[\figurename ~\ref{fig:#1} on \pagename ~\pageref{fig:#1}]}}}
-\newcommand{\tblref}[1]{\mbox{\textit{[\tablename ~\ref{tbl:#1} on \pagename ~\pageref{tbl:#1}]}}}
+\newcommand{\figref}[1]{\mbox{[\figurename ~\ref{fig:#1}, \pagename ~\pageref{fig:#1}]}}
+\newcommand{\fig}[1]{\figurename ~\ref{fig:#1} on \pagename ~\pageref{fig:#1}}
+\newcommand{\tblref}[1]{\mbox{[\tablename ~\ref{tbl:#1}, \pagename ~\pageref{tbl:#1}]}}
+\newcommand{\tbl}[1]{\tablename ~\ref{tbl:#1} on \pagename ~\pageref{tbl:#1}}
 \newcommand{\headline}[1]{\subsubsection*{#1}}
 
 \titlespacing*{\subsubsection}{0em}{1em}{0em}
@@ -147,7 +151,7 @@ Jaccard Index, Levenshtein similarity, NCD
 \section{Digest Methods}
 \subfile{sections/digest_methods.tex}
 
-\section{Test-Runs}
+\section{Results}
 \subsection{Histograms}
 \subfile{sections/histograms.tex}
 
@@ -157,11 +161,8 @@ Jaccard Index, Levenshtein similarity, NCD
 \subsection{Run: Determine significant opcodes}
 \subfile{sections/run_significant_opcodes.tex}
 
-\subsection{Run: LZJD options and pre-processing}
+\subsection{Run: LZJD options}
 \subfile{sections/run_lzjd.tex}
-
-\section{Results}
-\subfile{sections/results.tex}
 
 \section{Remarks}
 \subfile{sections/remarks.tex}
