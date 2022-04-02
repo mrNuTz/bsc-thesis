@@ -80,6 +80,12 @@
   \setlength{\parskip}{0pt}
   \setlength{\parsep}{0pt}
 }{ \end{enumerate} }
+\newenvironment{desc}
+{ \begin{description}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{ \end{description} }
 
 \definecolor{basic}{hsb}{0.0,0.0,0.0}
 \definecolor{comment}{hsb}{0.0,0.0,0.3}
@@ -152,8 +158,8 @@ Jaccard Index, Levenshtein similarity, NCD
 \subfile{sections/digest_methods.tex}
 
 \section{Results}
-\subsection{Histograms}
-\subfile{sections/histograms.tex}
+\subsection{Test Specification}
+\subfile{sections/test_spec.tex}
 
 \subsection{Run: solc versions clustered with bytebag}
 \subfile{sections/run_solc_cluster.tex}

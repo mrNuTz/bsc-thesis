@@ -1,7 +1,8 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-Unless otherwise specified the histograms (e.g. \figref{histograms}) in this work all adhere to the following specification.
+\headline{Histograms}
+Unless otherwise specified the histograms \figref{histograms} in this work all adhere to the following specification.
 
 \begin{figure}[ht!]
   \centering
@@ -23,5 +24,19 @@ Unless otherwise specified the histograms (e.g. \figref{histograms}) in this wor
   \item The y-axis is the density, i.e. the sum of the ten buckets is always ten.
   \item The "same group" and "cross group" series are plotted separately, i.e. all ten buckets add up to ten for both series separately.
 \end{itemize}
+
+\headline{Pre-Processing}
+I tested with the following pre-processing settings.
+
+\begin{desc}
+  \item[raw] Tho whole code unprocessed.
+  \item[fstSec or firstSection] The first code section.
+  \item[skel or skeleton] The skeleton of the whole code.
+  \item[fstSecSkel] The skeleton of the fist code section.
+  \item[fStat] fstSecSkel filtered for the opcodes in the \code{fStat} filter by cutting the others out.
+  \item[fStat0] fStat but instead of cutting out the other opcodes are set to zero.
+  \item[fStatV2] fStat with a few opcodes removed.
+  \item[fStat0V2] fStat0 with a few opcodes removed.
+\end{desc}
 
 \end{document}
