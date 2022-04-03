@@ -101,11 +101,13 @@ import bz2
 def bzCompRatio(bs: bytes):
   return len(bz2.compress(bs)) / len(bs) if len(bs) > 0 else 1
 
+_map = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_'
+
 def bzHash(bs:bytes, chunkRes=4) -> str:
   jumpi = b'\x57'
   res = [bzCompRatio(chunk) for chunk in bs.split(jumpi)]
   res = sdFromMean(res)
-  return ''.join(chr(0xb0 + discretize(-2, 2, chunkRes, val)) for val in res)
+  return ''.join(_map[discretize(-2, 2, chunkRes, val)] for val in res)
 
 def discretize(mi, ma, resolution, val):
   span = ma - mi

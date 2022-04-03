@@ -1,25 +1,35 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\subsubsection{hash-size}
-Before comparing to the other methods, I tested the different hash-size options.
+\subsection{LZJD}
 
-\fig{hist_solc_lzjd} shows the the different hash-size options applied to \kcite{solc-versions-testset}.
+\hyp{
+  LZJD struggles on the full \kcite{solc-versions-testset} with all hash-size settings \figref{solc_lzjd1} \figref{solc_lzjd2}. As reference on the right side ncd and bz seam to perform better on the raw codes.
+}
 
 \begin{figure}[ht!]
   \centering
   \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd32.png}%
   \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd64.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd128.png}\\
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd256.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd512.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd1K.png}\\
-
+  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd128.png}%
+  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw ncd.png}%
   \caption{solc-versions-testset}
-  \label{fig:hist_solc_lzjd}
+  \label{fig:solc_lzjd1}
 \end{figure}
 
-\tbl{lz_sep} shows the separations of different hash-size options applied to the\\\kcite{solc-versions-testset}.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd256.png}%
+  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd512.png}%
+  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd1K.png}%
+  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/solcOptions/out/all hist raw bz.png}%
+  \caption{solc-versions-testset}
+  \label{fig:solc_lzjd2}
+\end{figure}
+
+\hyp{
+  LZJD works better with raw codes and 256 is a good default hash-size setting \tblref{lz_sep}.
+}
 
 \begin{table}[ht!]
   \centering
@@ -30,9 +40,12 @@ Before comparing to the other methods, I tested the different hash-size options.
   \caption{separations}
   \label{tbl:lz_sep}
 \end{table}
+
 %\csvautotabular{../csv/lzjd_all_separation.csv}
 
-\fig{hist_wallets_lzjd} shows different pre-processing methods applies to the wallets dataset.
+\hyp{
+  \fig{hist_wallets_lzjd} shows different pre-processing methods applies to the wallets dataset.
+}
 
 \begin{figure}[ht!]
   \centering

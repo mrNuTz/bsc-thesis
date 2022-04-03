@@ -45,8 +45,16 @@
 \newcommand{\tblref}[1]{\mbox{[\tablename ~\ref{tbl:#1}, \pagename ~\pageref{tbl:#1}]}}
 \newcommand{\tbl}[1]{\tablename ~\ref{tbl:#1} on \pagename ~\pageref{tbl:#1}}
 \newcommand{\headline}[1]{\subsubsection*{#1}}
+\newcommand{\hyp}[1]{%
+  \begin{itemize}[leftmargin=2.2em]%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parskip}{0pt}%
+    \setlength{\parsep}{0pt}%
+    \item[\large{\textit{\textbf{H}}}~~] #1%
+  \end{itemize}%
+}
 
-\titlespacing*{\subsubsection}{0em}{1em}{0em}
+\titlespacing*{\subsubsection}{0em}{1.1em}{.1em}
 
 \newbibmacro{aycite}{%
   \defcounter{maxnames}{1}%
@@ -167,8 +175,7 @@ Jaccard Index, Levenshtein similarity, NCD
 \subsection{Run: Determine significant opcodes}
 \subfile{sections/run_significant_opcodes.tex}
 
-\subsection{Run: LZJD options}
-\subfile{sections/run_lzjd.tex}
+\subfile{sections/runs.tex}
 
 \section{Remarks}
 \subfile{sections/remarks.tex}
