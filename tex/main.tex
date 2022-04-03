@@ -55,14 +55,7 @@
 %\newcommand{\tblp}[1]{\tablename ~\ref{tbl:#1} on \pagename ~\pageref{tbl:#1}}
 
 \newcommand{\headline}[1]{\subsubsection*{#1}}
-\newcommand{\hyp}[1]{%
-  \begin{itemize}[leftmargin=2.2em]%
-    \setlength{\itemsep}{0pt}%
-    \setlength{\parskip}{0pt}%
-    \setlength{\parsep}{0pt}%
-    \item[\large{\textit{\textbf{H}}}~~] #1%
-  \end{itemize}%
-}
+\newcommand{\hyp}[1]{\parbox{.05\linewidth}{$\boldsymbol{\mathcal{H}}$}\parbox{.95\linewidth}{#1}}
 
 \titlespacing*{\subsubsection}{0em}{1.1em}{.1em}
 
