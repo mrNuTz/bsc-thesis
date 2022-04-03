@@ -4,7 +4,7 @@
 \subsection{LZJD}
 
 \hyp{
-  LZJD struggles on the full \kcite{solc-versions-testset} with all hash-size settings \figref{solc_lzjd1} \figref{solc_lzjd2}. As reference on the right side ncd and bz seam to perform better on the raw codes.
+  \n{lzjd} struggles on the full \kcite{solc-versions-testset} with all hash-size settings \figref{solc_lzjd1} \figref{solc_lzjd2}. As reference on the right side \n{ncd} and \n{bz} seam to perform better on the \n{raw} codes.
 }
 
 \begin{figure}[ht!]
@@ -13,7 +13,7 @@
   \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd64.png}%
   \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd128.png}%
   \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw ncd.png}%
-  \caption{solc-versions-testset}
+  \caption{\n{lzjd[32,64,128]} on all \n{raw} \n{solc-versions-testset} codes}
   \label{fig:solc_lzjd1}
 \end{figure}
 
@@ -23,29 +23,27 @@
   \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd512.png}%
   \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd1K.png}%
   \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/solcOptions/out/all hist raw bz.png}%
-  \caption{solc-versions-testset}
+  \caption{\n{lzjd[256,512,1K]} on all \n{raw} \n{solc-versions-testset} codes}
   \label{fig:solc_lzjd2}
 \end{figure}
 
 \hyp{
-  LZJD works better with raw codes and 256 is a good default hash-size setting \tblref{lz_sep}.
+  \n{lzjd} works better with \n{raw} codes and 256 is a good default \n{hash\_size} setting \tblref{lz_solc_sep} \tblref{lz_wall_sep} \figref{hist_wallets_lzjd}.
 }
 
 \begin{table}[ht!]
   \centering
+  \scriptsize %\ttfamily %\bfseries
   \csvreader[
-    tabular=r|ll,
+    tabular=r|ll,no head,
+    filter ifthen={\pdfmatch{^(raw|skel) lzjd}{\csvcoli}=1},
     table head= & Measure & Separation\\\hline,
-    head to column names]{csv/lzjd_all_separation.csv}{}{\thecsvrow & \measure & \separation}
-  \caption{separations}
-  \label{tbl:lz_sep}
+    head to column names]{
+      "../../ethereum-contract-similarity/runs/lzjdParams/out/all separations.csv"
+    }{}{\thecsvrow & \csvcoli & \csvcolii}
+  \caption{\n{lzjd} separations on all codes from \n{solc-versions-testset}}
+  \label{tbl:lz_solc_sep}
 \end{table}
-
-%\csvautotabular{../csv/lzjd_all_separation.csv}
-
-\hyp{
-  \fig{hist_wallets_lzjd} shows different pre-processing methods applies to the wallets dataset.
-}
 
 \begin{figure}[ht!]
   \centering
@@ -53,8 +51,22 @@
   \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist skeletons lzjd.png}%
   \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fstSecSkel lzjd.png}%
   \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fStat0 lzjd.png}%
-  \caption{wallets}
+  \caption{\n{lzjd[256]} on \n{wallets} dataset with different pre-processing methods}
   \label{fig:hist_wallets_lzjd}
 \end{figure}
+
+\begin{table}[ht!]
+  \centering
+  \scriptsize %\ttfamily %\bfseries
+  \csvreader[
+    tabular=r|ll,no head,
+    filter ifthen={\pdfmatch{lzjd}{\csvcoli}=1},
+    table head= & Measure & Separation\\\hline,
+    head to column names]{
+      "../../ethereum-contract-similarity/runs/wallets/out/all separations.csv"
+    }{}{\thecsvrow & \csvcoli & \csvcolii}
+  \caption{\n{lzjd} separations on all \n{wallet} codes}
+  \label{tbl:lz_wall_sep}
+\end{table}
 
 \end{document}
