@@ -9,7 +9,7 @@ Necessary changes where made to the source code to ensure compatibility with the
 version without altering the function of the contracts.
 
 \headline{Pre-Processing}
-The runtime codes where segmented and the first segment skeletonized and then filtered with the following opcode filter. I defined the filter based on my intuition, for wich opcodes are hard to be replaced by others.
+The runtime codes where segmented and the first segment skeletonized and then filtered with the following opcode filter. I defined the filter based on my intuition, for which opcodes are hard to be replaced by others.
 \begin{lstlisting}[style=pymd]
 (OP.is_log() or OP.is_storage() or OP.is_sys_op() or OP.is_env_info()
   or OP.is_block_info() or OP == opcodes.SHA3 or OP == opcodes.GAS)
@@ -22,7 +22,7 @@ The runtime codes where segmented and the first segment skeletonized and then fi
 Similarity for all code pairs was calculated via Jaccard Index on the bytebags of the filtered codes.
 
 \headline{Clustering}
-The clustering \figref{solc_bytebag_cluster} was done in Gephi (0.9.2) with the settings \figref{solc_bytebag_cluster_settings}.
+The clustering \figref{fig:solc_bytebag_cluster} was done in Gephi (0.9.2) with the settings \figref{fig:solc_bytebag_cluster_settings}.
 Nodes with the same color have the same source code.
 The graph is fully connected and the edge weights are determined by the similarity scores of the pairs.
 
@@ -42,7 +42,7 @@ The graph is fully connected and the edge weights are determined by the similari
 
 \headline{Observation}
 The clustering algo formed cohesive clusters, mostly due to the fact that the dataset is small and the contracts differ significantly in size alone.
-Nonetheless, noticeable is that the Synthetix codes without optimization from all 4 solc versions form a cluster separate from the other Synthetix codes \figref{CollateralManagerState}. The no optimization variants in the CollateralManagerState cluster also group tightly \figref{CollateralManagerState}.
+Nonetheless, noticeable is that the Synthetix codes without optimization from all 4 solc versions form a cluster separate from the other Synthetix codes \figref{fig:CollateralManagerState}. The no optimization variants in the CollateralManagerState cluster also group tightly \figref{fig:CollateralManagerState}.
 
 \begin{figure}[ht!]
   \begin{subfigure}[b]{0.5 \linewidth}
@@ -60,7 +60,7 @@ Nonetheless, noticeable is that the Synthetix codes without optimization from al
 
 \headline{Analysis}
 When comparing the frequency of the opcodes in \code{Synthetix - no 0.8.4.hex} and\\
-\code{Synthetix - 999999 0.8.4.hex} these 7 op-codes show the highest change \tblref{opt_diff}.
+\code{Synthetix - 999999 0.8.4.hex} these 7 op-codes show the highest change \tblref{tbl:opt_diff}.
 
 \begin{table}[ht!]
   \centering

@@ -40,7 +40,11 @@ To compare the digests the following similarity measures where applied.
 
 \begin{description}[style=unboxed]
   \item[Jaccard Index]
-    Defined on two sets \(A, B\), the Jaccard Index \(J\) is the ratio of common entries to all entries.  \(J(A,B) = |A \cap B| / |A \cup B| \in [0,1]\)
+    Defined on two sets \(A, B\), the Jaccard Index \(J\) is the ratio of common entries to all entries.
+    \begin{equation}
+      J(A,B) = |A \cap B| / |A \cup B| \in [0,1]
+      \label{eq:jaccard}
+    \end{equation}
 
   \item[Levenshtein similarity]
     Based on the Levenshtein Distance.

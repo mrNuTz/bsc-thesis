@@ -39,17 +39,17 @@
 \newcommand{\todo}[1]{\texttt{\textbf{\color{red}TODO: #1}}}
 %\newcommand\dfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}
 \newcommand{\aycite}[1]{\mbox{(\taycite{#1} \cite{#1})}}
-\newcommand{\kcite}[1]{\mbox{#1\cite{#1}}}
+\newcommand{\kcite}[1]{\mbox{\n{#1}\cite{#1}}}
 %\newcommand{\tcite}[1]{\mbox{\textit{[\citefield{#1}{title} \cite{#1}]}}}
 
 \addto\captionsenglish{\renewcommand{\tablename}{Tbl.}}
 \addto\captionsenglish{\renewcommand{\pagename}{Pg.}}
 \addto\captionsenglish{\renewcommand{\figurename}{Fig.}}
-\newcommand{\figref}[1]{\mbox{[\figurename ~\ref{fig:#1}]}}
+\newcommand{\figref}[1]{\mbox{[\figurename ~\ref{#1}]}}
 %\newcommand{\figrefp}[1]{\mbox{[\figurename ~\ref{fig:#1}, \pagename ~\pageref{fig:#1}]}}
 %\newcommand{\fig}[1]{\figurename ~\ref{fig:#1}}
 %\newcommand{\figp}[1]{\figurename ~\ref{fig:#1} on \pagename ~\pageref{fig:#1}}
-\newcommand{\tblref}[1]{\mbox{[\tablename ~\ref{tbl:#1}]}}
+\newcommand{\tblref}[1]{\mbox{[\tablename ~\ref{#1}]}}
 %\newcommand{\tblrefp}[1]{\mbox{[\tablename ~\ref{tbl:#1}, \pagename ~\pageref{tbl:#1}]}}
 %\newcommand{\tbl}[1]{\tablename ~\ref{tbl:#1}}
 %\newcommand{\tblp}[1]{\tablename ~\ref{tbl:#1} on \pagename ~\pageref{tbl:#1}}

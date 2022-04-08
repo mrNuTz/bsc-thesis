@@ -89,6 +89,7 @@
     "fourbytes",
     "fromiter",
     "fsize",
+    "ftest",
     "fullstacks",
     "funcsig",
     "functools",

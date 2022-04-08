@@ -26,19 +26,15 @@ Some opcodes are more likely to change with solc-versions or compile-options tha
 Removing less significant opcodes before hashing should yield more meaningful similarity scores.
 
 \subsubsection{\code{fStat} Filter \cite{ethereum-contract-similarity}}
-Determining exactly wich opcode sequences change would most likely require a lot of manual work.
-To quickly and simply distinguish between opcode wich are likely to change and once that don't change I used the \kcite{solc-versions-testset} and reduced the codes to bytebags. Then I calculated an f-statistic \figref{ftest} for each opcode, using common source-code as grouping criterion and the count of the opcode as value.
+Determining exactly which opcode sequences change, would most likely require a lot of manual work.
+To quickly and simply distinguish between opcode which are likely to change and once that don't change I used the \kcite{solc-versions-testset} and reduced the codes to \n{bytebags}. Then I calculated an the \n{One-way ANOVA F-test statistic} \eqref{eq:ftest} for each opcode, using common source-code as grouping criterion and the count of the opcode as value.
 
-\begin{figure}[ht!]
-  \centering
-  \begin{math}
-    F = \dfrac{\textrm{between group variability}}{\textrm{within group variability}}
-  \end{math}
-  \caption{One-way ANOVA F-test statistic}
-  \label{fig:ftest}
-\end{figure}
+\begin{equation}
+  F = \dfrac{\textit{between group variability}}{\textit{within group variability}}
+  \label{eq:ftest}
+\end{equation}
 
-To define the \code{fStat} filter I selected to top 30 opcodes by f-statistic value, plus a few that never occurred or only in one group.
+To define the \n{fStat} filter I selected to top 30 opcodes by f-statistic value, plus a few that never occurred or only in one group.
 
 \begin{lstlisting}[style=pymd]
 OPCODES = (
