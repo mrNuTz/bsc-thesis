@@ -1,11 +1,35 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\subsection{Foo}
+\subsection{Misc.}
 
-\n{wallet} \tblref{tbl:wallet_sep}.
-
-\n{solc-versions-testset} \tblref{tbl:solc_sep}.
+\hyp{
+  Splitting by \code{JUMPI} achieves better results than the context trigger used by \n{ssdeep}.
+}
+\hyp{
+  Filtering opcodes with \n{fStat} improves the results for chunk-hashes and \n{bytebag}.
+}
+\hyp{
+  Chunk-hashes perform better on the skeleton of the first code section than on the whole code.
+}
+\hyp{
+  Enabling optimization when compiling with \n{solc} causes bigger changes to the codes than switching \n{solc} version.
+}
+\hyp{
+  \n{Bytebag} is simple and fast, jet it seams to be a useful way to determine similarity.
+}
+\hyp{
+  Removing sequence striping improves results with \n{ppdeep}.
+}
+\hyp{
+  Levenshtein works better than Jaccard with chunk hashes, because \n{solc} orders functions by signature in the runtime code.
+}
+\hyp{
+  \n{ncd} is very flexible, it deals with the very short proxy codes and handles the biggest compile changes better than the other methods.
+}
+\obs{
+  \n{ncd} comparison is very slow, because all code-pairs need to be compressed together, i.e. \n{ncd} comparison is performed on the full codes and the other methods compare the much smaller digests, which are calculated only once for each code.
+}
 
 \begin{table}[ht!]
   \centering

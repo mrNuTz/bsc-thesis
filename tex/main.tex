@@ -57,7 +57,10 @@
 %\newcommand{\tblp}[1]{\tablename ~\ref{tbl:#1} on \pagename ~\pageref{tbl:#1}}
 
 \newcommand{\headline}[1]{\subsubsection*{#1}}
-\newcommand{\hyp}[1]{\parbox{.05\linewidth}{$\boldsymbol{\mathcal{H}}$}\parbox{.95\linewidth}{#1}}
+\newcommand{\hyp}[1]{
+  \parbox{.045\linewidth}{$\boldsymbol{\mathcal{H}}$}\parbox{.95\linewidth}{#1}\par}
+\newcommand{\obs}[1]{
+  \parbox{.045\linewidth}{$\boldsymbol{\mathcal{O}}$}\parbox{.95\linewidth}{#1}\par}
 
 \newcommand{\incHist}[4]{%
  \includegraphics[clip,trim={12 24 26 25},width=.25\linewidth]{../../ethereum-contract-similarity/runs/#1/out/#2 hist #3 #4.png}%
