@@ -5,8 +5,8 @@ DONE:
   reference ppdeep: ssdeep like hashing method in pure python https://github.com/elceef/ppdeep
   reference framework and test-set repos
   Q: wallet types: how where the types assigned? what do they mean? does same type mean same sol code?
-FIRST:
   ref pyLZJD paper
+FIRST:
 TODO:
 LATER:
   in order to show
@@ -38,6 +38,7 @@ LATER:
       optimization changes block splitting
         JUMP 0x56, RETURN 0xF3, STOP 0x00, REVERT 0xFD followed by JUMPDEST 0x5B
         (\x56|\xF3|\x00|\xFD)\\x5B#
+    skel bz2 is best on solc
   mention
     f-state on solcOptions is cheating because f-stat is based on solcOptions
     K hashes
