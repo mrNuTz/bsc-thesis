@@ -23,6 +23,8 @@
 \usepackage{titlesec}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{pgf}
+\usepackage{numprint}
 
 \geometry{
  a4paper,
@@ -56,6 +58,13 @@
 
 \newcommand{\headline}[1]{\subsubsection*{#1}}
 \newcommand{\hyp}[1]{\parbox{.05\linewidth}{$\boldsymbol{\mathcal{H}}$}\parbox{.95\linewidth}{#1}}
+
+\newcommand{\incHist}[4]{%
+ \includegraphics[clip,trim={12 24 26 25},width=.25\linewidth]{../../ethereum-contract-similarity/runs/#1/out/#2 hist #3 #4.png}%
+}
+\newcommand{\incViolin}[4]{%
+ \includegraphics[clip,trim={30 7 26 12},width=.33\linewidth]{../../ethereum-contract-similarity/runs/#1/out/#2 violin #3 #4.png}%
+}
 
 \titlespacing*{\subsubsection}{0em}{1.1em}{.1em}
 

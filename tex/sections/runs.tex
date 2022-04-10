@@ -1,6 +1,60 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
+\subsection{Foo}
+
+\n{wallet} \tblref{tbl:wallet_sep}.
+
+\n{solc-versions-testset} \tblref{tbl:solc_sep}.
+
+\begin{table}[ht!]
+  \centering
+  \scriptsize %\ttfamily %\bfseries
+  \nprounddigits{0}
+  \csvreader[
+    tabular=rlr,no head,
+    respect all,
+    table head= & Measure & Separation\\\hline,
+    head to column names]{
+      "../../ethereum-contract-similarity/runs/wallets/out/all separations.csv"
+    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+  \parbox{5em}{~}
+  \csvreader[
+    tabular=rlr,no head,
+    respect all,
+    table head= & Measure & qDist\\\hline,
+    head to column names]{
+      "../../ethereum-contract-similarity/runs/wallets/out/all qDists.csv"
+    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+  \caption{\n{wallet} dataset \n{separations} and \n{qDists}}
+  \label{tbl:wallet_sep}
+\end{table}
+
+\begin{table}[ht!]
+  \centering
+  \scriptsize %\ttfamily %\bfseries
+  \nprounddigits{0}
+  \csvreader[
+    tabular=rlr,no head,
+    filter ifthen={\pdfmatch{fStat}{\csvcoli}=0},
+    respect all,
+    table head= & Measure & Separation\\\hline,
+    head to column names]{
+      "../../ethereum-contract-similarity/runs/solcOptions/out/all separations.csv"
+    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+  \parbox{5em}{~}
+  \csvreader[
+    tabular=rlr,no head,
+    filter ifthen={\pdfmatch{fStat}{\csvcoli}=0},
+    respect all,
+    table head= & Measure & qDist\\\hline,
+    head to column names]{
+      "../../ethereum-contract-similarity/runs/solcOptions/out/all qDists.csv"
+    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+  \caption{\n{solc-versions-testset} \n{separations} and \n{qDists}}
+  \label{tbl:solc_sep}
+\end{table}
+
 \subsection{LZJD}
 
 \hyp{
@@ -9,20 +63,20 @@
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd32.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd64.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd128.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw ncd.png}%
+  \incHist{lzjdParams}{all}{raw}{lzjd32}%
+  \incHist{lzjdParams}{all}{raw}{lzjd64}%
+  \incHist{lzjdParams}{all}{raw}{lzjd128}%
+  \incHist{lzjdParams}{all}{raw}{ncd}%
   \caption{\n{lzjd[32,64,128]} on all \n{raw} \n{solc-versions-testset} codes}
   \label{fig:solc_lzjd1}
 \end{figure}
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd256.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd512.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/lzjdParams/out/all hist raw lzjd1K.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/solcOptions/out/all hist raw bz.png}%
+  \incHist{lzjdParams}{all}{raw}{lzjd256}%
+  \incHist{lzjdParams}{all}{raw}{lzjd512}%
+  \incHist{lzjdParams}{all}{raw}{lzjd1K}%
+  \incHist{solcOptions}{all}{raw}{bz}%
   \caption{\n{lzjd[256,512,1K]} on all \n{raw} \n{solc-versions-testset} codes}
   \label{fig:solc_lzjd2}
 \end{figure}
@@ -34,23 +88,32 @@
 \begin{table}[ht!]
   \centering
   \scriptsize %\ttfamily %\bfseries
+  \nprounddigits{0}
   \csvreader[
-    tabular=r|ll,no head,
+    tabular=rll,no head,
     filter ifthen={\pdfmatch{^(raw|skel) lzjd}{\csvcoli}=1},
     table head= & Measure & Separation\\\hline,
     head to column names]{
       "../../ethereum-contract-similarity/runs/lzjdParams/out/all separations.csv"
-    }{}{\thecsvrow & \csvcoli & \csvcolii}
-  \caption{\n{lzjd} separations on all codes from \n{solc-versions-testset}}
+    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+  \parbox{5em}{~}
+  \csvreader[
+    tabular=rll,no head,
+    filter ifthen={\pdfmatch{^(raw|skel) lzjd}{\csvcoli}=1},
+    table head= & Measure & qDist\\\hline,
+    head to column names]{
+      "../../ethereum-contract-similarity/runs/lzjdParams/out/all qDists.csv"
+    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+  \caption{\n{lzjd} \n{separations} and \n{qDists} on all codes from \n{solc-versions-testset}}
   \label{tbl:lz_solc_sep}
 \end{table}
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist raw lzjd.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist skeletons lzjd.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fstSecSkel lzjd.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.25 \linewidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fStat0 lzjd.png}%
+  \incHist{wallets}{all}{raw}{lzjd}%
+  \incHist{wallets}{all}{skeletons}{lzjd}%
+  \incHist{wallets}{all}{fstSecSkel}{lzjd}%
+  \incHist{wallets}{all}{fStat0}{lzjd}%
   \caption{\n{lzjd[256]} on \n{wallets} dataset with different pre-processing methods}
   \label{fig:hist_wallets_lzjd}
 \end{figure}
@@ -58,14 +121,25 @@
 \begin{table}[ht!]
   \centering
   \scriptsize %\ttfamily %\bfseries
+  \nprounddigits{0}
   \csvreader[
-    tabular=r|ll,no head,
+    tabular=rll,no head,
+    respect all,
     filter ifthen={\pdfmatch{lzjd}{\csvcoli}=1},
     table head= & Measure & Separation\\\hline,
     head to column names]{
       "../../ethereum-contract-similarity/runs/wallets/out/all separations.csv"
-    }{}{\thecsvrow & \csvcoli & \csvcolii}
-  \caption{\n{lzjd} separations on all \n{wallet} codes}
+    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+  \parbox{5em}{~}
+  \csvreader[
+    tabular=rll,no head,
+    respect all,
+    filter ifthen={\pdfmatch{lzjd}{\csvcoli}=1},
+    table head= & Measure & qDist\\\hline,
+    head to column names]{
+      "../../ethereum-contract-similarity/runs/wallets/out/all qDists.csv"
+    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+  \caption{\n{lzjd} \n{separations} and \n{qDists} on all \n{wallet} codes}
   \label{tbl:lz_wall_sep}
 \end{table}
 

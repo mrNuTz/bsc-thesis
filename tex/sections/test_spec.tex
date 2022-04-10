@@ -6,9 +6,9 @@ Unless otherwise specified the violin plots \figref{fig:violins} in this work al
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[clip,trim={30 7 26 12},width=.33\linewidth]{../../ethereum-contract-similarity/runs/wallets/out/all violin raw lzjd.png}%
-  \includegraphics[clip,trim={30 7 26 12},width=.33\linewidth]{../../ethereum-contract-similarity/runs/wallets/out/all violin fStat0 jump.png}%
-  \includegraphics[clip,trim={30 7 26 12},width=.33\linewidth]{../../ethereum-contract-similarity/runs/wallets/out/all violin fstSecSkel bz.png}%
+  \incViolin{wallets}{all}{raw}{lzjd}%
+  \incViolin{wallets}{all}{fStat0}{jump}%
+  \incViolin{wallets}{all}{fstSecSkel}{bz}%
 
   \caption{violin plots}
   \label{fig:violins}
@@ -29,9 +29,9 @@ Unless otherwise specified the histograms \figref{fig:histograms} in this work a
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[clip,trim={12 24 26 25},width=.33\linewidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist raw lzjd.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.33\linewidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fStat0 jump.png}%
-  \includegraphics[clip,trim={12 24 26 25},width=.33\linewidth]{../../ethereum-contract-similarity/runs/wallets/out/all hist fstSecSkel bz.png}%
+  \incHist{wallets}{all}{raw}{lzjd}%
+  \incHist{wallets}{all}{fStat0}{jump}%
+  \incHist{wallets}{all}{fstSecSkel}{bz}%
 
   \caption{histograms}
   \label{fig:histograms}
@@ -73,9 +73,9 @@ As a second measure for the clustering-performance I calculated $qDist(s,c)$ def
 $s$ \dots Ordered similarity-scores of all code pairs where the codes are from the same group.\\
 $c$ \dots Ordered similarity-scores of all code pairs where the codes are from different groups.\\
 $Q_n^x$ \dots Nth quartile of $x$\\
-$Q_2^x$ \dots median of $x$.
+$Q_2^x$ \dots Median of $x$.
 \begin{equation}
-  qDist(x,y) = \dfrac{Q_2^x - Q_2^y}{Q_3^x - Q_1^x + Q_3^y - Q_1^y}
+  qDist(x,y) = \dfrac{Q_2^x - Q_2^y}{Q_2^x - Q_1^x + Q_3^y - Q_2^y}
   \label{eq:qDist}
 \end{equation}
 
