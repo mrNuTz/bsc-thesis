@@ -39,6 +39,7 @@ LATER:
         JUMP 0x56, RETURN 0xF3, STOP 0x00, REVERT 0xFD followed by JUMPDEST 0x5B
         (\x56|\xF3|\x00|\xFD)\\x5B#
     skel bz2 is best on solc
+    reference pyPI packages?
   mention
     f-state on solcOptions is cheating because f-stat is based on solcOptions
     K hashes

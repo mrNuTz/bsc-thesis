@@ -7,13 +7,13 @@ To obtain similarity scores I preprocessed the codes, calculated digests(hashes)
 The following methods where used to obtain digests from codes for quick comparison via the similarity measures.
 
 \begin{description}[style=unboxed,leftmargin=0cm]%style=nextline]
-  \item[Fourbytes]
+  \item[fourbytes]
     Extraction of the set of fourbyte signatures used to identify the interface functions. \cite{ethutils}
 
-  \item[Bytebag]
+  \item[bytebag]
     Counting all opcodes in the code to form a multiset or bag of byte-values, a bytebag. \cite{ethereum-contract-similarity}
 
-  \item[Size]
+  \item[size]
     Just the length of the code in bytes.
 
   \item[ssdeep]
@@ -25,14 +25,17 @@ The following methods where used to obtain digests from codes for quick comparis
   \item[ppdeep\_mod]
     Modified version of ppdeep. \cite{ethereum-contract-similarity}
 
-  \item[LZJD - Lempel-Ziv Jaccard Distance]
+  \item[lzjd (LZJD - Lempel-Ziv Jaccard Distance)]
     Generates a compression dictionary. \cite{raff2018lempel}
 
-  \item[jumpHash]
+  \item[jump (jumpHash)]
     A piecewise hash splitting by the \code{JUMPI} instruction opcode \code{0x57}. \cite{ethereum-contract-similarity}
 
-  \item[bzHash]
+  \item[bz (bzHash)]
     Also splits by \code{JUMPI} and calculate a compression-ratio for each piece. \cite{ethereum-contract-similarity}
+
+  \item[lev (Levenshtein)]
+    Levenshtein edit distance on the whole code. Only used with very small codes (e.g. \n{proxies}).
 \end{description}
 
 \subsection{Similarity Measures}

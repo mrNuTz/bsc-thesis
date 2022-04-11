@@ -1,20 +1,6 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\headline{solc}
-ABI v2 moves the majority of the interface code from the start to the end of the code compared to v1.
-
-Optimization changes the how the ABI jump table is realized, solely causing significant changes for domain independent similarity measures.
-
-Optimizations with high runs settings lead to a heavy reliance on storage operations, and causes a dramatically increase in overall code length.
-
-Version changes are comparably smaller, but the default ABI encoding changed from v1 to v2 with solc version 0.8.0.
-
-\headline{jumpHash}
-Considering its simplicity it performs surprisingly well in separating contracts from different groups, partially due to the fact that the number of JUMPI opcodes has a very high f-statistic value.
-
-It correlates strongly with NCD, which seams to be more robust to optimization changes, but comparisons take 30 times longer and jumpHash separates groups more sharply.
-
-The nativ Levenshtein implementation used for comparison is the fastest out of all hash similarities used in this work. Only Jaccard applied to the much shorter Fourbyte signature sets is faster.
+remarks...
 
 \end{document}

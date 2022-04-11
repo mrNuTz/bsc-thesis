@@ -30,6 +30,39 @@
 \obs{
   \n{ncd} comparison is very slow, because all code-pairs need to be compressed together, i.e. \n{ncd} comparison is performed on the full codes and the other methods compare the much smaller digests, which are calculated only once for each code.
 }
+\obs{
+  When comparing all to all codes hashing runtime becomes insignificant, the comparison of the hashes gerealy takes much longer, even thought individually comparisons are faster than hash caculations.
+}
+\hyp{
+  On the short \n{proxy} codes the chunk hashes (\n{jump}, \n{ssdeep}, \n{ppdeep}, \n{bz}) performance poorly; the binary similarity measures (\n{bytebag}, \n{lev}, \n{ncd}, \n{lzjd}) show better results.
+}
+
+\subsection{solc}
+
+\obs{
+  ABI v2 moves the majority of the interface code from the start to the end of the code compared to v1. \todo{I'm not sure anymore if this is true}
+}
+\obs{
+  Optimization changes the how the ABI jump table is realized, solely causing significant changes for domain independent similarity measures.
+}
+\obs{
+  Optimizations with high runs settings lead to a heavy reliance on storage operations, and causes a dramatically increase in overall code length. \todo{I'm not sure anymore if this is true}
+}
+\obs{
+  Version changes are comparably smaller, but the default ABI encoding changed from v1 to v2 with solc version 0.8.0.
+}
+
+\subsection{jump}
+
+\hyp{
+  Considering its simplicity \n{jump} performs surprisingly well in separating contracts from different groups, partially due to the fact that the number of \code{JUMPI} opcodes has a very high \n{fStat} value.
+}
+\obs{
+  \n{jump} correlates strongly with \n{ncd}, which seams to be more robust to optimization changes, but comparisons take 30 times longer and \n{jump} separates groups more sharply.
+}
+\obs{
+  The nativ Levenshtein implementation used for comparison of \jump and \bz digests is the fastest out of all hash similarities used in this work. Only Jaccard applied to the much shorter \fourbyte signature sets is faster.
+}
 
 \begin{table}[ht!]
   \centering
@@ -40,16 +73,16 @@
     respect all,
     table head= & Measure & Separation\\\hline,
     head to column names]{
-      "../../ethereum-contract-similarity/runs/wallets/out/all separations.csv"
-    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+    "../../ethereum-contract-similarity/runs/wallets/out/all separations.csv"
+  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
   \parbox{5em}{~}
   \csvreader[
     tabular=rlr,no head,
     respect all,
     table head= & Measure & qDist\\\hline,
     head to column names]{
-      "../../ethereum-contract-similarity/runs/wallets/out/all qDists.csv"
-    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+    "../../ethereum-contract-similarity/runs/wallets/out/all qDists.csv"
+  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
   \caption{\n{wallet} dataset \n{separations} and \n{qDists}}
   \label{tbl:wallet_sep}
 \end{table}
@@ -64,8 +97,8 @@
     respect all,
     table head= & Measure & Separation\\\hline,
     head to column names]{
-      "../../ethereum-contract-similarity/runs/solcOptions/out/all separations.csv"
-    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+    "../../ethereum-contract-similarity/runs/solcOptions/out/all separations.csv"
+  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
   \parbox{5em}{~}
   \csvreader[
     tabular=rlr,no head,
@@ -73,16 +106,39 @@
     respect all,
     table head= & Measure & qDist\\\hline,
     head to column names]{
-      "../../ethereum-contract-similarity/runs/solcOptions/out/all qDists.csv"
-    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+    "../../ethereum-contract-similarity/runs/solcOptions/out/all qDists.csv"
+  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
   \caption{\n{solc-versions-testset} \n{separations} and \n{qDists}}
   \label{tbl:solc_sep}
 \end{table}
 
-\subsection{LZJD}
+\begin{table}[ht!]
+  \centering
+  \scriptsize %\ttfamily %\bfseries
+  \nprounddigits{0}
+  \csvreader[
+    tabular=rlr,no head,
+    respect all,
+    table head= & Measure & Separation\\\hline,
+    head to column names]{
+    "../../ethereum-contract-similarity/runs/proxies/out/all separations.csv"
+  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+  \parbox{5em}{~}
+  \csvreader[
+    tabular=rlr,no head,
+    respect all,
+    table head= & Measure & qDist\\\hline,
+    head to column names]{
+    "../../ethereum-contract-similarity/runs/proxies/out/all qDists.csv"
+  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+  \caption{\n{proxies} dataset \n{separations} and \n{qDists}}
+  \label{tbl:proxies_sep}
+\end{table}
+
+\subsection{lzjd}
 
 \hyp{
-  \n{lzjd} struggles on the full \kcite{solc-versions-testset} with all hash-size settings \figref{fig:solc_lzjd1} \figref{fig:solc_lzjd2}. As reference on the right side \n{ncd} and \n{bz} seam to perform better on the \n{raw} codes.
+  The number for 'same' and 'cross' look close but lzjd scores high in the separation and qDist comparison. \todo{reword, add figref}
 }
 
 \begin{figure}[ht!]
@@ -118,16 +174,16 @@
     filter ifthen={\pdfmatch{^(raw|skel) lzjd}{\csvcoli}=1},
     table head= & Measure & Separation\\\hline,
     head to column names]{
-      "../../ethereum-contract-similarity/runs/lzjdParams/out/all separations.csv"
-    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+    "../../ethereum-contract-similarity/runs/lzjdParams/out/all separations.csv"
+  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
   \parbox{5em}{~}
   \csvreader[
     tabular=rll,no head,
     filter ifthen={\pdfmatch{^(raw|skel) lzjd}{\csvcoli}=1},
     table head= & Measure & qDist\\\hline,
     head to column names]{
-      "../../ethereum-contract-similarity/runs/lzjdParams/out/all qDists.csv"
-    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+    "../../ethereum-contract-similarity/runs/lzjdParams/out/all qDists.csv"
+  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
   \caption{\n{lzjd} \n{separations} and \n{qDists} on all codes from \n{solc-versions-testset}}
   \label{tbl:lz_solc_sep}
 \end{table}
@@ -152,8 +208,8 @@
     filter ifthen={\pdfmatch{lzjd}{\csvcoli}=1},
     table head= & Measure & Separation\\\hline,
     head to column names]{
-      "../../ethereum-contract-similarity/runs/wallets/out/all separations.csv"
-    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+    "../../ethereum-contract-similarity/runs/wallets/out/all separations.csv"
+  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
   \parbox{5em}{~}
   \csvreader[
     tabular=rll,no head,
@@ -161,8 +217,8 @@
     filter ifthen={\pdfmatch{lzjd}{\csvcoli}=1},
     table head= & Measure & qDist\\\hline,
     head to column names]{
-      "../../ethereum-contract-similarity/runs/wallets/out/all qDists.csv"
-    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+    "../../ethereum-contract-similarity/runs/wallets/out/all qDists.csv"
+  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
   \caption{\n{lzjd} \n{separations} and \n{qDists} on all \n{wallet} codes}
   \label{tbl:lz_wall_sep}
 \end{table}
