@@ -1,226 +1,221 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\subsection{Misc.}
+\NewEnviron{sepTbl}[3]{
+  \begin{table}[ht!]
+    \centering
+    \scriptsize %\ttfamily %\bfseries
+    \nprounddigits{0}
+    \csvreader[
+      tabular=rlr,no head,
+      respect all,
+      filter ifthen={#3},
+      table head= & Preprocess and Hash & qDist\\\hline,
+      head to column names]{
+      "../../ethereum-contract-similarity/runs/#1/out/#2 qDists.csv"
+    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+    \parbox{5em}{~}
+    \csvreader[
+      tabular=rlr,no head,
+      respect all,
+      filter ifthen={#3},
+      table head= & Preprocess and Hash & Separation\\\hline,
+      head to column names]{
+      "../../ethereum-contract-similarity/runs/#1/out/#2 separations.csv"
+    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+    \BODY
+  \end{table}
+}
 
-\hyp{
+\subsection{Chunk Splitting}
+\begin{hyp}
+  The chunk splitting of \n{ssdeep} can be improved with domain knowledge.
+\end{hyp}
+\begin{res}
   Splitting by \code{JUMPI} achieves better results than the context trigger used by \n{ssdeep}.
-}
-\hyp{
-  Filtering opcodes with \n{fStat} improves the results for chunk-hashes and \n{bytebag}.
-}
-\hyp{
-  Chunk-hashes perform better on the skeleton of the first code section than on the whole code.
-}
-\hyp{
-  Enabling optimization when compiling with \n{solc} causes bigger changes to the codes than switching \n{solc} version.
-}
-\hyp{
-  \n{Bytebag} is simple and fast, jet it seams to be a useful way to determine similarity.
-}
-\hyp{
-  Removing sequence striping improves results with \n{ppdeep}.
-}
-\hyp{
-  Levenshtein works better than Jaccard with chunk hashes, because \n{solc} orders functions by signature in the runtime code.
-}
-\hyp{
-  \n{ncd} is very flexible, it deals with the very short proxy codes and handles the biggest compile changes better than the other methods.
-}
-\obs{
-  \n{ncd} comparison is very slow, because all code-pairs need to be compressed together, i.e. \n{ncd} comparison is performed on the full codes and the other methods compare the much smaller digests, which are calculated only once for each code.
-}
-\obs{
-  When comparing all to all codes hashing runtime becomes insignificant, the comparison of the hashes gerealy takes much longer, even thought individually comparisons are faster than hash caculations.
-}
-\hyp{
-  On the short \n{proxy} codes the chunk hashes (\n{jump}, \n{ssdeep}, \n{ppdeep}, \n{bz}) performance poorly; the binary similarity measures (\n{bytebag}, \n{lev}, \n{ncd}, \n{lzjd}) show better results.
-}
-
-\subsection{solc}
-
-\obs{
-  ABI v2 moves the majority of the interface code from the start to the end of the code compared to v1. \todo{I'm not sure anymore if this is true}
-}
-\obs{
-  Optimization changes the how the ABI jump table is realized, solely causing significant changes for domain independent similarity measures.
-}
-\obs{
-  Optimizations with high runs settings lead to a heavy reliance on storage operations, and causes a dramatically increase in overall code length. \todo{I'm not sure anymore if this is true}
-}
-\obs{
-  Version changes are comparably smaller, but the default ABI encoding changed from v1 to v2 with solc version 0.8.0.
-}
-
-\subsection{jump}
-
-\hyp{
-  Considering its simplicity \n{jump} performs surprisingly well in separating contracts from different groups, partially due to the fact that the number of \code{JUMPI} opcodes has a very high \n{fStat} value.
-}
-\obs{
-  \n{jump} correlates strongly with \n{ncd}, which seams to be more robust to optimization changes, but comparisons take 30 times longer and \n{jump} separates groups more sharply.
-}
-\obs{
-  The nativ Levenshtein implementation used for comparison of \jump and \bz digests is the fastest out of all hash similarities used in this work. Only Jaccard applied to the much shorter \fourbyte signature sets is faster.
-}
-
-\begin{table}[ht!]
-  \centering
-  \scriptsize %\ttfamily %\bfseries
-  \nprounddigits{0}
-  \csvreader[
-    tabular=rlr,no head,
-    respect all,
-    table head= & Measure & Separation\\\hline,
-    head to column names]{
-    "../../ethereum-contract-similarity/runs/wallets/out/all separations.csv"
-  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
-  \parbox{5em}{~}
-  \csvreader[
-    tabular=rlr,no head,
-    respect all,
-    table head= & Measure & qDist\\\hline,
-    head to column names]{
-    "../../ethereum-contract-similarity/runs/wallets/out/all qDists.csv"
-  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
-  \caption{\n{wallet} dataset \n{separations} and \n{qDists}}
-  \label{tbl:wallet_sep}
-\end{table}
-
-\begin{table}[ht!]
-  \centering
-  \scriptsize %\ttfamily %\bfseries
-  \nprounddigits{0}
-  \csvreader[
-    tabular=rlr,no head,
-    filter ifthen={\pdfmatch{fStat}{\csvcoli}=0},
-    respect all,
-    table head= & Measure & Separation\\\hline,
-    head to column names]{
-    "../../ethereum-contract-similarity/runs/solcOptions/out/all separations.csv"
-  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
-  \parbox{5em}{~}
-  \csvreader[
-    tabular=rlr,no head,
-    filter ifthen={\pdfmatch{fStat}{\csvcoli}=0},
-    respect all,
-    table head= & Measure & qDist\\\hline,
-    head to column names]{
-    "../../ethereum-contract-similarity/runs/solcOptions/out/all qDists.csv"
-  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
-  \caption{\n{solc-versions-testset} \n{separations} and \n{qDists}}
-  \label{tbl:solc_sep}
-\end{table}
-
-\begin{table}[ht!]
-  \centering
-  \scriptsize %\ttfamily %\bfseries
-  \nprounddigits{0}
-  \csvreader[
-    tabular=rlr,no head,
-    respect all,
-    table head= & Measure & Separation\\\hline,
-    head to column names]{
-    "../../ethereum-contract-similarity/runs/proxies/out/all separations.csv"
-  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
-  \parbox{5em}{~}
-  \csvreader[
-    tabular=rlr,no head,
-    respect all,
-    table head= & Measure & qDist\\\hline,
-    head to column names]{
-    "../../ethereum-contract-similarity/runs/proxies/out/all qDists.csv"
-  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
-  \caption{\n{proxies} dataset \n{separations} and \n{qDists}}
-  \label{tbl:proxies_sep}
-\end{table}
-
-\subsection{lzjd}
-
-\hyp{
-  The number for 'same' and 'cross' look close but lzjd scores high in the separation and qDist comparison. \todo{reword, add figref}
-}
+\end{res}
+\begin{res}
+  \code{JUMPI} is a better splitter than \code{JUMPDEST} because it has a higher f-statistic value, optimization removes \code{JUMPDEST} and the chunk sizes obtained with \code{JUMPI} strike a good balance.
+\end{res}
 
 \begin{figure}[ht!]
   \centering
-  \incHist{lzjdParams}{all}{raw}{lzjd32}%
-  \incHist{lzjdParams}{all}{raw}{lzjd64}%
-  \incHist{lzjdParams}{all}{raw}{lzjd128}%
-  \incHist{lzjdParams}{all}{raw}{ncd}%
-  \caption{\n{lzjd[32,64,128]} on all \n{raw} \n{solc-versions-testset} codes}
+  \incViolin{solcOptions}{all}{fstSecSkel}{ppdeep\_mod}{\solcts}%
+  \incViolin{solcOptions}{all}{fstSecSkel}{jump}{\solcts}
+  \caption{\n{\solcts} \n{jump} \n{ppdeep\_mod}}
+  \label{fig:jumpPpVio}
+\end{figure}
+
+\subsection{Pre-Processing}
+\begin{res}
+  Filtering opcodes with \n{fStat} improves the results for chunk-hashes and \n{bytebag}.
+\end{res}
+\begin{res}
+  Chunk-hashes perform better on the skeleton of the first code section than on the whole code \figref{fig:wallPpJpSkelRaw}.
+\end{res}
+
+\begin{figure}[ht!]
+  \centering
+  \incHist{wallets}{all}{raw}{ppdeep\_mod}{wallets}%
+  \incHist{wallets}{all}{fstSecSkel}{ppdeep\_mod}{wallets}%
+  \incHist{wallets}{all}{raw}{jump}{wallets}%
+  \incHist{wallets}{all}{fstSecSkel}{jump}{wallets}%
+  \caption{\n{fstSecSkel} vs. \n{raw} on \n{wallets}}
+  \label{fig:wallPpJpSkelRaw}
+\end{figure}
+\begin{figure}[ht!]
+  \centering
+  \incHist{solcOptions}{all}{raw}{ppdeep\_mod}{\solcts}%
+  \incHist{solcOptions}{all}{fstSecSkel}{ppdeep\_mod}{\solcts}%
+  \incHist{solcOptions}{all}{raw}{jump}{\solcts}%
+  \incHist{solcOptions}{all}{fstSecSkel}{jump}{\solcts}%
+  \caption{\n{fstSecSkel} vs. \n{raw} on \n{\solcts}}
+  \label{fig:solPpJpSkelRaw}
+\end{figure}
+
+\subsection{'K' Sequences}
+\begin{obs}
+  \n{ssdeep} and variants generate long sequences of 'K' chunk-hashes when hashing code skeletons.
+  E.g. the contract \n{ACATokenSale} at \n{0xb68a47aee7b6b79d203125eece1eef8ff19cbf3e} results in the hash \n{192:fKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKS:fO9SSNFtZT}.
+\end{obs}
+\begin{res}
+  \n{ppdeep\_mod} without sequence striping performs better than \n{ssdeep} and \n{ppdeep}.
+\end{res}
+
+\begin{figure}[ht!]
+  \centering
+  \incScatter{wallets}{all}{skeletons}{ssdeep}{skeletons}{ppdeep}{wallets}%
+  \incScatter{wallets}{all}{skeletons}{ssdeep}{skeletons}{ppdeep\_mod}{wallets}
+  \caption{Scatter plot of ppdeep and ssdeep similarity scores for all wallet code pairs}
+  \label{fig:ssppScat}
+\end{figure}
+
+\subsection{ncd and lzjd}
+\begin{hyp}
+  \n{ncd} is very flexible, it deals with the very short proxy codes and handles the biggest compile changes better than the other methods.
+\end{hyp}
+\begin{obs}
+  \n{ncd} comparison is very slow, because all code-pairs need to be compressed together, i.e. \n{ncd} comparison is performed on the full codes and the other methods compare the much smaller digests, which are calculated only once for each code.
+\end{obs}
+\begin{obs}
+  When comparing all to all codes hashing runtime becomes insignificant, the comparison of the hashes generally takes much longer, even thought individually comparisons are faster than hash calculations.
+\end{obs}
+\begin{hyp}
+  On the short \n{proxy} codes the chunk-hashes (\n{jump}, \n{ssdeep}, \n{ppdeep}, \n{bz}) performance poorly; the binary similarity measures (\n{bytebag}, \n{lev}, \n{ncd}, \n{lzjd}) show better results.
+\end{hyp}
+
+\begin{figure}[ht!]
+  \centering
+  \incScatter{lzjdParams}{all}{raw}{ncd}{raw}{lzjd256}{\solcts}%
+  \incScatter{solcOptions}{all}{raw}{ncd}{fstSecSkel}{jump}{\solcts}
+  \caption{Scatter plots of \n{raw ncd} similarity scores for all \n{\solcts} code pairs vs. \n{raw lzjd} (left) and \n{fstSecSkel jump} (right).}
+  \label{fig:ncdLzScat}
+\end{figure}
+
+\subsection{solc}
+\begin{obs}
+  Optimization removes \code{JUMPDEST} opcodes.
+\end{obs}
+\begin{obs}
+  Enabling optimization when compiling with \n{solc} causes bigger changes to the codes than switching \n{solc} version.
+\end{obs}
+\begin{obs}
+  ABI v2 moves the majority of the interface code from the start to the end of the code compared to v1. \todo{I'm not sure anymore if this is true}
+\end{obs}
+\begin{obs}
+  Optimization changes the how the ABI jump table is realized, solely causing significant changes for domain independent similarity measures.
+\end{obs}
+\begin{obs}
+  Optimizations with high runs settings lead to a heavy reliance on storage operations, and causes a dramatically increase in overall code length. \todo{I'm not sure anymore if this is true}
+\end{obs}
+\begin{obs}
+  Version changes are comparably smaller, but the default ABI encoding changed from v1 to v2 with solc version 0.8.0.
+\end{obs}
+
+\begin{res}
+  Levenshtein works better than Jaccard with chunk-hashes, because \n{solc} orders functions by signature in the runtime code.
+\end{res}
+
+\subsection{jump}
+
+\begin{hyp}
+  Considering its simplicity \n{jump} performs surprisingly well in separating contracts from different groups, partially due to the fact that the number of \code{JUMPI} opcodes has a very high \n{fStat} value.
+\end{hyp}
+\begin{obs}
+  \n{jump} correlates strongly with \n{ncd}, which seams to be more robust to optimization changes, but comparisons take 30 times longer and \n{jump} separates groups more sharply.
+\end{obs}
+\begin{obs}
+  The nativ Levenshtein implementation used for comparison of \n{jump} and \n{bz} digests is the fastest out of all hash similarities used in this work. Only Jaccard applied to the much shorter \n{fourbyte} signature sets is faster.
+\end{obs}
+
+\begin{sepTbl}{wallets}{all}{0=0}
+  \caption{\n{wallet} dataset \n{qDists} and \n{separations}}
+  \label{tbl:wallet_sep}
+\end{sepTbl}
+
+\begin{sepTbl}{solcOptions}{all}{\pdfmatch{fStat}{\csvcoli}=0}
+  \caption{\n{\solcts} \n{qDists} and \n{separations}}
+  \label{tbl:solc_sep}
+\end{sepTbl}
+
+\begin{sepTbl}{proxies}{all}{0=0}
+  \caption{\n{proxies} dataset \n{qDists} and \n{separations}}
+  \label{tbl:proxies_sep}
+\end{sepTbl}
+
+\subsection{lzjd}
+
+\begin{hyp}
+  The similarity numbers for 'same' and 'cross' pairs look close \figref{fig:solc_lzjd1}\figref{fig:solc_lzjd2} but \n{raw lzjd} scores high in the \n{separation} and \n{qDist} comparison \tblref{tbl:wallet_sep}\tblref{tbl:solc_sep}.
+\end{hyp}
+
+\begin{figure}[ht!]
+  \centering
+  \incHist{lzjdParams}{all}{raw}{lzjd32}{\solcts}%
+  \incHist{lzjdParams}{all}{raw}{lzjd64}{\solcts}%
+  \incHist{lzjdParams}{all}{raw}{lzjd128}{\solcts}%
+  \incHist{lzjdParams}{all}{raw}{ncd}{\solcts}%
+  \caption{\n{lzjd[32,64,128]} on all \n{raw} \n{\solcts} codes}
   \label{fig:solc_lzjd1}
 \end{figure}
 
 \begin{figure}[ht!]
   \centering
-  \incHist{lzjdParams}{all}{raw}{lzjd256}%
-  \incHist{lzjdParams}{all}{raw}{lzjd512}%
-  \incHist{lzjdParams}{all}{raw}{lzjd1K}%
-  \incHist{solcOptions}{all}{raw}{bz}%
-  \caption{\n{lzjd[256,512,1K]} on all \n{raw} \n{solc-versions-testset} codes}
+  \incHist{lzjdParams}{all}{raw}{lzjd256}{\solcts}%
+  \incHist{lzjdParams}{all}{raw}{lzjd512}{\solcts}%
+  \incHist{lzjdParams}{all}{raw}{lzjd1K}{\solcts}%
+  \incHist{solcOptions}{all}{raw}{bz}{\solcts}%
+  \caption{\n{lzjd[256,512,1K]} on all \n{raw} \n{\solcts} codes}
   \label{fig:solc_lzjd2}
 \end{figure}
 
-\hyp{
-  \n{lzjd} works better with \n{raw} codes and 256 is a good default \n{hash\_size} setting \tblref{tbl:lz_solc_sep} \tblref{tbl:lz_wall_sep} \figref{fig:hist_wallets_lzjd}.
-}
+\begin{hyp}
+  \n{lzjd} works better with \n{raw} codes and 256 is a good default \n{hash\_size} setting \tblref{tbl:lz_solc_sep}\tblref{tbl:lz_wall_sep}\figref{fig:hist_wallets_lzjd}.
+\end{hyp}
 
-\begin{table}[ht!]
-  \centering
-  \scriptsize %\ttfamily %\bfseries
-  \nprounddigits{0}
-  \csvreader[
-    tabular=rll,no head,
-    filter ifthen={\pdfmatch{^(raw|skel) lzjd}{\csvcoli}=1},
-    table head= & Measure & Separation\\\hline,
-    head to column names]{
-    "../../ethereum-contract-similarity/runs/lzjdParams/out/all separations.csv"
-  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
-  \parbox{5em}{~}
-  \csvreader[
-    tabular=rll,no head,
-    filter ifthen={\pdfmatch{^(raw|skel) lzjd}{\csvcoli}=1},
-    table head= & Measure & qDist\\\hline,
-    head to column names]{
-    "../../ethereum-contract-similarity/runs/lzjdParams/out/all qDists.csv"
-  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
-  \caption{\n{lzjd} \n{separations} and \n{qDists} on all codes from \n{solc-versions-testset}}
+\begin{sepTbl}{lzjdParams}{all}{\pdfmatch{^(raw|skel) lzjd}{\csvcoli}=1}
+  \caption{\n{lzjd} \n{qDists} and \n{separations} on all codes from \n{\solcts}}
   \label{tbl:lz_solc_sep}
-\end{table}
+\end{sepTbl}
 
 \begin{figure}[ht!]
   \centering
-  \incHist{wallets}{all}{raw}{lzjd}%
-  \incHist{wallets}{all}{skeletons}{lzjd}%
-  \incHist{wallets}{all}{fstSecSkel}{lzjd}%
-  \incHist{wallets}{all}{fStat0}{lzjd}%
+  \incHist{wallets}{all}{raw}{lzjd}{wallets}%
+  \incHist{wallets}{all}{skeletons}{lzjd}{wallets}%
+  \incHist{wallets}{all}{fstSecSkel}{lzjd}{wallets}%
+  \incHist{wallets}{all}{fStat0}{lzjd}{wallets}%
   \caption{\n{lzjd[256]} on \n{wallets} dataset with different pre-processing methods}
   \label{fig:hist_wallets_lzjd}
 \end{figure}
 
-\begin{table}[ht!]
-  \centering
-  \scriptsize %\ttfamily %\bfseries
-  \nprounddigits{0}
-  \csvreader[
-    tabular=rll,no head,
-    respect all,
-    filter ifthen={\pdfmatch{lzjd}{\csvcoli}=1},
-    table head= & Measure & Separation\\\hline,
-    head to column names]{
-    "../../ethereum-contract-similarity/runs/wallets/out/all separations.csv"
-  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
-  \parbox{5em}{~}
-  \csvreader[
-    tabular=rll,no head,
-    respect all,
-    filter ifthen={\pdfmatch{lzjd}{\csvcoli}=1},
-    table head= & Measure & qDist\\\hline,
-    head to column names]{
-    "../../ethereum-contract-similarity/runs/wallets/out/all qDists.csv"
-  }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
-  \caption{\n{lzjd} \n{separations} and \n{qDists} on all \n{wallet} codes}
+\begin{sepTbl}{wallets}{all}{\pdfmatch{lzjd}{\csvcoli}=1}
+  \caption{\n{lzjd} \n{qDists} and \n{separations} on all \n{wallet} codes}
   \label{tbl:lz_wall_sep}
-\end{table}
+\end{sepTbl}
+
+\subsection{bytebag}
+\begin{obs}
+  \n{Bytebag} is simple and fast, jet it seams to be a useful way to determine similarity.
+\end{obs}
 
 \end{document}

@@ -25,6 +25,7 @@
 \usepackage{subcaption}
 \usepackage{pgf}
 \usepackage{numprint}
+\usepackage{environ}
 
 \geometry{
  a4paper,
@@ -34,6 +35,8 @@
 }
 \addbibresource{../ref.bib}
 \graphicspath{ {./images/} }
+
+\newcommand{\solcts}{solc-versions-testset}
 
 % commands
 \newcommand{\n}[1]{\mbox{\textit{#1}}}
@@ -57,25 +60,32 @@
 %\newcommand{\tblp}[1]{\tablename ~\ref{tbl:#1} on \pagename ~\pageref{tbl:#1}}
 
 \newcommand{\headline}[1]{\subsubsection*{#1}}
-\newcommand{\hyp}[1]{
-  \parbox{.045\linewidth}{$\boldsymbol{\mathcal{H}}$}\parbox{.95\linewidth}{#1}\par}
-\newcommand{\obs}[1]{
-  \parbox{.045\linewidth}{$\boldsymbol{\mathcal{O}}$}\parbox{.95\linewidth}{#1}\par}
+\NewEnviron{hyp}{%
+  \parbox{.045\linewidth}{$\boldsymbol{\mathcal{H}}$}\parbox{.95\linewidth}{\BODY}\par}
+\NewEnviron{obs}{%
+  \parbox{.045\linewidth}{$\boldsymbol{\mathcal{O}}$}\parbox{.95\linewidth}{\BODY}\par}
+\NewEnviron{conc}{%
+  \parbox{.045\linewidth}{$\boldsymbol{\mathcal{C}}$}\parbox{.95\linewidth}{\BODY}\par}
+\NewEnviron{res}{%
+  \parbox{.045\linewidth}{$\boldsymbol{\mathcal{R}}$}\parbox{.95\linewidth}{\BODY}\par}
+\NewEnviron{inter}{%
+  \parbox{.045\linewidth}{$\boldsymbol{\mathcal{R}}$}\parbox{.95\linewidth}{\BODY}\par}
 
-\newcommand{\incHist}[4]{%
- \includegraphics[clip,trim={12 24 26 25},width=.25\linewidth]{../../ethereum-contract-similarity/runs/#1/out/#2 hist #3 #4.png}%
-}
-\newcommand{\incViolin}[4]{%
- \includegraphics[clip,trim={30 7 26 12},width=.33\linewidth]{../../ethereum-contract-similarity/runs/#1/out/#2 violin #3 #4.png}%
-}
-
-% keywords
-\newcommand{\bz}{\n{bz}}
-\newcommand{\jump}{\n{jump}}
-\newcommand{\solc}{\n{solc}}
-\newcommand{\fourbyte}{\n{fourbyte}}
+\newcommand{\incHist}[5]{%
+  \parbox{.25\linewidth}{%
+    \centering\scriptsize ~~~ #5\\~~~ #3 #4\\
+    \includegraphics[clip,trim={12 24 26 40},width=\linewidth]{../../ethereum-contract-similarity/runs/#1/out/#2 hist #3 #4.png}}}
+\newcommand{\incViolin}[5]{%
+  \parbox{.33\linewidth}{%
+    \centering\scriptsize #5\\#3 #4\\
+    \includegraphics[clip,trim={30 7 26 25},width=\linewidth]{../../ethereum-contract-similarity/runs/#1/out/#2 violin #3 #4.png}}}
+\newcommand{\incScatter}[7]{%
+  \parbox{.5\linewidth}{%
+    \centering\scriptsize ~~ #7\\ ~~ #3 #4 vs. #5 #6\\
+    \includegraphics[clip,trim={20 25 50 58},width=\linewidth]{../../ethereum-contract-similarity/runs/#1/out/#2 scatter #3 #4 #5 #6.png}}}
 
 \titlespacing*{\subsubsection}{0em}{1.1em}{.1em}
+\captionsetup{font=small}
 
 \newbibmacro{aycite}{%
   \defcounter{maxnames}{1}%

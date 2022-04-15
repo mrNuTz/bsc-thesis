@@ -57,7 +57,7 @@ LATER:
     number of sections
   include
     reference the commit id when including results
-    on big table of separations
+    one big table of separations
     some scatters to trust separations
     one cluster
     one pair of source codes

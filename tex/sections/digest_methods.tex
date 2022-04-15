@@ -21,9 +21,10 @@ Context Triggered Piecewise Hashes follow the steps:
 \end{ol}
 
 \subsection{ppdeep}
-To make modifications easy I used a version of ssdeep implemented in pure python \kcite{ppdeep}. The score calculation differs from the original implementation, but scatter plots showed insignificant impact for the purposes of this work.
+To make modifications easy I used a version of ssdeep implemented in pure python \kcite{ppdeep}. The score calculation differs from the original implementation, but scatter plots \figref{fig:ssppScat} showed insignificant impact for the purposes of this work.
 
-The following modifications where made:
+\subsection{ppdeep\_mod}
+The following modifications where made to \n{ppdeep}:
 \begin{ul}
   \item Remove sequence-stripping. It made many hashes incomparable because of long strips of 'K' chunk-hashes.
   \item Remove rounding in the score calculation to differentiate between exact match and close match as well as incomparable and minor similarity.
@@ -52,7 +53,7 @@ def hash(code: bytes) -> str:
   chunks = code.split(jumpi)
   return ''.join(h(chunk) for chunk in chunks)
 \end{lstlisting}
-The Unicode character \code{°=chr(0xb0)} was chosen as \code{0} chunk hash because it is followed by 255 valid characters.
+The Unicode character \code{°=chr(0xb0)} was chosen as \code{0} chunk-hash because it is followed by 255 valid characters.
 
 \subsection{Bytebag - Opcode Frequency}
 As lower reference bound for more complex similarity detection I implemented the following measure:
