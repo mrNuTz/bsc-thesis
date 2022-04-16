@@ -6,8 +6,17 @@ DONE:
   reference framework and test-set repos
   Q: wallet types: how where the types assigned? what do they mean? does same type mean same sol code?
   ref pyLZJD paper
+  use roman numerals for sections
+  test spec
+  flow and order
+  ref sections in test spec
+  similarity measures
 FIRST:
+  test spec methods: mention similarity measure used
+  similarity: mention with what digests they are used
+  wallets i only used codes with unique skeletons
 TODO:
+  mention another fuzzy hashing paper in the introduction
 LATER:
   in order to show
     wallets solcOption and smallGroupByAbi have same results

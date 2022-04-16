@@ -6,25 +6,40 @@ Because my intuition was wrong a quantitative method for determining significant
 Idea: Find bytes that change more between groups than in groups between codes i.e. bytes with higher between group variance than in group variance. → f-statistic ANOVA
 
 \headline{Data}
-An older version of the \kcite{solc-versions-testset} was used.\\
-(commit: \texttt{ec2b5c957c96a107926d64f469264be043c97d3b})
+I used the \kcite{solc-versions-testset}, because codes from the same group behave identically except for gas cost, runtime and storage of intermediate results.
 
 \headline{Method}
 Calculate and f-statistic value for every byte value from 0 to 255, where codes complied from the same source with different solc-versions and -options form the groups.
 
 \headline{Results}
-\texttt{ethereum-contract-similarity/runs/byteDistribution/out/f-stat-by-byte.csv}\\
-commit \texttt{51864956b37231e27effcdc1dc17e842eee2078d}
+See \figref{tbl:solcFstat}, online at \footnote{\url{https://github.com/mrNuTz/ethereum-contract-similarity/runs/byteDistribution/out/f-stat-by-byte.csv}}.
+
+\begin{table}[ht!]
+  \centering
+  \scriptsize %\ttfamily %\bfseries
+  \nprounddigits{0}
+  \csvreader[
+    tabular=lrlrrrrr,
+    respect all,
+    filter ifthen={\not \equal{MISSING}{\op} \and \pdfmatch{(inf|nan)}{\csvcolviii}=1 \or \thecsvrow < 40 \or \pdfmatch{^(RETURN|JUMPDEST|ADD|DUP1|EQ|PUSH4)/}{\op /}=1},
+    table head=op & dec & hex & min & max & mean & sd & f-stat\\\hline,
+    head to column names]{
+    "../../ethereum-contract-similarity/runs/byteDistribution/out/solcOptions f-stat-by-byte.csv"
+  }{}{\op & \dec & \hex & \min & \max & \mean & \sd & \csvcolviii }
+  \parbox{5em}{~}
+  \caption{fStat values with \n{\solcts}}
+  \label{tbl:solcFstat}
+\end{table}
 
 \headline{Observations}
-\code{RETURN} has the lowest score of 1.3 confirming the interpretation of the clustering test-run.
+\code{RETURN} has the lowest score of 2.5 confirming the interpretation of the clustering test-run.
 
-\code{JUMPI} has a very high score of 489.5 despite its high prevalence of on average 207.5 per contract. It has the 20th highest f-statistic and ist the 13th most prevalent. It also has the sixth highest minimum of 32 occurrences in one contract. Opcodes scoring higher are much less frequent at a max mean of 24.1. In oder of f-statistic \code{ADD} is the next op-code with higher prevalence at rank 38 (f-stat 171.9, mean count 408.9).
+\code{JUMPI} has a very high score of 845.3 despite its high prevalence of on average 192.8 per contract. It has the 16th highest f-statistic and ist the 11th most prevalent. It also has the 6th highest minimum of 32 occurrences in one contract. Opcodes scoring higher are much less frequent at a max mean of 46. In oder of f-statistic \code{ADD} is the next op-code with higher prevalence at rank 28 (f-stat 350.8, mean count 346.1).
 
-\code{ISZERO} looks surprisingly significant at a f-statistic of 489.5 and a mean count of 207.5
+\code{ISZERO} looks surprisingly significant at a f-statistic of 434.1 and a mean count of 148.1.
 
 \headline{Interpretation}
-In this dataset the \code{ABI} encodings where mostly consistent within groups and they contain a high number of \code{JUMPI} ops, but the \code{ABI} section also contains an equal number of \code{PUSH4}, \code{DUP1} and \code{EQ}, which have lower f-stat values of 224.6, 57.6 and 73.5. And the rest of the code does also contain a high number of \code{JUMPI}.
+In this dataset the \code{ABI} encodings where mostly consistent within groups and they contain a high number of \code{JUMPI} ops, but the \code{ABI} section also contains an equal number of \code{PUSH4}, \code{DUP1} and \code{EQ}, which have lower f-stat values of 442.0, 101.7 and 240.4. And the rest of the code does also contain a high number of \code{JUMPI}.
 
 The \code{ISZERO} opcodes are related to \code{JUMPI} since conditional jumps of often implemented by combining these two operations. \code{ISZERO} might be more relevant since it is not used in the \code{ABI} section.
 

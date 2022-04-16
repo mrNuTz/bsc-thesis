@@ -1,31 +1,17 @@
 \documentclass[]{article}
 
 \usepackage{geometry}
-\usepackage{multicol}
-\usepackage{changepage}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[final]{microtype}
 \usepackage[english]{babel}
 \usepackage{csquotes} % used by bibliography
 \usepackage[style=numeric,labeldateparts,block=ragged]{biblatex}
-\usepackage{listings}
-\usepackage{parskip}
-\usepackage{graphicx}
-\usepackage{subfiles}
-\usepackage{csvsimple}
-\usepackage{enumitem}
-%\usepackage{notocondensed}
+\usepackage{listings,parskip,graphicx,subfiles,csvsimple,enumitem}
 %\usepackage[sfdefault]{noto-sans}
 \usepackage[sfdefault]{notomath}
 \usepackage[scaled=0.93,semibold]{sourcecodepro}
-\usepackage{xcolor}
-\usepackage{titlesec}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{pgf}
-\usepackage{numprint}
-\usepackage{environ}
+\usepackage{xcolor,titlesec,caption,subcaption,pgf,numprint,environ,xurl,ifthen}
 
 \geometry{
  a4paper,
@@ -58,6 +44,7 @@
 %\newcommand{\tblrefp}[1]{\mbox{[\tablename ~\ref{tbl:#1}, \pagename ~\pageref{tbl:#1}]}}
 %\newcommand{\tbl}[1]{\tablename ~\ref{tbl:#1}}
 %\newcommand{\tblp}[1]{\tablename ~\ref{tbl:#1} on \pagename ~\pageref{tbl:#1}}
+\newcommand{\secref}[1]{\mbox{(\ref{#1})}}
 
 \newcommand{\headline}[1]{\subsubsection*{#1}}
 \NewEnviron{hyp}{%
@@ -84,6 +71,9 @@
     \centering\scriptsize ~~ #7\\ ~~ #3 #4 vs. #5 #6\\
     \includegraphics[clip,trim={20 25 50 58},width=\linewidth]{../../ethereum-contract-similarity/runs/#1/out/#2 scatter #3 #4 #5 #6.png}}}
 
+\renewcommand{\thesection}{\arabic{section}.}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\alph{subsubsection}}
 \titlespacing*{\subsubsection}{0em}{1.1em}{.1em}
 \captionsetup{font=small}
 
@@ -162,10 +152,8 @@
 \end{center}
 %\end{titlepage}
 
-%\begin{adjustwidth}{1cm}{2cm}
 \section{Abstract}
 \subfile{sections/abstract.tex}
-%\end{adjustwidth}
 
 %\tableofcontents
 
@@ -177,29 +165,22 @@
 \section{Introduction}
 \subfile{sections/introduction.tex}
 
-\section{Methods Overview}
-\subfile{sections/methods.tex}
-
 \section{Pre-Processing}
 \subfile{sections/pre_processing.tex}
-
-\section{Similarity Measures}
-
-Jaccard Index, Levenshtein similarity, NCD
-
-\section{Data sets}
-\subfile{sections/data_sets.tex}
-
-\section{Evaluation Framework}
-\subfile{sections/evaluation_framework.tex}
 
 \section{Digest Methods}
 \subfile{sections/digest_methods.tex}
 
-\section{Results}
-\subsection{Test Specification}
+\section{Similarity Measures}
+\subfile{sections/similarity.tex}
+
+\section{Data sets}
+\subfile{sections/data_sets.tex}
+
+\section{Test Specification}
 \subfile{sections/test_spec.tex}
 
+\section{Results}
 \subsection{Run: solc versions clustered with bytebag}
 \subfile{sections/run_solc_cluster.tex}
 

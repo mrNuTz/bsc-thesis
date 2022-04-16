@@ -3,15 +3,16 @@
 
 There are various ways of classifying smart contracts, they fall into the two main categories of
 static analysis and dynamic analysis.
-Dynamic analysis is concerned with transactions, messages, contract creation and in general temporal associations between accounts.
-Static analysis is concerned with static data stored on the EVM.
+Dynamic analysis is concerned with observed runtime behavior, e.g. transactions, messages, contract creation and other temporal associations between accounts.
+Static analysis is concerned with static properties of the data stored on the EVM.
 
-This work is focused on one type of static data, the runtime code (a.k.a. deployed code) of smart contracts stored on the EVM, which needs to be distinguished from the deployment code used to generate to runtime code.
-To find associations between runtime codes one can exacts match code skeletons and extract the fourbyte signatures of there interface functions, explained in detail in the Section "5.2 Static Analysis" of the paper \aycite{angelo2020characterizing} and quickly contextualized in later sections.
+This work is focused on one type of static data, the runtime code (a.k.a. deployed code) of smart contracts stored on the EVM, which needs to be distinguished from the deployment code used to generate the runtime code.
+To find associations between runtime codes one can exacts match code skeletons \secref{sec:skel} and extract the fourbyte signatures \secref{sec:fourbyte} of there interface functions, explained in detail in the Section "5.2 Static Analysis" of the paper \aycite{angelo2020characterizing} and quickly contextualized in later sections.
 
-Exact matching skeletons is specific but not sensitive and interface similarity is sensitive but not specific, other methods are desired to fill the gap. For this purpose I looked at the landscape of fuzzy hashing functions.
+Exact matching skeletons is specific but not sensitive and interface similarity is sensitive but not specific\textemdash{}other methods are desired to fill the gap. For this purpose I looked at the landscape of fuzzy hashing functions.
 
 Related fields are identification of malicious executables, email/comment spam detection, typing auto correction, fuzzy text search, DNA distance metrics and finding video/audio copies and edits.
 
+To obtain similarity scores I preprocessed codes, calculated digests (hashes) and compared those digest via similarity measures.
 %\aycite{gayoso2014state} describes four categories of binary hashing methods.
 \end{document}

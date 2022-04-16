@@ -1,54 +1,11 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\headline{Violin Plots}
-Unless otherwise specified the violin plots \figref{fig:violins} in this work all adhere to the following specification.
+\subsection{Evaluation Framework}
+To compare the similarity measures and evaluate there efficacy a package including test-sets,
+similarity-measures, python utils for exploration and evaluate was created (\kcite{ethereum-contract-similarity}).
 
-\begin{figure}[ht!]
-  \centering
-  \incViolin{wallets}{all}{raw}{lzjd}{wallets}%
-  \incViolin{wallets}{all}{fStat0}{jump}{wallets}%
-  \incViolin{wallets}{all}{fstSecSkel}{bz}{wallets}%
-
-  \caption{violin plots}
-  \label{fig:violins}
-\end{figure}
-
-\begin{itemize}
-  \item They show the similarity-sores of all possible code-pairs by on measure.
-  \item The measure (e.g. lzjd) and the pre-processing (e.g. fStat0) is specified in the title.
-  \item The pairs are partitioned into "same" (top violin) and "cross" (bottom violin).
-  \item "same" contains all pairs where the two codes are from the same group.
-  \item "cross" contains all pairs where the two codes are from different groups.
-  \item The x-axis is the similarity-score \(\in\) [0,1].
-  \item The box plots show the first, second and third quartile; the whiskers have a length of 1.5 times the inter-quartile-range.
-\end{itemize}
-
-\headline{Histograms}
-Unless otherwise specified the histograms \figref{fig:histograms} in this work all adhere to the following specification.
-
-\begin{figure}[ht!]
-  \centering
-  \incHist{wallets}{all}{raw}{lzjd}{wallets}%
-  \incHist{wallets}{all}{fStat0}{jump}{wallets}%
-  \incHist{wallets}{all}{fstSecSkel}{bz}{wallets}%
-
-  \caption{histograms}
-  \label{fig:histograms}
-\end{figure}
-
-\begin{itemize}
-  \item They show the similarity-sores of all possible code-pairs by on measure.
-  \item The measure (e.g. lzjd) and the pre-processing (e.g. fStat0) is specified in the title.
-  \item The pairs are partitioned into "cross group" and "same group".
-  \item "cross group" contains all pairs where the two codes are from different groups.
-  \item "same group" contains all pairs where the two codes are from the same group.
-  \item The x-axis is the similarity-score \(\in\) [0,1].
-  \item The y-axis is the density, i.e. the sum of the ten buckets is always ten.
-  \item The "same group" and "cross group" series are plotted separately, i.e. all ten buckets add up to ten for both series separately.
-\end{itemize}
-
-\headline{Pre-Processing}
+\subsection{Pre-Processing}
 I tested with the following pre-processing settings.
 
 \begin{desc}
@@ -56,11 +13,41 @@ I tested with the following pre-processing settings.
   \item[fstSec or firstSection] The first code section.
   \item[skel or skeleton] The skeleton of the whole code.
   \item[fstSecSkel] The skeleton of the fist code section.
-  \item[fStat] fstSecSkel filtered for the opcodes in the \code{fStat} filter by cutting the others out.
-  \item[fStat0] fStat but instead of cutting out the other opcodes are set to zero.
-  \item[fStatV2] fStat with a few opcodes removed.
-  \item[fStat0V2] fStat0 with a few opcodes removed.
+  \item[fStat] \n{fstSecSkel} filtered for the opcodes in the \n{fStat} filter by cutting the others out.
+  \item[fStat0] \n{fStat} but instead of cutting out the other opcodes are set to zero.
+  \item[fStatV2] \n{fStat} with a few opcodes removed.
+  \item[fStat0V2] \n{fStat0} with a few opcodes removed.
 \end{desc}
+
+\subsection{Digest and Similarity Methods}
+The following methods where used to obtain digests from codes for quick comparison via the similarity measures.
+
+\begin{desc}
+  \item[fourbytes]
+  Extraction of the set of fourbyte signatures used to identify the interface functions \secref{sec:fourbyte}.
+  \item[ssdeep]
+  A Context Triggered Piecewise Hashing (CTPH) Function \secref{sec:ssdeep}.
+  \item[ppdeep]
+  Slightly different implementation of ssdeep in pure python \secref{sec:ppdeep}.
+  \item[ppdeep\_mod]
+  Modified version of ppdeep \secref{sec:ppdeep_mod}.
+  \item[jump]
+  \n{jumpHash} : A piecewise hash splitting by the \code{JUMPI} instruction opcode \code{0x57} \secref{sec:jump}.
+  \item[bytebag]
+  Counting all opcodes in the code to form a multiset or bag of byte-values, a bytebag \secref{sec:bytebag}.
+  \item[lzjd]
+  LZJD - Lempel-Ziv Jaccard Distance : Generates a compression dictionary \secref{sec:lzjd}.
+  \item[bz]
+  \n{bzHash} : Also splits by \code{JUMPI} and calculate a compression-ratio for each piece \secref{sec:bz}.
+  \item[lev]
+  Levenshtein edit distance on the whole code. Only used with very small codes (e.g. \n{proxies}) \secref{sec:lev}.
+  \item[ncd]
+  NCD is a measure for how well two files co-compress. The more features two files have in common the shorter the result when compressing the concatenation of the two files \secref{sec:ncd}.
+  \item[size]
+  Just the length of the code in bytes \secref{sec:size}.
+\end{desc}
+
+\subsection{Performance Measures}
 
 \headline{Separation}
 To quickly evaluate how well the methods distinguish between code-pairs with both codes from the same group and pairs of codes from different groups the \code{separation} was defined.
@@ -78,5 +65,54 @@ $Q_2^x$ \dots Median of $x$.
   qDist(x,y) = \dfrac{Q_2^x - Q_2^y}{Q_2^x - Q_1^x + Q_3^y - Q_2^y}
   \label{eq:qDist}
 \end{equation}
+
+\subsection{Plots}
+
+\headline{Violin Plots}
+Unless otherwise specified the violin plots \figref{fig:violins} in this work all adhere to the following specification.
+
+\begin{figure}[ht!]
+  \centering
+  \incViolin{wallets}{all}{raw}{lzjd}{wallets}%
+  \incViolin{wallets}{all}{fStat0}{jump}{wallets}%
+  \incViolin{wallets}{all}{fstSecSkel}{bz}{wallets}%
+
+  \caption{violin plots}
+  \label{fig:violins}
+\end{figure}
+
+\begin{ul}
+  \item They show the similarity-sores of all possible code-pairs by on measure.
+  \item The measure (e.g. lzjd) and the pre-processing (e.g. fStat0) is specified in the title.
+  \item The pairs are partitioned into "same" (top violin) and "cross" (bottom violin).
+  \item "same" contains all pairs where the two codes are from the same group.
+  \item "cross" contains all pairs where the two codes are from different groups.
+  \item The x-axis is the similarity-score \(\in\) [0,1].
+  \item The box plots show the first, second and third quartile; the whiskers have a length of 1.5 times the inter-quartile-range.
+\end{ul}
+
+\headline{Histograms}
+Unless otherwise specified the histograms \figref{fig:histograms} in this work all adhere to the following specification.
+
+\begin{figure}[ht!]
+  \centering
+  \incHist{wallets}{all}{raw}{lzjd}{wallets}%
+  \incHist{wallets}{all}{fStat0}{jump}{wallets}%
+  \incHist{wallets}{all}{fstSecSkel}{bz}{wallets}%
+
+  \caption{histograms}
+  \label{fig:histograms}
+\end{figure}
+
+\begin{ul}
+  \item They show the similarity-sores of all possible code-pairs by on measure.
+  \item The measure (e.g. lzjd) and the pre-processing (e.g. fStat0) is specified in the title.
+  \item The pairs are partitioned into "cross group" and "same group".
+  \item "cross group" contains all pairs where the two codes are from different groups.
+  \item "same group" contains all pairs where the two codes are from the same group.
+  \item The x-axis is the similarity-score \(\in\) [0,1].
+  \item The y-axis is the density, i.e. the sum of the ten buckets is always ten.
+  \item The "same group" and "cross group" series are plotted separately, i.e. all ten buckets add up to ten for both series separately.
+\end{ul}
 
 \end{document}

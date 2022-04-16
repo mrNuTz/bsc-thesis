@@ -10,21 +10,18 @@
   \item[Ethereum account] Accounts are uniquely identified by there 20 byte address, have an Ether balance and can execute transactions.
   \item[Ether] Currency used to pay for the execution of transactions.
   \item[Smart Contract] An Ethereum account with associated runnable code and data stored on the EVM. Can refer to just the runtime code or the source code or the semantics of the contract interface.
-  \item[Contract interface] Smart Contract have a Set of contract functions callable by other accounts via message or transaction.
+  \item[Contract interface] Smart Contracts have a set of contract functions callable by other accounts via message or transaction.
   \item[Contract function] Can change account data and Ether balances and call functions of the same of other contracts via messages.
   \item[Meassage] Smart contracts can call other contracts functions via messages. Unlike transactions and logs, these messages are not stored on the blockchain.
   \item[Logs] Smart contracts can create logs, which are stored on the blockchain and can therefore easily be observed and referenced. Decentralized applications are implemented using logs.
   \item[Runtime code] The runnable code stored on the EVM as a sequence of opcodes. Used synonymously with code or bytecode.
   \item[Deployment code] Runs once and stores the runtime code.
   \item[Opcode] An EVM instruction encoded as one byte.
-  \item[Levenshtein distance] Also called edit distance. The minimum number of inserts, deletions and substitutions necessary to change one string into the other.
-  \item[Levenshtein similarity] \( similarity(a, b) = 1 - distance(a, b) / max\{|a|, |b|\} \in [0,1] \). \label{lev_sim}
-  \item[Jaccard-Index] \(J(A,B) = |A \cap B| / |A \cup B| \in [0,1]\)
   \item[ABI] Standard encoding of the Contract interface.
   \item[Function signature] String containing function name and parameters types.\\E.g.: \code{deposit(uint256,address)}
   \item[Fourbyte signature] Function signature hashed to a 4-byte value.
   \item[solc] Standard Solidity compiler.
-  \item[Solidity] Most common and original smart contract language.
+  \item[Solidity] Most commonly used programming language for writing ethereum smart contracts.
 \end{description}
 
 \end{document}
