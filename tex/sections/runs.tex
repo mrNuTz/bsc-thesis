@@ -81,6 +81,10 @@
 \begin{res}
   \n{ppdeep\_mod} without sequence striping performs better than \n{ssdeep} and \n{ppdeep}.
 \end{res}
+\begin{res}
+  \n{Levenshtein} works better than \n{Jaccard} on \n{ssdeep} hashes, because \n{Jaccard} reduces the 'K' sequences to one entry.
+\end{res}
+
 
 \begin{figure}[ht!]
   \centering
@@ -114,26 +118,22 @@
 
 \subsection{solc}
 \begin{obs}
+  Fourbyte signatures in the jump table at the beginning of all codes are sorted and the functions jumped to are sorted as well.
+\end{obs}
+\begin{obs}
   Optimization removes \code{JUMPDEST} opcodes.
 \end{obs}
 \begin{obs}
   Enabling optimization when compiling with \n{solc} causes bigger changes to the codes than switching \n{solc} version.
 \end{obs}
 \begin{obs}
-  ABI v2 moves the majority of the interface code from the start to the end of the code compared to v1. \todo{I'm not sure anymore if this is true}
-\end{obs}
-\begin{obs}
   Optimization changes the how the ABI jump table is realized, solely causing significant changes for domain independent similarity measures.
-\end{obs}
-\begin{obs}
-  Optimizations with high runs settings lead to a heavy reliance on storage operations, and causes a dramatically increase in overall code length. \todo{I'm not sure anymore if this is true}
 \end{obs}
 \begin{obs}
   Version changes are comparably smaller, but the default ABI encoding changed from v1 to v2 with solc version 0.8.0.
 \end{obs}
-
 \begin{res}
-  Levenshtein works better than Jaccard with chunk-hashes, because \n{solc} orders functions by signature in the runtime code.
+  \n{Levenshtein} works better than \n{Jaccard} with chunk-hashes, because \n{solc} orders functions by signature in the runtime code.
 \end{res}
 
 \subsection{jump}

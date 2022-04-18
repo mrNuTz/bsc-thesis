@@ -2,49 +2,59 @@
 \begin{document}
 
 \subsection{Evaluation Framework}
-To compare the similarity measures and evaluate there efficacy a package including test-sets,
-similarity-measures, python utils for exploration and evaluate was created (\kcite{ethereum-contract-similarity}).
+The majority of the effort went into creating an Evaluation Framework\footnote{\urlsm{https://github.com/mrNuTz/ethereum-contract-similarity}} in python \cite{ethereum-contract-similarity}.
+The idea was to allow for quick comparison of different datasets, pre-processors, pre-processing parameters, digests, digest-parameters, similarity-measures and similarity-parameters as well as plotting and statistical exploration of results.
 
 \subsection{Pre-Processing}
 I tested with the following pre-processing settings.
 
 \begin{desc}
   \item[raw] Tho whole code unprocessed.
-  \item[fstSec or firstSection] The first code section.
-  \item[skel or skeleton] The skeleton of the whole code.
+  \item[fstSec or firstSection] The first code section \secref{sec:seg}.
+  \item[skel or skeleton] The skeleton of the whole code \secref{sec:skel}.
   \item[fstSecSkel] The skeleton of the fist code section.
-  \item[fStat] \n{fstSecSkel} filtered for the opcodes in the \n{fStat} filter by cutting the others out.
+  \item[fStat] \n{fstSecSkel} filtered for the opcodes in the \n{fStat} filter by cutting out the other opcodes \secref{sec:fStat}.
   \item[fStat0] \n{fStat} but instead of cutting out the other opcodes are set to zero.
   \item[fStatV2] \n{fStat} with a few opcodes removed.
   \item[fStat0V2] \n{fStat0} with a few opcodes removed.
 \end{desc}
 
 \subsection{Digest and Similarity Methods}
-The following methods where used to obtain digests from codes for quick comparison via the similarity measures.
+The keywords used in the following sections to identify the pairs of digest and similarity method.
 
 \begin{desc}
   \item[fourbytes]
-  Extraction of the set of fourbyte signatures used to identify the interface functions \secref{sec:fourbyte}.
+  Set of fourbyte signatures \secref{sec:fourbyte} scored via Jaccard \secref{sec:jacc}.
   \item[ssdeep]
-  A Context Triggered Piecewise Hashing (CTPH) Function \secref{sec:ssdeep}.
+  \n{ssdeep} hashes compared via ssdeep's custom edit-distance \secref{sec:ssdeep}.
   \item[ppdeep]
-  Slightly different implementation of ssdeep in pure python \secref{sec:ppdeep}.
+  \n{ppdeep} \secref{sec:ppdeep} hashes scored via standard Levenshtein \secref{sec:lev} and ssdeep's scoring logic.
   \item[ppdeep\_mod]
-  Modified version of ppdeep \secref{sec:ppdeep_mod}.
+  \n{ppdeep} with modified scoring logic \secref{sec:ppdeep_mod}.
   \item[jump]
-  \n{jumpHash} : A piecewise hash splitting by the \code{JUMPI} instruction opcode \code{0x57} \secref{sec:jump}.
+  \n{jumpHash} \secref{sec:jump} scored via Levenshtein similarity \secref{sec:lev}.
   \item[bytebag]
-  Counting all opcodes in the code to form a multiset or bag of byte-values, a bytebag \secref{sec:bytebag}.
+  Bags of byte-values \secref{sec:bytebag} scored via Jaccard \secref{sec:jacc}.
   \item[lzjd]
-  LZJD - Lempel-Ziv Jaccard Distance : Generates a compression dictionary \secref{sec:lzjd}.
+  LZ dictionaries compared via Jaccard \secref{sec:lzjd}.
   \item[bz]
-  \n{bzHash} : Also splits by \code{JUMPI} and calculate a compression-ratio for each piece \secref{sec:bz}.
+  \n{bzHash} \secref{sec:bz} with Levenshtein similarity \secref{sec:lev}.
   \item[lev]
-  Levenshtein edit distance on the whole code. Only used with very small codes (e.g. \n{proxies}) \secref{sec:lev}.
+  Levenshtein similarity \secref{sec:lev} on whole codes; only used with the small \n{proxies} codes \secref{sec:proxies}.
   \item[ncd]
-  NCD is a measure for how well two files co-compress. The more features two files have in common the shorter the result when compressing the concatenation of the two files \secref{sec:ncd}.
+  Normalized Compression Distance applied to whole codes \secref{sec:ncd}.
   \item[size]
-  Just the length of the code in bytes \secref{sec:size}.
+  Codes compared via there length only \secref{sec:size}.
+\end{desc}
+
+\subsection{Datasets}
+Specification of the datasets used in the following sections.
+
+\begin{desc}
+  \item[\solcts] See \secref{sec:solcts}.
+  \item[wallets] A subset of the wallets dataset \secref{sec:wallets} including one code per unique skeleton.
+  \item[proxies] A subset of proxies dataset \secref{sec:proxies} including one code per unique skeleton.
+  \item[smallGroupsByAbi] See \secref{sec:abiGroups}.
 \end{desc}
 
 \subsection{Performance Measures}
@@ -55,14 +65,14 @@ It specifies the following ratio.
 When the pairs are ordered by similarity-score, how many same-group pairs are in the upper window of size total number of same-group pairs.
 
 \headline{qDist}
-As a second measure for the clustering-performance I calculated $qDist(s,c)$ defined as follows.
+As a second measure for the clustering-performance I calculated $\n{qDist}(s,c)$ defined as follows.
 
 $s$ \dots Ordered similarity-scores of all code pairs where the codes are from the same group.\\
 $c$ \dots Ordered similarity-scores of all code pairs where the codes are from different groups.\\
-$Q_n^x$ \dots Nth quartile of $x$\\
-$Q_2^x$ \dots Median of $x$.
+$\mathsf{Q}_n(x)$ \dots Nth quartile of the series $x$\\
+$\mathsf{Q}_2(x)$ \dots Median of the series $x$.
 \begin{equation}
-  qDist(x,y) = \dfrac{Q_2^x - Q_2^y}{Q_2^x - Q_1^x + Q_3^y - Q_2^y}
+  \n{qDist}(x,y) = \dfrac{\mathsf{Q}_2(x) - \mathsf{Q}_2(y)}{\mathsf{Q}_2(x) - \mathsf{Q}_1(x) + \mathsf{Q}_3(y) - \mathsf{Q}_2(y)}
   \label{eq:qDist}
 \end{equation}
 
@@ -87,7 +97,7 @@ Unless otherwise specified the violin plots \figref{fig:violins} in this work al
   \item The pairs are partitioned into "same" (top violin) and "cross" (bottom violin).
   \item "same" contains all pairs where the two codes are from the same group.
   \item "cross" contains all pairs where the two codes are from different groups.
-  \item The x-axis is the similarity-score \(\in\) [0,1].
+  \item The x-axis is the similarity-score $\in$ [0,1].
   \item The box plots show the first, second and third quartile; the whiskers have a length of 1.5 times the inter-quartile-range.
 \end{ul}
 
@@ -110,7 +120,7 @@ Unless otherwise specified the histograms \figref{fig:histograms} in this work a
   \item The pairs are partitioned into "cross group" and "same group".
   \item "cross group" contains all pairs where the two codes are from different groups.
   \item "same group" contains all pairs where the two codes are from the same group.
-  \item The x-axis is the similarity-score \(\in\) [0,1].
+  \item The x-axis is the similarity-score $\in$ [0,1].
   \item The y-axis is the density, i.e. the sum of the ten buckets is always ten.
   \item The "same group" and "cross group" series are plotted separately, i.e. all ten buckets add up to ten for both series separately.
 \end{ul}

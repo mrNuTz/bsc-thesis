@@ -11,13 +11,23 @@ DONE:
   flow and order
   ref sections in test spec
   similarity measures
-FIRST:
   test spec methods: mention similarity measure used
   similarity: mention with what digests they are used
   wallets i only used codes with unique skeletons
+  Synthetix diff table
+  conclusion keywords
+  remarks keywords
+  red todo's
+FIRST:
 TODO:
-  mention another fuzzy hashing paper in the introduction
+  conclusion
+  describe O R H C I
+  https://www.ethervm.io/ opcodes
+  https://etherscan.io/bytecode-decompiler?a=0x4a8eae10b7ee97a2c6a6212776f059a25e90e7f4
+  corelation matrix (kendall)
 LATER:
+  mention another fuzzy hashing paper in the introduction
+  example digest for all methods
   in order to show
     wallets solcOption and smallGroupByAbi have same results
     separation number corresponds to scatter impression

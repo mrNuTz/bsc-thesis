@@ -8,10 +8,10 @@ Necessary changes where made to the source code to ensure compatibility with the
 versions.
 
 To test the robustness against compiler version the contracts where compiled with the four solc versions \code{0.5.16}, \code{0.6.12}, \code{0.7.6} and \code{0.8.4}.
-To evaluate the effect of code optimization, the four optimization-options \code{\{enabled:false,runs:200\}}, \code{\{enabled:true,runs:0\}}, \code{\{enabled:true,runs:200\}} and \code{\{enabled:true,runs:999999\}} where applied.
+To evaluate the effect of code optimization, the four optimization-settings \code{\{enabled:false,runs:200\}}, \code{\{enabled:true,runs:0\}}, \code{\{enabled:true,runs:200\}} and \code{\{enabled:true,runs:999999\}} where applied.
 Finally ABI encoders \code{v1} and \code{v2} where used.
 
-13 source-codes x 4 solc-versions x 4 optimization-options x 2 abi-encodings \(\approx\) 264 codes.
+13 source-codes x 4 solc-versions x 4 optimization-settings x 2 abi-encodings $\approx$ 264 codes.
 
 \subsubsection{Optimization}
 The runs setting determines whether the compiler optimizes the code for cheap deployment or cheap execution, i.e. cheap deployment code execution or cheap runtime code execution.
@@ -20,6 +20,7 @@ To determine the relevant optimization options I calculated a statistic \tblref{
 
 \begin{table*}[ht]
   \centering
+  \scriptsize
   \begin{tabular}{lrrr}
     optimization-runs & count  & proportion           & optimization-enabled \\
     \hline
@@ -35,17 +36,17 @@ To determine the relevant optimization options I calculated a statistic \tblref{
   \label{tbl:opti_stat}
 \end{table*}
 
-\subsection{Wallets}
+\subsection{Wallets \label{sec:wallets}}
 Extensive set of wallet contract codes, classified into 40 blueprints via various automated and manual means described in \aycite{di2020wallet}.
 
 This dataset is interesting because it's large, the types are human verified and quite different from each other.
 
-\subsection{Proxies}
+\subsection{Proxies \label{sec:proxies}}
 Individual wallets are often implemented via proxy where base functionality is implemented in a blueprint contract, that is called by the proxy. This dataset consists of proxies for the wallets in the wallet dataset.
 
 This dataset is interesting because the codes are extremely short, meaning half the code is data and arguments.
 
-\subsection{Small Groups with the same Name and ABI}
+\subsection{Small Groups with the same Name and Fourbyte Signatures \label{sec:abiGroups}}
 A sample of contracts with verified source available on etherscan.io, grouped by same name and ABI signatures. The dataset is comprised of 89 groups. The groups contain 5 to 10 contracts with the same ABI interface and the same name. The groups have distinct ABI interfaces and distinct names.
 In total there are 541 codes with distinct skeletons and between 15 to 25 interface functions.
 

@@ -24,7 +24,7 @@ Similarity for all code pairs was calculated via Jaccard Index on the bytebags o
 \headline{Clustering}
 The clustering \figref{fig:solc_bytebag_cluster} was done in Gephi (0.9.2) with the settings \figref{fig:solc_bytebag_cluster_settings}.
 Nodes with the same color have the same source code.
-The graph is fully connected and the edge weights are determined by the similarity scores of the pairs.
+The graph is fully connected and the edge weights are determined by the similarity scores of the pairs (\n{byteBag-significantOnly} column in the csv\footnote{\urlsm{https://github.com/mrNuTz/ethereum-contract-similarity/blob/e18e6b01df1efbd3bc4969d9ad999ce1125f3649/runs/byteFiltersOnSolcVersions/out/comparisons_all.csv}}).
 
 \begin{figure}[ht!]
   \begin{subfigure}[c]{.6\linewidth}
@@ -37,12 +37,13 @@ The graph is fully connected and the edge weights are determined by the similari
     \caption{Gephi settings}
     \label{fig:solc_bytebag_cluster_settings}
   \end{subfigure}
-  \caption{bytebag solc-versions-testset}
+  \caption{Clustering of \n{\solcts} with \n{bytebag}}
 \end{figure}
 
 \headline{Observation}
 The clustering algo formed cohesive clusters, mostly due to the fact that the dataset is small and the contracts differ significantly in size alone.
-Nonetheless, noticeable is that the Synthetix codes without optimization from all 4 solc versions form a cluster separate from the other Synthetix codes \figref{fig:CollateralManagerState}. The no optimization variants in the CollateralManagerState cluster also group tightly \figref{fig:CollateralManagerState}.
+Nonetheless, noticeable is that the Synthetix codes without optimization from all 4 solc versions form a cluster separate from the other Synthetix codes \figref{fig:Synthetix}. The no optimization variants in the CollateralManagerState cluster also group tightly \figref{fig:CollateralManagerState}.
+UniswapV2Router02 changes significantly form solc 0.7.6 to 0.8.4, one reason ist the ABI default changed from v1 to v2, 0.8.4 also has a big table of PUSH and JUMP operations at the end not present in 0.7.6.
 
 \begin{figure}[ht!]
   \begin{subfigure}[b]{0.5 \linewidth}
@@ -59,28 +60,25 @@ Nonetheless, noticeable is that the Synthetix codes without optimization from al
 \end{figure}
 
 \headline{Analysis}
-When comparing the frequency of the opcodes in \code{Synthetix - no 0.8.4.hex} and\\
-\code{Synthetix - 999999 0.8.4.hex} these 7 op-codes show the highest change \tblref{tbl:opt_diff}.
+To further investigate the Synthetix observation I calculated the difference of the opcode frequencies between \n{Synthetix - no 0.8.4.hex} and {Synthetix - 999999 0.8.4.hex} \tblref{tbl:opt_diff}.
 
 \begin{table}[ht!]
   \centering
+  \scriptsize
   \csvreader[
-    tabular=rrlrrr,
-    table head= dec & hex & op-code & no 0.8.4 & 999999 0.8.4 & diff\\\hline,
-    head to column names]{csv/opt_diff.csv}{}{%
-      \csvcoli & \texttt{\csvcolii} & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi}
-  \caption{optimization differences}
+    tabular=rllrrrr,
+    table head = dec & hex & opcode & o0 & runs999999 & diff & relDiff \\\hline,
+    head to column names
+  ]{
+    "../../solc-version-testset/runs/synthetixOptimization/out/opDiff_o0_runs999999.csv"
+  }{}{\dec & \hex & \opcode & \csvcoliv & \csvcolv & \diff & \relDiff~\%}
+  \caption{Synthetix optimization differences}
   \label{tbl:opt_diff}
 \end{table}
 
-\code{54 0x36 CALLDATASIZE} is the most consistent across solc versions and optimization settings.
+\headline{Conclustion}
+Many of the opcodes, I thought significant, show hight changes in frequency when optimization is applied, especially the \code{RETURN} opcode should not be included in the filter, since optimization drastically reduces its prevalence from 45 to 1.
 
-\code{59 0x3B EXTCODESIZE} is also very consistent.
-
-\code{90 0x5A GAS} has a high absolute difference between the Synthetix contracts but it has higher differences across contracts.
-
-\headline{Interpretation}
-Many of the opcodes, I thought significant show hight changes in frequency when optimization is applied, especially the \code{RETURN} opcode should not be included in the filter, since optimization drastically reduces its prevalence from 45 to 1.
-Manually analysis of the assemblies showed that optimization options change the codes more than solc version changes.
+It seams optimization options change the codes more than solc version changes.
 
 \end{document}

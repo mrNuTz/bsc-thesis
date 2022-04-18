@@ -8,23 +8,19 @@
 \usepackage{csquotes} % used by bibliography
 \usepackage[style=numeric,labeldateparts,block=ragged]{biblatex}
 \usepackage{listings,parskip,graphicx,subfiles,csvsimple,enumitem}
-%\usepackage[sfdefault]{noto-sans}
 \usepackage[sfdefault]{notomath}
 \usepackage[scaled=0.93,semibold]{sourcecodepro}
 \usepackage{xcolor,titlesec,caption,subcaption,pgf,numprint,environ,xurl,ifthen}
 
-\geometry{
- a4paper,
- total={150mm,255mm},
- left=30mm,
- top=20mm,
-}
+\geometry{ a4paper, total={150mm,255mm}, left=30mm, top=20mm }
 \addbibresource{../ref.bib}
 \graphicspath{ {./images/} }
 
+% keywords
 \newcommand{\solcts}{solc-versions-testset}
 
 % commands
+\newcommand{\urlsm}[1]{\scriptsize\bfseries\url{#1}}
 \newcommand{\n}[1]{\mbox{\textit{#1}}}
 \newcommand{\code}[1]{\mbox{\texttt{#1}}}
 \newcommand{\todo}[1]{\texttt{\textbf{\color{red}TODO: #1}}}
@@ -44,7 +40,7 @@
 %\newcommand{\tblrefp}[1]{\mbox{[\tablename ~\ref{tbl:#1}, \pagename ~\pageref{tbl:#1}]}}
 %\newcommand{\tbl}[1]{\tablename ~\ref{tbl:#1}}
 %\newcommand{\tblp}[1]{\tablename ~\ref{tbl:#1} on \pagename ~\pageref{tbl:#1}}
-\newcommand{\secref}[1]{\mbox{(\ref{#1})}}
+\newcommand{\secref}[1]{\mbox{[Sec. \ref{#1}]}}
 
 \newcommand{\headline}[1]{\subsubsection*{#1}}
 \NewEnviron{hyp}{%
@@ -56,7 +52,7 @@
 \NewEnviron{res}{%
   \parbox{.045\linewidth}{$\boldsymbol{\mathcal{R}}$}\parbox{.95\linewidth}{\BODY}\par}
 \NewEnviron{inter}{%
-  \parbox{.045\linewidth}{$\boldsymbol{\mathcal{R}}$}\parbox{.95\linewidth}{\BODY}\par}
+  \parbox{.045\linewidth}{$\boldsymbol{\mathcal{I}}$}\parbox{.95\linewidth}{\BODY}\par}
 
 \newcommand{\incHist}[5]{%
   \parbox{.25\linewidth}{%
@@ -93,7 +89,6 @@
   {\multicitedelim}
   {\usebibmacro{postnote}}
 
-% envs
 \setlist[itemize]{leftmargin=1.6em}
 \setlist[enumerate]{leftmargin=2.2em}
 
@@ -142,15 +137,14 @@
 \title{Fuzzy Hashing Ethereum Smart Contracts}
 \author{Bachelor's Thesis in Software and Information Engineering}
 \date{\today}
+
 \begin{document}
-%\begin{titlepage}
 \maketitle
 \begin{center}
   Author: Raphael Nußbaumer - 01526647 - nussi.rn@gmx.at
 
   Advisor: Ao.Univ.Prof. Dipl.-Ing. Dr.techn. Gernot Salzer
 \end{center}
-%\end{titlepage}
 
 \section{Abstract}
 \subfile{sections/abstract.tex}
@@ -158,9 +152,7 @@
 %\tableofcontents
 
 \section{Terms}
-%\begin{multicols}{1}
 \subfile{sections/definitions.tex}
-%\end{multicols}
 
 \section{Introduction}
 \subfile{sections/introduction.tex}
@@ -181,10 +173,10 @@
 \subfile{sections/test_spec.tex}
 
 \section{Results}
-\subsection{Run: solc versions clustered with bytebag}
+\subsection{Testrun: Solc Versions Clustered with Bytebag}
 \subfile{sections/run_solc_cluster.tex}
 
-\subsection{Run: Determine significant opcodes}
+\subsection{Testrun: Determine Significant Opcodes \label{sec:runOpcodes}}
 \subfile{sections/run_significant_opcodes.tex}
 
 \subfile{sections/runs.tex}
