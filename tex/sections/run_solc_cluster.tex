@@ -60,7 +60,12 @@ UniswapV2Router02 changes significantly form solc 0.7.6 to 0.8.4, one reason ist
 \end{figure}
 
 \headline{Analysis}
-To further investigate the Synthetix observation I calculated the difference of the opcode frequencies between \n{Synthetix - no 0.8.4.hex} and {Synthetix - 999999 0.8.4.hex} \tblref{tbl:opt_diff}.
+To further investigate the Synthetix observation I calculated the difference of the opcode frequencies between \n{Synthetix - no 0.8.4.hex} and \n{Synthetix - 999999 0.8.4.hex} \tblref{tbl:opt_diff}\footnote{\urlsm{https://github.com/mrNuTz/solc-version-testset/blob/2f431ed8b4bc3be498913bf224ac7991f0658b5d/runs/synthetixOptimization/index.mjs}}. The column \n{o0} lists the count of opcodes in \n{Synthetix - no 0.8.4.hex}, column \n{runs999999} the counts in \n{Synthetix - 999999 0.8.4.hex}, \n{diff} is the differences \n{runs999999} minus \n{o0} and \n{relDiff} is defined via \eqref{eq:relDiff}.
+
+\begin{equation}
+  \n{relDiff}(\n{o0},\n{runs999999}) = \dfrac{\n{runs999999} - \n{o0}}{\max\{\n{o0}, \n{runs999999}\}} \in [-1,1]
+  \label{eq:relDiff}
+\end{equation}
 
 \begin{table}[ht!]
   \centering

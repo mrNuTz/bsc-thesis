@@ -67,6 +67,32 @@
     \centering\scriptsize ~~ #7\\ ~~ #3 #4 vs. #5 #6\\
     \includegraphics[clip,trim={20 25 50 58},width=\linewidth]{../../ethereum-contract-similarity/runs/#1/out/#2 scatter #3 #4 #5 #6.png}}}
 
+\NewEnviron{sepTbl}[3]{
+  \begin{table}[ht!]
+    \centering
+    \scriptsize %\ttfamily %\bfseries
+    \nprounddigits{0}
+    \csvreader[
+      tabular=rlr,no head,
+      respect all,
+      filter ifthen={#3},
+      table head= & Preprocess and Hash & qDist\\\hline,
+      head to column names]{
+      "../../ethereum-contract-similarity/runs/#1/out/#2 qDists.csv"
+    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+    \parbox{5em}{~}
+    \csvreader[
+      tabular=rlr,no head,
+      respect all,
+      filter ifthen={#3},
+      table head= & Preprocess and Hash & Separation\\\hline,
+      head to column names]{
+      "../../ethereum-contract-similarity/runs/#1/out/#2 separations.csv"
+    }{}{\thecsvrow & \csvcoli & \pgfmathparse{100*\csvcolii}\numprint[\%]{\pgfmathresult}}
+    \BODY
+  \end{table}
+}
+
 \renewcommand{\thesection}{\arabic{section}.}
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
 \renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\alph{subsubsection}}
@@ -169,7 +195,7 @@
 \section{Data sets}
 \subfile{sections/data_sets.tex}
 
-\section{Test Specification}
+\section{Results Specification}
 \subfile{sections/test_spec.tex}
 
 \section{Results}

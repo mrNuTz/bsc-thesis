@@ -17,24 +17,79 @@ DONE:
   Synthetix diff table
   conclusion keywords
   remarks keywords
+  include
+    reference the commit id when including results
+    one big table of separations
+    some scatters to trust separations
+    one cluster
+  K hashes
   red todo's
+  abi moved from front to back
+  results
+    filtering does not improve lzjd and ncd
+  spec
+    describe O R H C I
+  jumpi is sufficient for block splitting
+    optimization changes block splitting
+      JUMP 0x56, RETURN 0xF3, STOP 0x00, REVERT 0xFD followed by JUMPDEST 0x5B
+      (\x56|\xF3|\x00|\xFD)\\x5B#
+  JUMPI jump is better than context trigger ssdeep
 FIRST:
 TODO:
+  check: lzjd is not better than filtered byteBag
   conclusion
-  describe O R H C I
-  https://www.ethervm.io/ opcodes
-  https://etherscan.io/bytecode-decompiler?a=0x4a8eae10b7ee97a2c6a6212776f059a25e90e7f4
-  corelation matrix (kendall)
-LATER:
-  mention another fuzzy hashing paper in the introduction
-  example digest for all methods
-  in order to show
-    wallets solcOption and smallGroupByAbi have same results
-    separation number corresponds to scatter impression
-  show that
-    bytebag is better than size
+  eval framework
+    runs
+      load dataset
+      pre-process
+      hash
+      pairs
+      similarity
+      correlate and perf measures
+      write
+        correlation
+        perf scores
+        all scores csv
+        all scores gml
+      plot
+      generate readme with all plots
+  results
+    proxies
+      no measures work
+      bytebag
+      lev works ?
+    section skel filter
+    bz params
+    solc
+      version changes are relatively minor
+      abi example
+      optimization example
+    add one ref to most statements
+    add one statements for all figs
+  remarks
+    f-state on solcOptions is cheating because f-stat is based on solcOptions
+  results
+    smallGroupByAbi results don't conflict with wallets and solcOptions
+    cross ref qDist and violin/histogram
+    solcts
+      optimization changes are bigger than version changes
+      abi encoding v1 to v2 causes changes throughout the whole code
+    first code section is better than full skeleton
     unfiltered ssdeep is not better bytebag
-    lzjd is not better than filtered byteBag
+LATER:
+  results
+    lzjd is not as good as ncd
+    bz vs jump : same splitter, very different chunk hash, jump needs to be filtered, bz has more even distribution of scores
+MAYBE:
+  remarks
+    disappointing
+    enlightening
+    easy
+    fast
+    a lot of work
+    could have been much easier
+  results
+    bytebag is better than size
     filtered ppdeep is better than byteBag
     filtered ppdeep is better than lzjd
     skel is better than raw for ppdeep and jump
@@ -44,43 +99,33 @@ LATER:
     filtered skeletons are better than raw for jump, bz and ppdeep
     raw bz is better than raw jump
     filtered bz is comparable to filtered jump
-    filtering does not improve lzjd and ncd
-    ncd is better than filtered ppdeep
     jump performs comparable to ncd
-    wallets and solcOptions yield similar results
-    smallGroupByAbi results don't conflict with wallets and solcOptions
-    first code section is sufficient
-    first code section is better than full skeleton
-    optimization changes are bigger than version changes
-    abi encoding change lowers hash scores
-    jumpi is sufficient for block splitting
-      optimization changes block splitting
-        JUMP 0x56, RETURN 0xF3, STOP 0x00, REVERT 0xFD followed by JUMPDEST 0x5B
-        (\x56|\xF3|\x00|\xFD)\\x5B#
     skel bz2 is best on solc
-    reference pyPI packages?
-  mention
-    f-state on solcOptions is cheating because f-stat is based on solcOptions
-    K hashes
-    abi moved from front to back
-    contracts have mostly on code section
-    small overview of similarity measures
-      explanation: what are they use for
-      differences
-      suitability: their results, why did I not use it, my results
+  introduction
+    what papers did I read
+    how did I choose the methods
+  reference pyPI packages?
+  corelation matrix (kendall)
+  useful links
+    https://www.ethervm.io/ opcodes
+    https://etherscan.io/bytecode-decompiler?a=0x4a8eae10b7ee97a2c6a6212776f059a25e90e7f4
+  example digest for all methods
+  small overview of similarity measures
+    explanation: what are they use for
+    differences
+    suitability: their results, why did I not use it, my results
   interesting numbers
+    contracts have mostly on code section
     length of codes
     number of jumpi pre code
     length of jumpi chunks
     length of first section
     number of sections
-  include
-    reference the commit id when including results
-    one big table of separations
-    some scatters to trust separations
-    one cluster
     one pair of source codes
-MAYBE:
+NEVER:
+  Discussion section
+  sum(sqrt((rel dist between chunks)^2 + (sd's from mean of the fuzzy chunk values)^2))
+    / count(chunks)
   section on time and space complexity
     wicherski2009pehash -> 1.1 Related Work
   test sdHash

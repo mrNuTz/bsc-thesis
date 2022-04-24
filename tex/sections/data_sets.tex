@@ -1,11 +1,12 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\subsection{\kcite{solc-versions-testset} \label{sec:solcts}}
+\subsection{\n{\solcts} \label{sec:solcts}}
 To evaluate the similarity measures I selected a set of 13 solidity smart contracts and compiled
-them with different solc versions and compiler options \cite{solc-versions-testset}.
+them with different solc versions and compiler options.
 Necessary changes where made to the source code to ensure compatibility with the various solc
 versions.
+The dateset and code is available online \cite{solc-versions-testset}.
 
 To test the robustness against compiler version the contracts where compiled with the four solc versions \code{0.5.16}, \code{0.6.12}, \code{0.7.6} and \code{0.8.4}.
 To evaluate the effect of code optimization, the four optimization-settings \code{\{enabled:false,runs:200\}}, \code{\{enabled:true,runs:0\}}, \code{\{enabled:true,runs:200\}} and \code{\{enabled:true,runs:999999\}} where applied.
