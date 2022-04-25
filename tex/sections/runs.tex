@@ -112,10 +112,10 @@ To get an overview, tables of all \n{qDists} and \n{Separations} are included (\
 
 \subsection{NCD}
 \begin{hyp}
-  \n{ncd} is very flexible, it deals with the very short proxy codes and handles the biggest compile changes better than the other methods.
+  \n{ncd} is flexible, it deals with the short proxy codes and handles the biggest compile changes better than the other methods.
 \end{hyp}
 \begin{res}
-  \n{ncd} comparison is very slow, because all code-pairs need to be compressed together, i.e. \n{ncd} comparison is performed on the full codes and the other methods compare the much smaller digests, which are calculated only once for each code.
+  \n{ncd} comparison takes a long time, because all code-pairs need to be compressed together, i.e. \n{ncd} comparison is performed on the full codes and the other methods compare the much smaller digests, which are calculated only once for each code.
 \end{res}
 
 \subsection{Proxies}
@@ -159,7 +159,7 @@ To get an overview, tables of all \n{qDists} and \n{Separations} are included (\
 \subsection{jump}
 
 \begin{res}
-  Considering its simplicity \n{jump} performs surprisingly well, partially due to the fact that the number of \code{JUMPI} opcodes has a very high \n{fStat} value.
+  Considering its simplicity \n{jump} performs surprisingly well, partially due to the fact that the number of \code{JUMPI} opcodes has a high \n{fStat} value.
 \end{res}
 \begin{res}
   \n{jump} correlates strongly with \n{ncd}, which seams to be more robust to optimization changes, but comparisons take 30 times longer and \n{jump} separates groups more sharply.

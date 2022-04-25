@@ -6,7 +6,7 @@ Because my intuition was wrong, a quantitative method for determining significan
 Idea: Find bytes that change more between groups than in groups between codes i.e. bytes with higher between group variance than in group variance. → ANOVA f-statistic
 
 \headline{Data}
-I used the \kcite{solc-versions-testset}, because codes from the same group behave identically except for gas cost, runtime and storage of intermediate results.
+We used the \kcite{solc-versions-testset}, because codes from the same group behave identically except for gas cost, runtime and storage of intermediate results.
 
 
 \headline{Method}
@@ -37,7 +37,7 @@ See \figref{tbl:solcFstat} for the opcodes referenced in this work; for the full
 \headline{Observations}
 \code{RETURN} has the lowest score of 2.5 confirming the interpretation of the clustering test-run.
 
-\code{JUMPI} has a very high score of 845.3 despite its high prevalence of on average 192.8 per contract. It has the 16th highest f-statistic and ist the 11th most prevalent. It also has the 6th highest minimum of 32 occurrences in one contract. Opcodes scoring higher are much less frequent at a max mean of 46. In oder of f-statistic \code{ADD} is the next op-code with higher prevalence at rank 28 (f-stat 350.8, mean count 346.1).
+\code{JUMPI} has a high score of 845.3 despite its high prevalence of on average 192.8 per contract. It has the 16th highest f-statistic and ist the 11th most prevalent. It also has the 6th highest minimum of 32 occurrences in one contract. Opcodes scoring higher are much less frequent at a max mean of 46. In oder of f-statistic \code{ADD} is the next op-code with higher prevalence at rank 28 (f-stat 350.8, mean count 346.1).
 
 \code{ISZERO} looks surprisingly significant at an f-statistic of 434.1 and a mean count of 148.1.
 
@@ -47,7 +47,7 @@ The \n{ABI} function signature jump tables at the beginning of every contract ar
 The \code{ISZERO} opcodes are related to \code{JUMPI} since conditional jumps of often implemented by combining these two operations. \code{ISZERO} might be more relevant since it is not used in the \n{ABI} section.
 
 \headline{Remarks}
-I first ran this experiment with an older version of \n{\solcts}, in which the \n{ABI} encodings where not fixed programmatically. I noticed that the default encoding changed with solc version 0.8.0 from v1 to v2, causing big changes to the codes---this led me to extend the dataset by the dimension ABI encoding, by removing the \code{pragma} statements selecting the ABI version from the source files and re-injecting them during the generation of the codes.
+We first ran this experiment with an older version of \n{\solcts}, in which the \n{ABI} encodings where not fixed programmatically. We noticed that the default encoding changed with solc version 0.8.0 from v1 to v2, causing big changes to the codes---this led me to extend the dataset by the dimension ABI encoding, by removing the \code{pragma} statements selecting the ABI version from the source files and re-injecting them during the generation of the codes.
 
 \headline{Conclusion}
 A dataset where the \n{ABI} tables are cut off could be used, since interface-similarity can better be obtained via \n{fourbyte} \secref{sec:fourbyte}.

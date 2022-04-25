@@ -35,7 +35,10 @@ DONE:
       (\x56|\xF3|\x00|\xFD)\\x5B#
   JUMPI jump is better than context trigger ssdeep
 FIRST:
+  typos, grammar, bad form, other no-goes
 TODO:
+  each res should have a ref
+LATER:
   check: lzjd is not better than filtered byteBag
   conclusion
   eval framework
@@ -76,7 +79,9 @@ TODO:
       abi encoding v1 to v2 causes changes throughout the whole code
     first code section is better than full skeleton
     unfiltered ssdeep is not better bytebag
-LATER:
+  introduction
+    what papers did I read
+    how did I choose the methods
   results
     lzjd is not as good as ncd
     bz vs jump : same splitter, very different chunk hash, jump needs to be filtered, bz has more even distribution of scores
@@ -101,9 +106,6 @@ MAYBE:
     filtered bz is comparable to filtered jump
     jump performs comparable to ncd
     skel bz2 is best on solc
-  introduction
-    what papers did I read
-    how did I choose the methods
   reference pyPI packages?
   corelation matrix (kendall)
   useful links

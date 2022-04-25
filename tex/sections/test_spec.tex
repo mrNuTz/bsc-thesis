@@ -2,11 +2,11 @@
 \begin{document}
 
 \subsection{Evaluation Framework}
-The majority of the effort went into creating an Evaluation Framework (\kcite{ethereum-contract-similarity}) in python.
+The majority of the effort went into creating an Evaluation Framework (\kcite{ethereum-contract-similarity}) in Python.
 The idea was to allow for quick comparison of different datasets, pre-processors, pre-processing parameters, digests, digest-parameters, similarity-measures and similarity-parameters as well as plotting and statistical exploration of results.
 
 \subsection{Pre-Processing}
-I tested with the following pre-processing settings.
+We tested with the following pre-processing settings.
 
 \begin{desc}
   \item[raw] Tho whole code unprocessed.
@@ -65,7 +65,7 @@ It specifies the following ratio.
 When the pairs are ordered by similarity-score, how many same-group pairs are in the upper window of size total number of same-group pairs.
 
 \headline{qDist}
-As a second measure for the clustering-performance I calculated $\n{qDist}(s,c)$ defined as follows.
+As a second measure for the clustering-performance, we calculated $\n{qDist}(s,c)$ defined as follows.
 
 $s$ \dots Ordered similarity-scores of all code pairs where the codes are from the same group.\\
 $c$ \dots Ordered similarity-scores of all code pairs where the codes are from different groups.\\

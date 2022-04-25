@@ -21,7 +21,7 @@ The first \code{code} section is the the actual contract, the other code-section
 Skeletons are runtime codes where constructor arguments, data sections, meta sections and push arguments are set to zero \cite{ethutils}.
 Contracts can be associated via skeletons, because many deployed codes have identical skeletons.
 Push-operations are the only EVM-instructions followed by data.
-The reasoning behind this removal is that, these data bytes have no essential effect on the execution, e.g. jump-addresses and ethereum-addresses.
+The reasoning behind this removal is that, these data bytes have no essential effect on the execution, e.g. jump-addresses and Ethereum-addresses.
 Setting the push arguments to zero has the benefit of preserving the ability to disassemble the code.
 
 \subsection{Opcode filtering}
@@ -31,9 +31,9 @@ Removing less significant opcodes before hashing should yield more meaningful si
 
 \subsubsection{\n{fStat} Filter \label{sec:fStat}}
 Determining exactly which opcode sequences change, would most likely require a lot of manual work.
-To quickly and simply distinguish between opcode which are likely to change and ones that don't change I used the \n{\solcts} \secref{sec:solcts} and reduced the codes to \n{bytebags} \secref{sec:bytebag}. Then I calculated an the \n{One-way ANOVA F-test statistic} \eqref{eq:ftest} for each opcode, using common source-code as grouping criterion and the count of the opcode as value.
+To quickly and simply distinguish between opcode which are likely to change and ones that do not change, we used the \n{\solcts} \secref{sec:solcts} and reduced the codes to \n{bytebags} \secref{sec:bytebag}. Then, we calculated an the \n{One-way ANOVA F-test statistic} \eqref{eq:ftest} for each opcode, using common source-code as grouping criterion and the count of the opcode as value.
 
-To define the \n{fStat} filter I selected to top 30 opcodes by f-statistic value, plus a few that never occurred or only in one group. See \secref{sec:runOpcodes} for the f-statistic values and more details.
+To define the \n{fStat} filter, we selected to top 30 opcodes by f-statistic value, plus a few that never occurred or only in one group. See \secref{sec:runOpcodes} for the f-statistic values and more details.
 
 \begin{equation}
   F = \dfrac{\n{between group variability}}{\n{within group variability}}

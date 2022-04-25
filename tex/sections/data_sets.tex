@@ -2,7 +2,7 @@
 \begin{document}
 
 \subsection{\n{\solcts} \label{sec:solcts}}
-To evaluate the similarity measures I selected a set of 13 solidity smart contracts and compiled
+To evaluate the similarity measures, we selected a set of 13 solidity smart contracts and compiled
 them with different solc versions and compiler options.
 Necessary changes where made to the source code to ensure compatibility with the various solc
 versions.
@@ -17,7 +17,7 @@ Finally ABI encoders \code{v1} and \code{v2} where used.
 \subsubsection{Optimization}
 The runs setting determines whether the compiler optimizes the code for cheap deployment or cheap execution, i.e. cheap deployment code execution or cheap runtime code execution.
 
-To determine the relevant optimization options I calculated a statistic \tblref{tbl:opti_stat} on contracts with verified source available on etherscan.io.
+To determine the relevant optimization options, we calculated a statistic \tblref{tbl:opti_stat} on contracts with verified source available on etherscan.io.
 
 \begin{table*}[ht]
   \centering
@@ -40,12 +40,12 @@ To determine the relevant optimization options I calculated a statistic \tblref{
 \subsection{Wallets \label{sec:wallets}}
 Extensive set of wallet contract codes, classified into 40 blueprints via various automated and manual means described in \aycite{di2020wallet}.
 
-This dataset is interesting because it's large, the types are human verified and quite different from each other.
+This dataset is interesting because it is large, the types are human verified and quite different from each other.
 
 \subsection{Proxies \label{sec:proxies}}
 Individual wallets are often implemented via proxy where base functionality is implemented in a blueprint contract, that is called by the proxy. This dataset consists of proxies for the wallets in the wallet dataset.
 
-This dataset is interesting because the codes are extremely short, meaning half the code is data and arguments.
+This dataset is interesting because the codes are short, meaning half the code is data and arguments.
 
 \subsection{Small Groups with the same Name and Fourbyte Signatures \label{sec:abiGroups}}
 A sample of contracts with verified source available on etherscan.io, grouped by same name and ABI signatures. The dataset is comprised of 89 groups. The groups contain 5 to 10 contracts with the same ABI interface and the same name. The groups have distinct ABI interfaces and distinct names.

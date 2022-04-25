@@ -9,7 +9,7 @@ Necessary changes where made to the source code to ensure compatibility with the
 version without altering the function of the contracts.
 
 \headline{Pre-Processing}
-The runtime codes where segmented and the first segment skeletonized and then filtered with the following opcode filter. I defined the filter based on my intuition, for which opcodes are hard to be replaced by others.
+The runtime codes where segmented and the first segment skeletonized and then filtered with the following opcode filter. We defined the filter based on my intuition, for which opcodes are hard to be replaced by others.
 \begin{lstlisting}[style=pymd]
 (OP.is_log() or OP.is_storage() or OP.is_sys_op() or OP.is_env_info()
   or OP.is_block_info() or OP == opcodes.SHA3 or OP == opcodes.GAS)
@@ -60,7 +60,7 @@ UniswapV2Router02 changes significantly form solc 0.7.6 to 0.8.4, one reason ist
 \end{figure}
 
 \headline{Analysis}
-To further investigate the Synthetix observation I calculated the difference of the opcode frequencies between \n{Synthetix - no 0.8.4.hex} and \n{Synthetix - 999999 0.8.4.hex} \tblref{tbl:opt_diff}\footnote{\urlsm{https://github.com/mrNuTz/solc-version-testset/blob/2f431ed8b4bc3be498913bf224ac7991f0658b5d/runs/synthetixOptimization/index.mjs}}. The column \n{o0} lists the count of opcodes in \n{Synthetix - no 0.8.4.hex}, column \n{runs999999} the counts in \n{Synthetix - 999999 0.8.4.hex}, \n{diff} is the differences \n{runs999999} minus \n{o0} and \n{relDiff} is defined via \eqref{eq:relDiff}.
+To further investigate the Synthetix observation, we calculated the difference of the opcode frequencies between \n{Synthetix - no 0.8.4.hex} and \n{Synthetix - 999999 0.8.4.hex} \tblref{tbl:opt_diff}\footnote{\urlsm{https://github.com/mrNuTz/solc-version-testset/blob/2f431ed8b4bc3be498913bf224ac7991f0658b5d/runs/synthetixOptimization/index.mjs}}. The column \n{o0} lists the count of opcodes in \n{Synthetix - no 0.8.4.hex}, column \n{runs999999} the counts in \n{Synthetix - 999999 0.8.4.hex}, \n{diff} is the differences \n{runs999999} minus \n{o0} and \n{relDiff} is defined via \eqref{eq:relDiff}.
 
 \begin{equation}
   \n{relDiff}(\n{o0},\n{runs999999}) = \dfrac{\n{runs999999} - \n{o0}}{\max\{\n{o0}, \n{runs999999}\}} \in [-1,1]
@@ -82,7 +82,7 @@ To further investigate the Synthetix observation I calculated the difference of 
 \end{table}
 
 \headline{Conclustion}
-Many of the opcodes, I thought significant, show hight changes in frequency when optimization is applied, especially the \code{RETURN} opcode should not be included in the filter, since optimization drastically reduces its prevalence from 45 to 1.
+Many of the opcodes, we thought significant, show hight changes in frequency when optimization is applied, especially the \code{RETURN} opcode should not be included in the filter, since optimization drastically reduces its prevalence from 45 to 1.
 
 It seams optimization options change the codes more than solc version changes.
 

@@ -6,13 +6,13 @@ Contracts with similar functionality mostly have similar interfaces---usually ma
 
 As hypothesized, comparing skeletons yields more meaningful results than comparing whole code.
 
-Bytecode is very different from text, images or audio, because a complete reordering can result in the same execution and infinitely many opcode sequences can push the same bytes onto the stack; but because blockchain storage costs money, short sequences are preferred and similar functions are often ordered in the same way, due to \n{solc} ordering by signature.
+Bytecode is different from text, images or audio, because a complete reordering can result in the same execution and infinitely many opcode sequences can push the same bytes onto the stack; but because blockchain storage costs money, short sequences are preferred and similar functions are often ordered in the same way, due to \n{solc} ordering by signature.
 
 The \n{\solcts} has shown that changed compile options can result in widespread changes throughout the runtime code, especially no optimization vs. optimization with high runs settings and \n{ABI} \n{v1} vs. \n{v2}.
 
-\code{JUMPI} is a very good splitter, which hash or similarity measure is applied to the chunks has less of an impact, provided that the chunks are hashed with a fuzzy method or pre-filtered.
+\code{JUMPI} is a good splitter, which hash or similarity measure is applied to the chunks has less of an impact, provided that the chunks are hashed with a fuzzy method or pre-filtered.
 
-\n{NCD} is very flexible and robust, but by far the slowest approach tested in this work.
+\n{NCD} is flexible and robust, but by far the slowest approach tested in this work.
 
 \headline{Next Steps}
 Taking a deeper look into the existing results, e.g. by studying code pairs where different methods yield disagreeing scores and clustering codes known to be similar to see if further subdivision is meaningful.
