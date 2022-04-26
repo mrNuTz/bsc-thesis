@@ -4,10 +4,10 @@
 \subsection{Fourbytes - macro-similarity \label{sec:fourbyte}}
 
 The interface of a contract is the set of functions callable by other accounts/contracts.
-Almost all deployed contracts follow the ABI standard for encoding there interface, which lets the caller select the desired function via a four-byte hash of the function signature.
-The macro-similarity based on the contract-interface is described in \n{II.C.2) Interface Restoration}\\\aycite{di2020characteristics}.
+Almost all deployed contracts follow the ABI standard for encoding their interface, which lets the caller select the desired function via a four-byte hash of the function signature.
+The macro-similarity based on the contract-interface is described in \n{II.C.2) Interface Restoration} ~\aycite{di2020characteristics}.
 
-The digest produced by this method is the set of extracted fourbyte signatures. Similarity scores are obtained via the Jaccard-Index \secref{sec:jacc} off these sets.
+The digest produced by this method is the set of extracted fourbyte signatures. Similarity scores are obtained via the Jaccard-Index \secref{sec:jacc} of these sets.
 
 \subsection{ssdeep \label{sec:ssdeep}}
 \n{ssdeep} is a Context Triggered Piecewise Hash (CTPH) based on \kcite{spamsum} which was written for email spam detection. It is described in detail in the accompanying paper \aycite{kornblum2006identifying}
@@ -22,7 +22,7 @@ Context Triggered Piecewise Hashes follow the steps:
 \n{ssdeep} compares the hashes via a custom edit-distance and sores similarity from 0 to 100, we divide by 100 to get scores in [0,1].
 
 \subsection{ppdeep \label{sec:ppdeep}}
-To make modifications easy, we used a version of ssdeep implemented in pure Python \kcite{ppdeep}. The score calculation differs from the original implementation, but scatter plots \figref{fig:ssppScat} showed insignificant impact for the purposes of this work. \n{ppdeep} hashes are compared via Levenshtein distance \secref{sec:lev} and custom weighting to produce a similarity scores in [0,100], we divide by 100 to get scores in [0,1].
+To make modifications easy, we used a version of ssdeep implemented in pure Python \kcite{ppdeep}. The score calculation differs from the original implementation, but scatter plots \figref{fig:ssppScat} showed insignificant impact for the purposes of this work. \n{ppdeep} hashes are compared via Levenshtein distance \secref{sec:lev} and custom weighting to produce a similarity scores in [0,100], which we divide by 100 to get scores in [0,1].
 
 \subsection{ppdeep\_mod \label{sec:ppdeep_mod}}
 The following modifications where made to \n{ppdeep}:
@@ -30,12 +30,12 @@ The following modifications where made to \n{ppdeep}:
   \item Remove sequence-stripping. It made many hashes incomparable because of long strips of 'K' chunk-hashes.
   \item Remove rounding in the score calculation to differentiate between exact match and close match as well as incomparable and minor similarity.
   \item Remove common substring detection to make more hashes comparable.
-  \item Handle case where first chunk is never triggered.
-  \item Add option to use Jaccard-Index for comparison, the default is Levenshtein-similarity.
+  \item Handle the case where the first chunk is never triggered.
+  \item Add an option to use the Jaccard-Index for comparison, the default is Levenshtein-similarity.
 \end{ul}
 
 \subsection{jumpHash \label{sec:jump}}
-Inspired by ssdeep and the learnings from the \kcite{solc-versions-testset}, we implemented jumpHash \cite{ethereum-contract-similarity}, it follows the steps:
+Inspired by ssdeep and the lessons from the \kcite{solc-versions-testset}, we implemented jumpHash \cite{ethereum-contract-similarity}, which works as follows:
 \begin{ol}
   \item Split the code by the opcode \code{JUMPI=0x57} into chunks.
   \item Hash each chunk with \code{sha1}.

@@ -1,7 +1,7 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-Because my intuition was wrong, a quantitative method for determining significant opcodes was needed.
+Because our intuition was wrong, a quantitative method for determining significant opcodes was needed.
 
 Idea: Find bytes that change more between groups than in groups between codes i.e. bytes with higher between group variance than in group variance. → ANOVA f-statistic
 
@@ -10,7 +10,7 @@ We used the \kcite{solc-versions-testset}, because codes from the same group beh
 
 
 \headline{Method}
-Calculate and f-statistic value for every byte value from 0 to 255, where codes complied from the same source with different solc-versions and -options form the groups. See \footnote{\urlsm{https://github.com/mrNuTz/ethereum-contract-similarity/blob/2633cfca61446fe5344a8ee57a2f7d92f18843e3/runs/byteDistribution/run.py}} for the source-code.
+Calculate an f-statistic value for every byte value from 0 to 255, where codes compiled from the same source with different solc-versions and -options form the groups. See \footnote{\urlsm{https://github.com/mrNuTz/ethereum-contract-similarity/blob/2633cfca61446fe5344a8ee57a2f7d92f18843e3/runs/byteDistribution/run.py}} for the source-code.
 
 \urldef\urlFstat\url{https://github.com/mrNuTz/ethereum-contract-similarity/blob/2633cfca61446fe5344a8ee57a2f7d92f18843e3/runs/byteDistribution/out/solcOptions%20f-stat-by-byte.csv}
 
@@ -42,15 +42,15 @@ See \figref{tbl:solcFstat} for the opcodes referenced in this work; for the full
 \code{ISZERO} looks surprisingly significant at an f-statistic of 434.1 and a mean count of 148.1.
 
 \headline{Interpretation}
-The \n{ABI} function signature jump tables at the beginning of every contract are identical within groups and they contain a high number of \code{JUMPI} ops, but they also contains an equal number of \code{PUSH4}, \code{DUP1} and \code{EQ} ops, which have lower f-stat values of 442.0, 101.7 and 240.4. And the rest of the code does also contain a high number of \code{JUMPI} ops.
+The \n{ABI} function signature jump tables at the beginning of every contract are identical within groups and they contain a high number of \code{JUMPI} ops, but they also contain an equal number of \code{PUSH4}, \code{DUP1} and \code{EQ} ops, which have lower f-stat values of 442.0, 101.7 and 240.4. The rest of the code does also contains a high number of \code{JUMPI} ops.
 
-The \code{ISZERO} opcodes are related to \code{JUMPI} since conditional jumps of often implemented by combining these two operations. \code{ISZERO} might be more relevant since it is not used in the \n{ABI} section.
+The \code{ISZERO} opcodes are related to \code{JUMPI} since conditional jumps are often implemented by combining these two operations. \code{ISZERO} might be more relevant since it is not used in the \n{ABI} section.
 
 \headline{Remarks}
-We first ran this experiment with an older version of \n{\solcts}, in which the \n{ABI} encodings where not fixed programmatically. We noticed that the default encoding changed with solc version 0.8.0 from v1 to v2, causing big changes to the codes---this led me to extend the dataset by the dimension ABI encoding, by removing the \code{pragma} statements selecting the ABI version from the source files and re-injecting them during the generation of the codes.
+We first ran this experiment with an older version of \n{\solcts}, in which the \n{ABI} encodings where not fixed programmatically. We noticed that the default encoding changed with solc version 0.8.0 from v1 to v2, resulting in considerable changes to the codes. Therefore we extended the dataset by the dimension ABI encoding, removed the \code{pragma} statements, for selecting the ABI version, from the source files and re-inject them during the generation of the codes.
 
 \headline{Conclusion}
-A dataset where the \n{ABI} tables are cut off could be used, since interface-similarity can better be obtained via \n{fourbyte} \secref{sec:fourbyte}.
+A dataset, where the \n{ABI} tables are cut off, could be used, since interface-similarity can be better obtained via \n{fourbyte} \secref{sec:fourbyte}.
 Based on the scores the \n{fStat} \secref{sec:fStat} filter was defined.
 
 \end{document}

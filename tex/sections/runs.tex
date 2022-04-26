@@ -39,7 +39,7 @@ To get an overview, tables of all \n{qDists} and \n{Separations} are included (\
   \incHist{wallets}{all}{skeletons}{ppdeep\_mod}{wallets}%
   \incHist{wallets}{all}{fStat}{jump}{wallets}%
   \incHist{wallets}{all}{skeletons}{jump}{wallets}%
-  \caption{\n{ppdeep\_mod} vs. \n{jump} on \n{wallets}}
+  \caption{\n{ppdeep\_mod} vs.\ \n{jump} on \n{wallets}}
   \label{fig:walletsJumpPpHist}
 \end{figure}
 
@@ -49,7 +49,7 @@ To get an overview, tables of all \n{qDists} and \n{Separations} are included (\
   \incHist{solcOptions}{all}{fstSecSkel}{ppdeep\_mod}{\solcts}%
   \incHist{solcOptions}{all}{fstSecSkel}{jump}{\solcts}%
   \incHist{solcOptions}{all}{skeletons}{jump}{\solcts}%
-  \caption{\n{ppdeep\_mod} vs. \n{jump} on \n{\solcts}}
+  \caption{\n{ppdeep\_mod} vs.\ \n{jump} on \n{\solcts}}
   \label{fig:solcJumpPpHist}
 \end{figure}
 
@@ -75,7 +75,7 @@ To get an overview, tables of all \n{qDists} and \n{Separations} are included (\
   \incHist{wallets}{all}{fstSecSkel}{ppdeep\_mod}{wallets}%
   \incHist{wallets}{all}{raw}{jump}{wallets}%
   \incHist{wallets}{all}{fstSecSkel}{jump}{wallets}%
-  \caption{\n{fstSecSkel} vs. \n{raw} on \n{wallets}}
+  \caption{\n{fstSecSkel} vs.\ \n{raw} on \n{wallets}}
   \label{fig:wallPpJpSkelRaw}
 \end{figure}
 
@@ -85,7 +85,7 @@ To get an overview, tables of all \n{qDists} and \n{Separations} are included (\
   \incHist{wallets}{all}{fStat}{bytebag}{wallets}%
   \incHist{wallets}{all}{fstSecSkel}{jump}{wallets}%
   \incHist{wallets}{all}{fStat}{jump}{wallets}%
-  \caption{\n{bytebag} and \n{jump} with \n{fstSecSkel} vs. \n{fStat} on \n{wallets}}
+  \caption{\n{bytebag} and \n{jump} with \n{fstSecSkel} vs.\ \n{fStat} on \n{wallets}}
   \label{fig:fstSekVsFstatWallets}
 \end{figure}
 
@@ -125,14 +125,14 @@ To get an overview, tables of all \n{qDists} and \n{Separations} are included (\
 
 \subsection{Runtime}
 \begin{obs}
-  When comparing all to all codes hashing runtime becomes insignificant, the comparison of the hashes generally takes much longer, even thought individually comparisons are faster than hash calculations.
+  When comparing all codes with each other, the runtime of the hashing becomes insignificant, as the comparison of the hashes generally takes much longer, even though individually comparisons are faster than hash calculations.
 \end{obs}
 
 \begin{figure}[ht!]
   \centering
   \incScatter{lzjdParams}{all}{raw}{ncd}{raw}{lzjd256}{\solcts}%
   \incScatter{solcOptions}{all}{raw}{ncd}{fstSecSkel}{jump}{\solcts}
-  \caption{Scatter plots of \n{raw ncd} similarity scores for all \n{\solcts} code pairs vs. \n{raw lzjd} (left) and \n{fstSecSkel jump} (right).}
+  \caption{Scatter plots of \n{raw ncd} similarity scores for all \n{\solcts} code pairs vs.\ \n{raw lzjd} (left) and \n{fstSecSkel jump} (right).}
   \label{fig:ncdLzScat}
 \end{figure}
 
@@ -147,7 +147,7 @@ To get an overview, tables of all \n{qDists} and \n{Separations} are included (\
   Enabling optimization when compiling with \n{solc} causes bigger changes to the codes than switching \n{solc} version.
 \end{obs}
 \begin{obs}
-  Optimization changes the how the ABI jump table is realized, solely causing significant changes for domain independent similarity measures.
+  Optimization changes the way how the ABI jump table is realized, solely causing significant changes for domain independent similarity measures.
 \end{obs}
 \begin{obs}
   Version changes are comparably smaller, but the default ABI encoding changed from v1 to v2 with solc version 0.8.0.
@@ -220,7 +220,7 @@ To get an overview, tables of all \n{qDists} and \n{Separations} are included (\
 
 \subsection{bytebag}
 \begin{res}
-  \n{Bytebag} is simple and fast, jet it seams to be a useful way to determine similarity.
+  \n{Bytebag} is simple and fast, jet it seems to be a useful way to determine similarity.
 \end{res}
 
 \end{document}

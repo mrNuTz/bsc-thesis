@@ -9,7 +9,7 @@ Necessary changes where made to the source code to ensure compatibility with the
 version without altering the function of the contracts.
 
 \headline{Pre-Processing}
-The runtime codes where segmented and the first segment skeletonized and then filtered with the following opcode filter. We defined the filter based on my intuition, for which opcodes are hard to be replaced by others.
+The runtime codes where segmented and the first segment skeletonized and then filtered with the following opcode filter. We defined the filter based on our intuition, which opcodes are hard to be replaced by others.
 \begin{lstlisting}[style=pymd]
 (OP.is_log() or OP.is_storage() or OP.is_sys_op() or OP.is_env_info()
   or OP.is_block_info() or OP == opcodes.SHA3 or OP == opcodes.GAS)
@@ -41,9 +41,9 @@ The graph is fully connected and the edge weights are determined by the similari
 \end{figure}
 
 \headline{Observation}
-The clustering algo formed cohesive clusters, mostly due to the fact that the dataset is small and the contracts differ significantly in size alone.
+The clustering algorithm formed cohesive clusters, mostly due to the fact that the dataset is small and the contracts differ significantly in size alone.
 Nonetheless, noticeable is that the Synthetix codes without optimization from all 4 solc versions form a cluster separate from the other Synthetix codes \figref{fig:Synthetix}. The no optimization variants in the CollateralManagerState cluster also group tightly \figref{fig:CollateralManagerState}.
-UniswapV2Router02 changes significantly form solc 0.7.6 to 0.8.4, one reason ist the ABI default changed from v1 to v2, 0.8.4 also has a big table of PUSH and JUMP operations at the end not present in 0.7.6.
+UniswapV2Router02 changes significantly from solc 0.7.6 to 0.8.4, one reason ist the ABI default changed from v1 to v2, 0.8.4 also has a big table of PUSH and JUMP operations at the end not present in 0.7.6.
 
 \begin{figure}[ht!]
   \begin{subfigure}[b]{0.5 \linewidth}
@@ -81,8 +81,8 @@ To further investigate the Synthetix observation, we calculated the difference o
   \label{tbl:opt_diff}
 \end{table}
 
-\headline{Conclustion}
-Many of the opcodes, we thought significant, show hight changes in frequency when optimization is applied, especially the \code{RETURN} opcode should not be included in the filter, since optimization drastically reduces its prevalence from 45 to 1.
+\headline{Conclusion}
+Many of the opcodes, that we considered significant, show high changes in frequency when optimization is applied, especially the \code{RETURN} opcode should not be included in the filter, since optimization drastically reduces its prevalence from 45 to 1.
 
 It seams optimization options change the codes more than solc version changes.
 

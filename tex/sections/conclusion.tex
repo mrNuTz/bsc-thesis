@@ -4,11 +4,11 @@
 \headline{Key Takeaways}
 Contracts with similar functionality mostly have similar interfaces---usually many of the functions have the same name and arguments, hence \n{fourbyte} should be tried first, also considering that it has the quickest runtime. If the results are not satisfying the other, more complicated, methods can be applied.
 
-As hypothesized, comparing skeletons yields more meaningful results than comparing whole code.
+As hypothesized, comparing skeletons yields more meaningful results than comparing the whole code.
 
-Bytecode is different from text, images or audio, because a complete reordering can result in the same execution and infinitely many opcode sequences can push the same bytes onto the stack; but because blockchain storage costs money, short sequences are preferred and similar functions are often ordered in the same way, due to \n{solc} ordering by signature.
+Bytecode is different from text, images or audio, because a complete reordering can result in the same execution and many different opcode sequences can push the same bytes onto the stack; but because blockchain storage costs money, short sequences are preferred and similar functions are often ordered in the same way, due to \n{solc} ordering by signature.
 
-The \n{\solcts} has shown that changed compile options can result in widespread changes throughout the runtime code, especially no optimization vs. optimization with high runs settings and \n{ABI} \n{v1} vs. \n{v2}.
+The \n{\solcts} has shown that changed compile options can result in widespread changes throughout the runtime code, especially no optimization vs.\ optimization with high runs settings and \n{ABI} \n{v1} vs.\ \n{v2}.
 
 \code{JUMPI} is a good splitter, which hash or similarity measure is applied to the chunks has less of an impact, provided that the chunks are hashed with a fuzzy method or pre-filtered.
 
@@ -21,6 +21,6 @@ Combining this work's methods, to obtain combinational similarity scores, starti
 
 Extending \n{\solcts} by renaming functions, this results in changed \n{fourbyte} signatures, in turn leading to a reordering of the code, due to \n{solc} ordering functions by signature.
 
-Running a few fast clusterings, investigate the results and use the learnings in a big clustering run used to analyze blockchain activity, this could potentially be speed up by storing pre-calculated hashes in a database.
+Running a few fast clusterings, investigate the results and use the learnings in a big clustering run used to analyze blockchain activity, this could potentially be sped up by storing pre-calculated hashes in a database.
 
 \end{document}

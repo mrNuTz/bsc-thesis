@@ -17,12 +17,12 @@ Jaccard was used to compare the digest of LZJD \secref{sec:lzjd}, Fourbyte \secr
 
 It is also called edit distance, and is defined to be the minimum number of character-inserts, -deletions and -substitutions necessary to change one string into the other.
 
-The be consistent with the other measures, we calculated the Levenshtein similarity as follows:
+To be consistent with the other measures, we calculated the Levenshtein similarity as follows:
 \begin{equation}
   \n{similarity}(a, b) = 1 - \dfrac{\n{distance}(a, b)}{\max\{|a|, |b|\}} \in [0,1]
   \label{eq:levSim}
 \end{equation}
-We used \n{pyPI} package \n{python-Levenshtein}\cite{pyLev}.
+We used the \n{pyPI} package \n{python-Levenshtein}\cite{pyLev}.
 
 The digests of \n{ppdeep} \secref{sec:ppdeep}, \n{bzHash} \secref{sec:bz} and \n{jumpHash} \secref{sec:jump} where compared via Levenshtein similarity. We also applied it on whole codes from the \n{proxies} dataset \secref{sec:proxies}; the codes from the other datasets are too long.
 
@@ -36,7 +36,7 @@ $Z(x)$ is the length of the compressed file $x$ ; $xy$ is the concatenation of $
   \n{NCD}(x,y) = \dfrac{Z(xy) - \min\{Z(x), Z(y)\}}{\max \{Z(x), Z(y)\}}
 \end{equation}
 
-We calculation the similarity instead of the distance to be consistent with the other measures.
+We calculated the similarity instead of the distance to be consistent with the other measures.
 
 \begin{lstlisting}[style=pymd]
 import lzma
@@ -52,11 +52,11 @@ def similarity(a: bytes, b: bytes):
   return (Z(a) + Z(b) - Z(a + b)) / max(Z(a), Z(b))
 \end{lstlisting}
 
-We used \n{NCD} to calculated similarity between whole codes.
+We used \n{NCD} to calculate the similarity between whole codes.
 
 \subsection{Code Length \label{sec:size}}
 
-To test if the other methods are just an expensive proxy for a length comparison, we obtained a similarity score purely based on the size of the codes.
+To test if the other methods are just an expensive proxy for length comparison, we obtained a similarity score purely based on the size of the codes.
 
 \begin{equation}
   \n{sim}(a, b) = \dfrac{\min\{|a|,|b|\}}{\max\{|a|,|b|\}} \in [0,1]
